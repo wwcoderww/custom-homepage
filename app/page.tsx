@@ -1,9 +1,10 @@
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/components/sidebar/Sidebar';
 
 export default function Home() {
   return (
-    <main>
+    <main className="grid min-h-screen grid-cols-[1fr_4fr]">
       <Sidebar />
+      AAA
     </main>
   );
 }
