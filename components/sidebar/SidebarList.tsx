@@ -1,15 +1,24 @@
 import SidebarLi from './SidebarLi';
 
+const quickLinks: QuickLinkType[] = [
+  { label: 'Github' },
+  { label: 'TailwindCSS' },
+  { label: 'RoadMap' },
+  { label: 'Supabase' },
+  { label: 'Gmail' },
+  { label: 'Capital One' },
+];
+
+type QuickLinkType = {
+  label: string;
+};
+
 export default function SidebarList() {
   return (
     <ul className="flex flex-col gap-4">
-      <SidebarLi label="GitHub" />
-      <SidebarLi label="Docs - Testing" />
-      <SidebarLi label="TailwindCSS" />
-      <SidebarLi label="GitHub" />
-      <SidebarLi label="The Odin Project" />
-      <SidebarLi label="Gmail" />
-      <SidebarLi label="Proton" />
+      {quickLinks.map((value) => (
+        <SidebarLi label={value.label} key={value.label} />
+      ))}
     </ul>
   );
 }
