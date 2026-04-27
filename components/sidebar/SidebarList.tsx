@@ -6,7 +6,7 @@ import useIsEditing from '@/hooks/useIsEditing';
 
 export default function SidebarList() {
   const filteredLinks = useFilteredLinks();
-  const { isEditing } = useIsEditing();
+  const isEditing = useIsEditing();
 
   return (
     <ul className="flex flex-col gap-4">
