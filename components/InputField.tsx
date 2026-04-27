@@ -15,7 +15,7 @@ export default function InputField({
     <input
       type="text"
       placeholder={placeholder}
-      className={className}
+      className={`focus:outline-none focus:ring-0 ${className}`}
       onChange={(e) => onChange(e.target.value)}
     />
   );
