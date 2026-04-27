@@ -3,5 +3,5 @@ type SideBarLiProps = {
 };
 
 export default function SidebarLi({ label }: SideBarLiProps) {
-  return <li className="text-center">{label}</li>;
+  return <li className="flex-1 text-center">{label}</li>;
 }
