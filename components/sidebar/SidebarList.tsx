@@ -2,11 +2,11 @@
 import { useFilteredLinks } from '@/hooks/useFilteredLinks';
 import SidebarLi from './SidebarLi';
 import { MdDeleteOutline } from 'react-icons/md';
-import useIsEditing from '@/hooks/useIsEditing';
+import useParamMode from '@/hooks/useParamMode';
 
 export default function SidebarList() {
   const filteredLinks = useFilteredLinks();
-  const isEditing = useIsEditing();
+  const { isEditing } = useParamMode();
 
   return (
     <ul className="flex flex-col gap-4">

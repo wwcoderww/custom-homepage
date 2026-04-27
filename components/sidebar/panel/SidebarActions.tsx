@@ -1,18 +1,19 @@
 'use client';
 
-import useIsEditing from '@/hooks/useIsEditing';
+import useParamMode from '@/hooks/useParamMode';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { FaCheck } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
+import { FaPlus } from 'react-icons/fa';
 
-const iconClass = 'h-5/6 w-auto hover:cursor-pointer hover:h-full';
+const buttonClass = 'h-5/6 w-auto hover:cursor-pointer hover:h-full';
 
 export default function SidebarActions() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isEditing = useIsEditing();
-  const Icon = isEditing ? FaCheck : MdEdit;
+  const { isEditing } = useParamMode();
+  const Toggle = isEditing ? FaCheck : MdEdit;
 
   function toggle() {
     const params = new URLSearchParams(searchParams.toString());
@@ -20,5 +21,18 @@ export default function SidebarActions() {
     router.push(`?${params.toString()}`);
   }
 
-  return <Icon className={iconClass} onClick={toggle} />;
+  function toggle2(mode: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('mode', isEditing && mode === 'edit' ? 'view' : mode);
+    router.push(`?${params.toString()}`);
+  }
+
+  return (
+    <>
+      {isEditing && (
+        <FaPlus className={buttonClass} onClick={() => toggle2('add')} />
+      )}
+      <Toggle className={buttonClass} onClick={() => toggle2('edit')} />
+    </>
+  );
 }
