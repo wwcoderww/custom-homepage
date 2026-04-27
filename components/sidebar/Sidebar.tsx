@@ -1,5 +1,5 @@
 import SidebarList from './SidebarList';
-import SidebarPanel from './SidebarPanel';
+import SidebarPanel from './panel/SidebarPanel';
 
 export default function Sidebar() {
   return (
