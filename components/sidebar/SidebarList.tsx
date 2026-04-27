@@ -1,3 +1,5 @@
+'use client';
+import { useSearchParams } from 'next/navigation';
 import SidebarLi from './SidebarLi';
 
 const quickLinks: QuickLinkType[] = [
@@ -14,9 +16,15 @@ type QuickLinkType = {
 };
 
 export default function SidebarList() {
+  const searchParams = useSearchParams();
+  const query = searchParams.get('q')?.toLowerCase() || '';
+  const filteredLinks = quickLinks.filter((item) =>
+    item.label.toLocaleLowerCase().includes(query)
+  );
+
   return (
     <ul className="flex flex-col gap-4">
-      {quickLinks.map((value) => (
+      {filteredLinks.map((value) => (
         <SidebarLi label={value.label} key={value.label} />
       ))}
     </ul>
