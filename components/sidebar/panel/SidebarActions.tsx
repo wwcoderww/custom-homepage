@@ -13,15 +13,9 @@ export default function SidebarActions() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { isEditing } = useParamMode();
-  const Toggle = isEditing ? FaCheck : MdEdit;
+  const ToggleButton = isEditing ? FaCheck : MdEdit;
 
-  function toggle() {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('mode', isEditing ? 'view' : 'edit');
-    router.push(`?${params.toString()}`);
-  }
-
-  function toggle2(mode: string) {
+  function changeParam(mode: string) {
     const params = new URLSearchParams(searchParams.toString());
     params.set('mode', isEditing && mode === 'edit' ? 'view' : mode);
     router.push(`?${params.toString()}`);
@@ -30,9 +24,12 @@ export default function SidebarActions() {
   return (
     <>
       {isEditing && (
-        <FaPlus className={buttonClass} onClick={() => toggle2('add')} />
+        <FaPlus className={buttonClass} onClick={() => changeParam('add')} />
       )}
-      <Toggle className={buttonClass} onClick={() => toggle2('edit')} />
+      <ToggleButton
+        className={buttonClass}
+        onClick={() => changeParam('edit')}
+      />
     </>
   );
 }
