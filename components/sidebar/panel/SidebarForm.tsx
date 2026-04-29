@@ -3,14 +3,25 @@
 import { addLink } from '@/app/actions';
 import InputField from '@/components/InputField';
 import useParamMode from '@/hooks/useParamMode';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function SidebarForm() {
   const { isAdding } = useParamMode();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  async function handleForm(formData: FormData) {
+    await addLink(formData);
+
+    const param = new URLSearchParams(searchParams.toString());
+    param.set('mode', 'edit');
+    router.push(`?${param.toString()}`);
+  }
 
   return (
     <>
       {isAdding && (
-        <form action={addLink} id="sidebar-form" className="flex gap-2 pt-2">
+        <form action={handleForm} id="sidebar-form" className="flex gap-2 pt-2">
           <div>
             <div>Title:</div>
             <div>Link:</div>

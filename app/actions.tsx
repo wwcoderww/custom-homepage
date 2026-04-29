@@ -1,6 +1,7 @@
 'use server';
 
 import { createServerSupabase } from '@/lib/supabaseServer';
+import { QuickLinkType } from '@/lib/types';
 
 export async function addLink(formData: FormData) {
   console.log('Test');
@@ -17,4 +18,17 @@ export async function addLink(formData: FormData) {
     console.log(error);
     return;
   }
+}
+
+export async function loadLinks(): Promise<QuickLinkType[]> {
+  const supaBase = createServerSupabase();
+
+  const { error, data } = await supaBase.from('sidebar_links').select('*');
+
+  if (error) {
+    console.log(error);
+    return [];
+  }
+
+  return data;
 }
