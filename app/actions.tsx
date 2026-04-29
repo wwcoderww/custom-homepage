@@ -32,3 +32,14 @@ export async function loadLinks(): Promise<QuickLinkType[]> {
 
   return data;
 }
+
+export async function deleteLink(item: QuickLinkType) {
+  const supaBase = createServerSupabase();
+
+  const { error } = await supaBase
+    .from('sidebar_links')
+    .delete()
+    .eq('id', item.id);
+
+  if (error) console.log(error);
+}
