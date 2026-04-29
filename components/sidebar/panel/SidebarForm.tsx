@@ -21,12 +21,12 @@ export default function SidebarForm() {
   return (
     <>
       {isAdding && (
-        <form action={handleForm} id="sidebar-form" className="flex gap-2 pt-2">
+        <form action={handleForm} id="sidebar-form" className="flex gap-2">
           <div>
             <div>Title:</div>
             <div>Link:</div>
           </div>
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col gap-1">
             <InputField name="label" className="" />
             <InputField name="link" />
           </div>

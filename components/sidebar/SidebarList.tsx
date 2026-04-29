@@ -22,7 +22,7 @@ export default function SidebarList({ initialLinks }: SideBarListProps) {
   }
 
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col gap-3">
       {filteredLinks.map((value) => (
         <div key={value.id} className="flex">
           <SidebarLi label={value.label} />

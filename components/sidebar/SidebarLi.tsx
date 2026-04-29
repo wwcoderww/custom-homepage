@@ -4,7 +4,7 @@ type SideBarLiProps = {
 
 export default function SidebarLi({ label }: SideBarLiProps) {
   return (
-    <li className="flex-1 text-center bg-white border border-slate-200 hover:bg-slate-50 hover:cursor-pointer">
+    <li className="flex-1 text-center bg-blue-800 border border-slate-200 hover:bg-blue-400 hover:cursor-pointer text-lg">
       {label}
     </li>
   );
