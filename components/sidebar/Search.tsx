@@ -9,7 +9,11 @@ export default function Search() {
   return (
     <div className="flex gap-1.5 flex-1">
       <FaSearch className="h-full w-auto" />
-      <InputField onChange={updateQuery} className="flex-1" />
+      <InputField
+        onChange={updateQuery}
+        className="flex-1"
+        placeholder="Search"
+      />
     </div>
   );
 }

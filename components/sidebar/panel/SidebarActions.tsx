@@ -6,13 +6,15 @@ import { useRouter } from 'next/navigation';
 import { FaCheck } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
 import { FaPlus } from 'react-icons/fa';
+import { TiCancel } from 'react-icons/ti';
 
-const buttonClass = 'h-5/6 w-auto hover:cursor-pointer hover:h-full';
+const buttonClass =
+  'w-auto hover:cursor-pointer h-full text-blue-700 hover:text-blue-500';
 
 export default function SidebarActions() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { isEditing } = useParamMode();
+  const { isEditing, isAdding } = useParamMode();
   const ToggleButton = isEditing ? FaCheck : MdEdit;
 
   function changeParam(mode: string) {
@@ -23,13 +25,26 @@ export default function SidebarActions() {
 
   return (
     <>
-      {isEditing && (
+      {isEditing && !isAdding && (
         <FaPlus className={buttonClass} onClick={() => changeParam('add')} />
       )}
-      <ToggleButton
-        className={buttonClass}
-        onClick={() => changeParam('edit')}
-      />
+      {isAdding && (
+        <>
+          <TiCancel
+            className={buttonClass}
+            onClick={() => changeParam('edit')}
+          />
+          <button type="submit" form="sidebar-form">
+            <FaCheck className={buttonClass} />
+          </button>
+        </>
+      )}
+      {!isAdding && (
+        <ToggleButton
+          className={buttonClass}
+          onClick={() => changeParam('edit')}
+        />
+      )}
     </>
   );
 }

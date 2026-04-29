@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="grid min-h-screen grid-cols-[1fr_4fr]">
       <Sidebar />
-      AAA
+      <div>AAA</div>
     </main>
   );
 }

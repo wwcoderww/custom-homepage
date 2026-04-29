@@ -14,7 +14,7 @@ export default function SidebarList() {
         <div key={value.label} className="flex">
           <SidebarLi label={value.label} />
           {isEditing && (
-            <MdDeleteOutline className="h-5/6 w-auto hover:cursor-pointer hover:h-full" />
+            <MdDeleteOutline className="w-auto hover:cursor-pointer h-full hover:text-blue-600" />
           )}
         </div>
       ))}
