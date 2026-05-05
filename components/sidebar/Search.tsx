@@ -12,7 +12,7 @@ export default function Search() {
       <InputField
         onChange={updateQuery}
         className="flex-1"
-        placeholder="Search"
+        defaultValue="Search"
       />
     </div>
   );

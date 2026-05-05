@@ -4,11 +4,11 @@ import SidebarOverlayForm from './SidebarOverlayForm';
 
 type SidebarOverlayProps = {
   selected: QuickLinkType | null;
-  setSelected: (selected: QuickLinkType | null) => void;
+  setSelectedID: (selected: string | null) => void;
 };
 
 export default function SidebarOverlay({
-  setSelected,
+  setSelectedID,
   selected,
 }: SidebarOverlayProps) {
   if (!selected) return;
@@ -16,7 +16,7 @@ export default function SidebarOverlay({
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center"
-      onClick={() => setSelected(null)}
+      onClick={() => setSelectedID(null)}
     >
       <div
         className="bg-blue-500 p-4 rounded-lg text-slate-800"
@@ -25,7 +25,7 @@ export default function SidebarOverlay({
         <div className="flex justify-end">
           <Button
             className=" text-red-600 my-1"
-            handleClick={() => setSelected(null)}
+            handleClick={() => setSelectedID(null)}
             style="danger"
           >
             close

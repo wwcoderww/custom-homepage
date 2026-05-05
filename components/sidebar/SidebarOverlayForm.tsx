@@ -15,34 +15,25 @@ type SidebarOverlayFormProps = {
 export default function SidebarOverlayForm({
   selected,
 }: SidebarOverlayFormProps) {
-  async function handleForm(formData: FormData) {
-    const newItem = {
-      ...selected,
-      label: (formData.get('label') as string) || selected.label,
-      link: (formData.get('link') as string) || selected.link || '',
-    };
-
-    await updateLink(newItem);
-  }
-
   return (
-    <form className=" mb-4 mt-5" action={handleForm}>
-      <div className={formSectionStyle}>
+    <form className=" mb-4 mt-5" action={updateLink}>
+      {/* <div className={formSectionStyle}>
         <div className={formLabelStyle}>Title:</div>
         <InputField
           name="label"
           className="bg-slate-300 focus:bg-slate-100"
-          placeholder={selected.label}
+          defaultValue={selected.label}
         />
         <Button>update</Button>
-      </div>
+      </div> */}
       <div className={formSectionStyle}>
         <div className={formLabelStyle}>Link:</div>
         <InputField
           name="link"
-          placeholder={selected.link}
+          defaultValue={selected.link}
           className="bg-slate-300 focus:bg-slate-100"
         />
+        <input type="hidden" defaultValue={selected.id} name="id" />
         <Button>update</Button>
       </div>
     </form>

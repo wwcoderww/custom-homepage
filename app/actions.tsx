@@ -2,6 +2,7 @@
 
 import { createServerSupabase } from '@/lib/supabaseServer';
 import { QuickLinkType } from '@/lib/types';
+import { revalidatePath } from 'next/cache';
 
 export async function addLink(formData: FormData) {
   console.log('Test');
@@ -44,13 +45,21 @@ export async function deleteLink(item: QuickLinkType) {
   if (error) console.log(error);
 }
 
-export async function updateLink(newItem: QuickLinkType) {
+export async function updateLink(formData: FormData) {
   const supaBase = createServerSupabase();
+
+  const link = formData.get('link') as string;
+  const id = formData.get('id') as string;
 
   const { error } = await supaBase
     .from('sidebar_links')
-    .update(newItem)
-    .eq('id', newItem.id);
+    .update({ link })
+    .eq('id', id);
 
-  if (error) console.log(error);
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  revalidatePath('/');
 }

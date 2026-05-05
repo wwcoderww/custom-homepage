@@ -18,7 +18,9 @@ export default function SidebarList({ initialLinks }: SideBarListProps) {
   const { isEditing } = useParamMode();
   const router = useRouter();
 
-  const [selected, setSelected] = useState<QuickLinkType | null>(null);
+  const [selectedID, setSelectedID] = useState<string | null>(null);
+
+  const selected = filteredLinks.find((item) => item.id === selectedID) || null;
 
   async function handleDelete(item: QuickLinkType) {
     await deleteLink(item);
@@ -26,13 +28,13 @@ export default function SidebarList({ initialLinks }: SideBarListProps) {
   }
 
   function handleClick(item: QuickLinkType) {
-    setSelected(item);
+    setSelectedID(item.id);
   }
 
   return (
     <>
       {selected && (
-        <SidebarOverlay selected={selected} setSelected={setSelected} />
+        <SidebarOverlay selected={selected} setSelectedID={setSelectedID} />
       )}
       <ul className="flex flex-col gap-3">
         {filteredLinks.map((item) => (
