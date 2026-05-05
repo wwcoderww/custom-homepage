@@ -1,7 +1,6 @@
 import { QuickLinkType } from '@/lib/types';
-import InputField from '../InputField';
-import SidebarOverlayForm from './SidebarOverlayForm';
 import Button from '../Button';
+import SidebarOverlayForm from './SidebarOverlayForm';
 
 type SidebarOverlayProps = {
   selected: QuickLinkType | null;
@@ -20,12 +19,12 @@ export default function SidebarOverlay({
       onClick={() => setSelected(null)}
     >
       <div
-        className="bg-slate-200 p-4 rounded-lg text-slate-800"
+        className="bg-blue-500 p-4 rounded-lg text-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-end">
           <Button
-            className=" text-red-600"
+            className=" text-red-600 my-1"
             handleClick={() => setSelected(null)}
             style="danger"
           >

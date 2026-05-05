@@ -1,8 +1,12 @@
-import { QuickLinkType } from '@/lib/types';
-import InputField from '../InputField';
-import Button from '../Button';
+'use client';
 
-const formSectionStyle = `flex justify-between gap-3 py-1 items-center`;
+import { updateLink } from '@/app/actions';
+import { QuickLinkType } from '@/lib/types';
+import Button from '../Button';
+import InputField from '../InputField';
+
+const formSectionStyle = `flex justify-between gap-3 py-1 items-center my-1`;
+const formLabelStyle = 'text-white text-lg';
 
 type SidebarOverlayFormProps = {
   selected: QuickLinkType;
@@ -11,16 +15,34 @@ type SidebarOverlayFormProps = {
 export default function SidebarOverlayForm({
   selected,
 }: SidebarOverlayFormProps) {
+  async function handleForm(formData: FormData) {
+    const newItem = {
+      ...selected,
+      label: (formData.get('label') as string) || selected.label,
+      link: (formData.get('link') as string) || selected.link || '',
+    };
+
+    await updateLink(newItem);
+  }
+
   return (
-    <form className="gap-2">
+    <form className=" mb-4 mt-5" action={handleForm}>
       <div className={formSectionStyle}>
-        <div>Title:</div>
-        <InputField name="label" placeholder={selected.label} />
+        <div className={formLabelStyle}>Title:</div>
+        <InputField
+          name="label"
+          className="bg-slate-300 focus:bg-slate-100"
+          placeholder={selected.label}
+        />
         <Button>update</Button>
       </div>
       <div className={formSectionStyle}>
-        <div>Link:</div>
-        <InputField name="link" placeholder={selected.link} />
+        <div className={formLabelStyle}>Link:</div>
+        <InputField
+          name="link"
+          placeholder={selected.link}
+          className="bg-slate-300 focus:bg-slate-100"
+        />
         <Button>update</Button>
       </div>
     </form>

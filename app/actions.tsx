@@ -43,3 +43,14 @@ export async function deleteLink(item: QuickLinkType) {
 
   if (error) console.log(error);
 }
+
+export async function updateLink(newItem: QuickLinkType) {
+  const supaBase = createServerSupabase();
+
+  const { error } = await supaBase
+    .from('sidebar_links')
+    .update(newItem)
+    .eq('id', newItem.id);
+
+  if (error) console.log(error);
+}
