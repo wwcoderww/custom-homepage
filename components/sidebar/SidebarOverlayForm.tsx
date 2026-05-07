@@ -1,6 +1,6 @@
 'use client';
 
-import { updateLink } from '@/app/actions';
+import { updateLabel, updateLink, updateOrder } from '@/app/actions';
 import { QuickLinkType } from '@/lib/types';
 import Button from '../Button';
 import InputField from '../InputField';
@@ -16,17 +16,19 @@ export default function SidebarOverlayForm({
   selected,
 }: SidebarOverlayFormProps) {
   return (
-    <form className=" mb-4 mt-5" action={updateLink}>
-      {/* <div className={formSectionStyle}>
+    <div className=" mb-4 mt-5">
+      <form className={formSectionStyle} action={updateLabel}>
         <div className={formLabelStyle}>Title:</div>
         <InputField
           name="label"
           className="bg-slate-300 focus:bg-slate-100"
           defaultValue={selected.label}
         />
+        <input type="hidden" defaultValue={selected.id} name="id" />
+
         <Button>update</Button>
-      </div> */}
-      <div className={formSectionStyle}>
+      </form>
+      <form className={formSectionStyle} action={updateLink}>
         <div className={formLabelStyle}>Link:</div>
         <InputField
           name="link"
@@ -35,7 +37,23 @@ export default function SidebarOverlayForm({
         />
         <input type="hidden" defaultValue={selected.id} name="id" />
         <Button>update</Button>
-      </div>
-    </form>
+      </form>
+      <form action={updateOrder}>
+        <select
+          name="order"
+          id="order"
+          key={selected.display_order}
+          defaultValue={selected.display_order}
+          onChange={(e) => e.currentTarget?.form?.requestSubmit()}
+        >
+          {Array.from({ length: 99 }, (_, i) => i + 1).map((num) => (
+            <option key={num} value={num}>
+              {num}
+            </option>
+          ))}
+        </select>
+        <input type="hidden" defaultValue={selected.id} name="id" />
+      </form>
+    </div>
   );
 }
