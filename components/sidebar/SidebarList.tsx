@@ -28,6 +28,7 @@ export default function SidebarList({ initialLinks }: SideBarListProps) {
   }
 
   function handleClick(item: QuickLinkType) {
+    if (!isEditing) return;
     setSelectedID(item.id);
   }
 
@@ -39,7 +40,11 @@ export default function SidebarList({ initialLinks }: SideBarListProps) {
       <ul className="flex flex-col gap-3">
         {filteredLinks.map((item) => (
           <div key={item.id} className="flex">
-            <SidebarLi item={item} handleClick={() => handleClick(item)} />
+            <SidebarLi
+              item={item}
+              handleClick={() => handleClick(item)}
+              isEditing={isEditing}
+            />
             {isEditing && (
               <MdDeleteOutline
                 className="w-auto hover:cursor-pointer h-full hover:text-blue-600"

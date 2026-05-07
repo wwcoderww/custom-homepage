@@ -38,21 +38,26 @@ export default function SidebarOverlayForm({
         <input type="hidden" defaultValue={selected.id} name="id" />
         <Button>update</Button>
       </form>
-      <form action={updateOrder}>
-        <select
-          name="order"
-          id="order"
-          key={selected.display_order}
-          defaultValue={selected.display_order}
-          onChange={(e) => e.currentTarget?.form?.requestSubmit()}
-        >
-          {Array.from({ length: 99 }, (_, i) => i + 1).map((num) => (
-            <option key={num} value={num}>
-              {num}
-            </option>
-          ))}
-        </select>
-        <input type="hidden" defaultValue={selected.id} name="id" />
+      <form action={updateOrder} className="flex justify-between">
+        <div className={formLabelStyle}>Order:</div>
+
+        <Button>
+          <select
+            name="order"
+            id="order"
+            key={selected.display_order}
+            defaultValue={selected.display_order}
+            className="px-1 hover:scale-110"
+            onChange={(e) => e.currentTarget?.form?.requestSubmit()}
+          >
+            {Array.from({ length: 99 }, (_, i) => i + 1).map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+          <input type="hidden" defaultValue={selected.id} name="id" />
+        </Button>
       </form>
     </div>
   );
