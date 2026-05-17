@@ -11,8 +11,8 @@ export default function Search() {
       <FaSearch className="h-full w-auto" />
       <InputField
         onChange={updateQuery}
-        className="flex-1"
-        defaultValue="Search"
+        className="flex-1 "
+        placeholder="Search"
       />
     </div>
   );
