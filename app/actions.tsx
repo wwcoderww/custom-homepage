@@ -22,7 +22,9 @@ export async function addLink(formData: FormData) {
   const supabase = createServerSupabase();
 
   const label = formData.get('label') as string;
-  const link = formData.get('link') as string;
+  const formLink = formData.get('link') as string;
+
+  const link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
 
   const { error } = await supabase
     .from('sidebar_links')
