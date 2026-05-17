@@ -1,5 +1,5 @@
 'use client';
-import { useSearchQuery } from '@/hooks/useSearchQuery';
+import { useSearchQuery } from '@/hooks/useSearchQuerySblinks';
 import SearchBar from '../SearchBar';
 
 export default function Search() {

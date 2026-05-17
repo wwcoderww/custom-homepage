@@ -7,8 +7,8 @@ export function useSearchQuery() {
   return function updateQuery(value: string) {
     const params = new URLSearchParams(searchParams.toString());
 
-    if (value.trim()) params.set('q', value);
-    else params.delete('q');
+    if (value.trim()) params.set('sblinks', value);
+    else params.delete('sblinks');
 
     router.push(`?${params.toString()}`);
   };
