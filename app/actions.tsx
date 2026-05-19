@@ -18,7 +18,6 @@ export async function loadLinks(): Promise<QuickLinkType[]> {
 }
 
 export async function addLink(formData: FormData) {
-  console.log('Test');
   const supabase = createServerSupabase();
 
   const label = formData.get('label') as string;
@@ -34,6 +33,8 @@ export async function addLink(formData: FormData) {
     console.log(error);
     return;
   }
+
+  revalidatePath('/');
 }
 
 export async function deleteLink(item: QuickLinkType) {

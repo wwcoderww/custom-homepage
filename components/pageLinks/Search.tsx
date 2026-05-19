@@ -1,10 +1,6 @@
-'use client';
-
-import { useSearchQuery } from '@/hooks/useSearchQueryMlinks';
-import SearchBar from '../SearchBar';
+import { addLink } from '@/app/actions';
+import SidebarPanel from '../searchPanel/SidebarPanel';
 
 export default function Search() {
-  const updateQuery = useSearchQuery();
-
-  return <SearchBar onChange={updateQuery} />;
+  return <SidebarPanel paramName="mlinks" formFunc={addLink} />;
 }

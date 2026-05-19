@@ -1,4 +1,4 @@
-import Search from '../Search';
+import Search from './Search';
 import SidebarActions from './SidebarActions';
 import SidebarForm from './SidebarForm';
 

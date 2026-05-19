@@ -3,7 +3,7 @@
 import { updateLabel, updateLink, updateOrder } from '@/app/actions';
 import { QuickLinkType } from '@/lib/types';
 import Button from '../Button';
-import InputField from '../InputField';
+import InputField from './panel/InputField';
 
 const formSectionStyle = `flex justify-between gap-3 py-1 items-center my-1`;
 const formLabelStyle = 'text-white text-lg';
@@ -16,7 +16,7 @@ export default function SidebarOverlayForm({
   selected,
 }: SidebarOverlayFormProps) {
   return (
-    <div className=" mb-4 mt-5">
+    <div className="mt-5 mb-4">
       <form className={formSectionStyle} action={updateLabel}>
         <div className={formLabelStyle}>Title:</div>
         <InputField

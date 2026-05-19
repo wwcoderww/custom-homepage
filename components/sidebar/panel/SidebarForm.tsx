@@ -1,9 +1,9 @@
 'use client';
 
 import { addLink } from '@/app/actions';
-import InputField from '@/components/InputField';
 import useParamMode from '@/hooks/useParamMode';
 import { useRouter, useSearchParams } from 'next/navigation';
+import InputField from './InputField';
 
 export default function SidebarForm() {
   const { isAdding } = useParamMode();
@@ -26,7 +26,7 @@ export default function SidebarForm() {
             <div>Title:</div>
             <div>Link:</div>
           </div>
-          <div className="flex-1 flex flex-col gap-1">
+          <div className="flex flex-1 flex-col gap-1">
             <InputField name="label" className="" />
             <InputField name="link" />
           </div>
