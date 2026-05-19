@@ -29,11 +29,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="grid min-h-screen grid-cols-[1fr_4fr] text-white">
+      <body className="grid h-screen grid-cols-[1fr_4fr] bg-slate-800 text-white">
         <Sidebar />
-        <div className="bg-slate-800">
+        <div className="grid h-screen grid-rows-[7%_93%]">
           <Banner />
-          {children}
+          <div className="h-full">{children}</div>
         </div>
       </body>
     </html>
