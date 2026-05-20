@@ -1,30 +1,29 @@
 import { QuickLinkType } from '@/lib/types';
 import Button from '../Button';
 import SidebarOverlayForm from './SidebarOverlayForm';
+import { useSidebarContext } from '@/context/SidebarContext';
 
 type SidebarOverlayProps = {
   selected: QuickLinkType | null;
-  setSelectedID: (selected: string | null) => void;
 };
 
-export default function SidebarOverlay({
-  setSelectedID,
-  selected,
-}: SidebarOverlayProps) {
+export default function SidebarOverlay({ selected }: SidebarOverlayProps) {
+  const { setSelectedID } = useSidebarContext();
+
   if (!selected) return;
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center"
+      className="fixed inset-0 flex items-center justify-center bg-black/50"
       onClick={() => setSelectedID(null)}
     >
       <div
-        className="bg-blue-500 p-4 rounded-lg text-slate-800"
+        className="rounded-lg bg-blue-500 p-4 text-slate-800"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-end">
           <Button
-            className=" text-red-600 my-1"
+            className="my-1 text-red-600"
             handleClick={() => setSelectedID(null)}
             style="danger"
           >

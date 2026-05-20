@@ -1,32 +1,38 @@
 'use client';
 
-import useParamMode from '@/hooks/useParamMode';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
-import { FaCheck } from 'react-icons/fa';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { FaCheck, FaPlus } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
-import { FaPlus } from 'react-icons/fa';
+import { useSearchPanelContext } from './context/SearchPanelContext';
 import { TiCancel } from 'react-icons/ti';
 
 const buttonClass =
   'w-auto hover:cursor-pointer h-full text-blue-700 hover:text-blue-500 ml-1';
 
 export default function SidebarActions() {
+  // To make a new param
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { isEditing, isAdding } = useParamMode();
-  const ToggleButton = isEditing ? FaCheck : MdEdit;
-
+  // Variables
+  const { paramMode, isEditing, isAdding } = useSearchPanelContext();
+  // Whether to display check mark or edit button
+  // Handle button clicks
   function changeParam(mode: string) {
     const params = new URLSearchParams(searchParams.toString());
-    params.set('mode', isEditing && mode === 'edit' ? 'view' : mode);
+    params.set(paramMode, isEditing && mode === 'edit' ? 'view' : mode);
     router.push(`?${params.toString()}`);
   }
 
   return (
     <>
-      {isEditing && !isAdding && (
-        <FaPlus className={buttonClass} onClick={() => changeParam('add')} />
+      {isEditing && (
+        <>
+          <FaPlus className={buttonClass} onClick={() => changeParam('add')} />
+          <FaCheck
+            className={buttonClass}
+            onClick={() => changeParam('view')}
+          />
+        </>
       )}
       {isAdding && (
         <>
@@ -39,11 +45,8 @@ export default function SidebarActions() {
           </button>
         </>
       )}
-      {!isAdding && (
-        <ToggleButton
-          className={buttonClass}
-          onClick={() => changeParam('edit')}
-        />
+      {!isEditing && !isAdding && (
+        <MdEdit className={buttonClass} onClick={() => changeParam('edit')} />
       )}
     </>
   );

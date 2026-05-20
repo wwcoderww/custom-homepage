@@ -1,21 +1,16 @@
 import { deleteLink } from '@/app/actions';
 import { QuickLinkType } from '@/lib/types';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import SidebarLi from './SidebarLi';
 import { MdDeleteOutline } from 'react-icons/md';
+import { useSidebarContext } from '@/context/SidebarContext';
 
-type SidebarUlProps = {
-  setSelectedID: (itemID: string) => void;
-  isEditing: boolean;
-  filteredLinks: QuickLinkType[];
-};
-
-export default function SidebarUl({
-  setSelectedID,
-  isEditing,
-  filteredLinks,
-}: SidebarUlProps) {
+export default function SidebarUl() {
+  const { setSelectedID, filteredLinks, paramName } = useSidebarContext();
   const router = useRouter();
+  const params = useSearchParams();
+
+  const isEditing = params.get(paramName) === 'edit';
 
   async function handleDelete(item: QuickLinkType) {
     await deleteLink(item);

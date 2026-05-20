@@ -1,26 +1,24 @@
 'use client';
 
-import useParamMode from '@/hooks/useParamMode';
 import { useRouter, useSearchParams } from 'next/navigation';
 import InputField from './InputField';
+import { useSearchPanelContext } from './context/SearchPanelContext';
 
-type SidebarFormProps = {
-  formFunc: (formData: FormData) => Promise<void>;
-};
-
-export default function SidebarForm({ formFunc }: SidebarFormProps) {
-  const { isAdding } = useParamMode();
+export default function SidebarForm() {
+  // To make a new param
   const router = useRouter();
   const searchParams = useSearchParams();
-
+  // Variables
+  const { formFunc, isAdding, paramMode } = useSearchPanelContext();
+  // Submit Form Function
   async function handleForm(formData: FormData) {
     await formFunc(formData);
 
     const param = new URLSearchParams(searchParams.toString());
-    param.set('mode', 'edit');
+    param.set(paramMode, 'edit');
     router.push(`?${param.toString()}`);
   }
-
+  // Return UI
   return (
     <>
       {isAdding && (
@@ -33,7 +31,6 @@ export default function SidebarForm({ formFunc }: SidebarFormProps) {
             <InputField name="label" />
             <InputField name="link" />
           </div>
-          <button type="submit">Submit</button>
         </form>
       )}
     </>
