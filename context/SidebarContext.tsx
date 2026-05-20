@@ -8,7 +8,7 @@ type SidebarContextType = {
   filteredLinks: QuickLinkType[];
   selected: QuickLinkType | null;
   selectedID: string | null;
-  setSelectedID: (id: string) => void;
+  setSelectedID: (id: string | null) => void;
 };
 
 const SidebarContext = createContext<SidebarContextType | null>(null);
@@ -32,7 +32,7 @@ function SidebarProvider({
 }: SideBarProviderProps) {
   const [selectedID, setSelectedID] = useState<string | null>(null);
   const filteredLinks = useFilteredLinks(initialLinks);
-  let selected = null;
+  const selected = filteredLinks.find((item) => item.id === selectedID) || null;
 
   return (
     <SidebarContext.Provider

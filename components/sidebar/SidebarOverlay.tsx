@@ -3,12 +3,8 @@ import Button from '../Button';
 import SidebarOverlayForm from './SidebarOverlayForm';
 import { useSidebarContext } from '@/context/SidebarContext';
 
-type SidebarOverlayProps = {
-  selected: QuickLinkType | null;
-};
-
-export default function SidebarOverlay({ selected }: SidebarOverlayProps) {
-  const { setSelectedID } = useSidebarContext();
+export default function SidebarOverlay() {
+  const { setSelectedID, selected } = useSidebarContext();
 
   if (!selected) return;
 
@@ -30,7 +26,7 @@ export default function SidebarOverlay({ selected }: SidebarOverlayProps) {
             close
           </Button>
         </div>
-        <SidebarOverlayForm selected={selected} />
+        <SidebarOverlayForm />
       </div>
     </div>
   );

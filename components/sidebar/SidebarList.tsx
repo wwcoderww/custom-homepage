@@ -4,13 +4,11 @@ import SidebarOverlay from './SidebarOverlay';
 import SidebarUl from './SidebarUl';
 
 export default function SidebarList() {
-  const { filteredLinks, selectedID } = useSidebarContext();
-
-  const selected = filteredLinks.find((item) => item.id === selectedID) || null;
+  const { selected } = useSidebarContext();
 
   return (
     <>
-      {selected && <SidebarOverlay selected={selected} />}
+      {selected && <SidebarOverlay />}
       <SidebarUl />
     </>
   );

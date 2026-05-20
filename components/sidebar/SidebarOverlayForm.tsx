@@ -1,19 +1,17 @@
 'use client';
 
 import { updateLabel, updateLink, updateOrder } from '@/app/actions';
-import { QuickLinkType } from '@/lib/types';
+import { useSidebarContext } from '@/context/SidebarContext';
 import Button from '../Button';
 
 const formSectionStyle = `flex justify-between gap-3 py-1 items-center my-1`;
 const formLabelStyle = 'text-white text-lg';
 
-type SidebarOverlayFormProps = {
-  selected: QuickLinkType;
-};
+export default function SidebarOverlayForm() {
+  const { selected } = useSidebarContext();
 
-export default function SidebarOverlayForm({
-  selected,
-}: SidebarOverlayFormProps) {
+  if (!selected) return;
+
   return (
     <div className="mt-5 mb-4">
       <form className={formSectionStyle} action={updateLabel}>
