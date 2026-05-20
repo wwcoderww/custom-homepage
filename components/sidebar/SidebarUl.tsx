@@ -1,5 +1,5 @@
 'use client';
-import { deleteLink } from '@/actions/actions';
+import { deleteLink } from '@/actions/sidebarActions';
 import { QuickLinkType } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SidebarLi from './SidebarLi';

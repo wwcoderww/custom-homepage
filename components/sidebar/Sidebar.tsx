@@ -1,4 +1,4 @@
-import { addLink, loadLinks } from '@/actions/actions';
+import { addLink, loadLinks } from '@/actions/sidebarActions';
 import SidebarList from './SidebarList';
 import SidebarPanel from '../searchPanel/SidebarPanel';
 import { SidebarProvider } from '@/context/SidebarContext';
