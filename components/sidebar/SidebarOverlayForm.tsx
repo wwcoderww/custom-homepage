@@ -1,6 +1,6 @@
 'use client';
 
-import { updateLabel, updateLink, updateOrder } from '@/app/actions';
+import { updateLabel, updateLink, updateOrder } from '@/actions/actions';
 import { useSidebarContext } from '@/context/SidebarContext';
 import Button from '../Button';
 

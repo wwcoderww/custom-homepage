@@ -1,4 +1,5 @@
-import { deleteLink } from '@/app/actions';
+'use client';
+import { deleteLink } from '@/actions/actions';
 import { QuickLinkType } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SidebarLi from './SidebarLi';
@@ -11,15 +12,15 @@ export default function SidebarUl() {
   const params = useSearchParams();
 
   const isEditing = params.get(paramName) === 'edit';
-
-  async function handleDelete(item: QuickLinkType) {
-    await deleteLink(item);
-    router.refresh();
-  }
-
+  // Handles click for each li
   function handleClick(item: QuickLinkType) {
     if (!isEditing) return;
     setSelectedID(item.id);
+  }
+  // Delete Link
+  async function handleDelete(id: string) {
+    await deleteLink(id);
+    router.refresh();
   }
 
   return (
@@ -34,7 +35,7 @@ export default function SidebarUl() {
           {isEditing && (
             <MdDeleteOutline
               className="h-full w-auto hover:cursor-pointer hover:text-blue-600"
-              onClick={() => handleDelete(item)}
+              onClick={() => handleDelete(item.id)}
             />
           )}
         </div>

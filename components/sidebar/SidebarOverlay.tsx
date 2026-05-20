@@ -1,7 +1,6 @@
-import { QuickLinkType } from '@/lib/types';
+import { useSidebarContext } from '@/context/SidebarContext';
 import Button from '../Button';
 import SidebarOverlayForm from './SidebarOverlayForm';
-import { useSidebarContext } from '@/context/SidebarContext';
 
 export default function SidebarOverlay() {
   const { setSelectedID, selected } = useSidebarContext();
