@@ -1,28 +1,15 @@
-import Search from '@/components/pageLinks/Search';
-
-const LinksLIClass = 'p-4';
+import SidebarList from '@/components/linkList/SidebarList';
+import SidebarPanel from '@/components/searchPanel/SidebarPanel';
 
 export default function Home() {
   return (
     <main className="flex h-full flex-col">
-      <Search />
-      <ul className="flex flex-col flex-wrap overflow-y-scroll">
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-        <li className={LinksLIClass}>LINKLaaaaaaaaINKLINK</li>
-        <li className={LinksLIClass}>LINKLINKLINK</li>
-      </ul>
+      <SidebarPanel paramName="sblinks" tableName="sidebar_links" />
+      <SidebarList
+        tableName="sidebar_links"
+        functionName="reorder_links"
+        paramName="sblinks"
+      />
     </main>
   );
 }

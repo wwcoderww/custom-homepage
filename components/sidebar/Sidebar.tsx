@@ -4,12 +4,12 @@ import SidebarPanel from '../searchPanel/SidebarPanel';
 import { SidebarProvider } from '@/context/SidebarContext';
 
 export default async function Sidebar() {
-  const sideBarLinks = await loadLinks();
+  const sideBarLinks = await loadLinks('sidebar_links');
 
   return (
     <SidebarProvider paramName="modesblinks" initialLinks={sideBarLinks}>
       <div className="hidden flex-col gap-2 overflow-y-scroll bg-slate-900 px-2 sm:flex">
-        <SidebarPanel formFunc={addLink} paramName="sblinks" />
+        <SidebarPanel tableName="sidebar_links" paramName="sblinks" />
         <SidebarList />
       </div>
     </SidebarProvider>

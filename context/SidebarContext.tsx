@@ -2,7 +2,7 @@
 import { useFilteredLinks } from '@/hooks/useFilteredLinks';
 import { QuickLinkType } from '@/lib/types';
 import { ReactNode, createContext, useContext, useState } from 'react';
-
+// Context Type
 type SidebarContextType = {
   paramName: string;
   filteredLinks: QuickLinkType[];
@@ -10,21 +10,21 @@ type SidebarContextType = {
   selectedID: string | null;
   setSelectedID: (id: string | null) => void;
 };
-
+// Context
 const SidebarContext = createContext<SidebarContextType | null>(null);
-
+// Return Context
 function useSidebarContext() {
   const context = useContext(SidebarContext);
   if (!context) throw new Error('Using sidebar context outside provider');
   return context;
 }
-
+// Provider Type
 type SideBarProviderProps = {
   children: ReactNode;
   initialLinks: QuickLinkType[];
   paramName: string;
 };
-
+// Provider
 function SidebarProvider({
   initialLinks,
   paramName,

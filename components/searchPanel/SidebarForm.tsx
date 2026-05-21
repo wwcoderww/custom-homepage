@@ -3,16 +3,17 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import InputField from './InputField';
 import { useSearchPanelContext } from './context/SearchPanelContext';
+import { addLink } from '@/actions/sidebarActions';
 
 export default function SidebarForm() {
   // To make a new param
   const router = useRouter();
   const searchParams = useSearchParams();
   // Variables
-  const { formFunc, isAdding, paramMode } = useSearchPanelContext();
+  const { tableName, isAdding, paramMode } = useSearchPanelContext();
   // Submit Form Function
   async function handleForm(formData: FormData) {
-    await formFunc(formData);
+    await addLink(tableName, formData);
 
     const param = new URLSearchParams(searchParams.toString());
     param.set(paramMode, 'edit');

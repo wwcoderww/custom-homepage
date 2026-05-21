@@ -1,7 +1,7 @@
 import { createServerSupabase } from '../supabaseServer';
 
-export function getSidebarTable() {
+export function getTable(tableName: string) {
   const supabase = createServerSupabase();
 
-  return supabase.from('sidebar_links');
+  return supabase.from(tableName);
 }

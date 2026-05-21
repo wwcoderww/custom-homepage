@@ -19,7 +19,7 @@ export default function SidebarUl() {
   }
   // Delete Link
   async function handleDelete(id: string) {
-    await deleteLink(id);
+    await deleteLink('sidebar_links', id);
     router.refresh();
   }
 

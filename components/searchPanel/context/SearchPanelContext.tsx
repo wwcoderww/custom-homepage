@@ -3,8 +3,8 @@ import { useSearchParams } from 'next/navigation';
 import { createContext, useContext } from 'react';
 
 const SearchPanelContext = createContext<{
-  formFunc: (formData: FormData) => Promise<void>;
   paramName: string;
+  tableName: string;
 } | null>(null);
 
 function useSearchPanelContext() {
