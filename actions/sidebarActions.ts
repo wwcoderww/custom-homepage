@@ -31,8 +31,10 @@ export async function addLink(tableName: string, formData: FormData) {
   // Validation
   if (label === '') return;
   // Reformat
-  const link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
+  let link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
+  link = link.includes('.') ? link : link + '.com';
   // POST to db / Errors
+  console.log(link);
   const { error } = await postSidebarLink(tableName, label, link);
   if (error) {
     console.log(error);
@@ -82,9 +84,9 @@ export async function updateOrder(formData: FormData) {
   // Form Data
   const id = Number(formData.get('id'));
   const display_order = Number(formData.get('order'));
-  const functionName = formData.get('functionName') as string;
+  const tableName = formData.get('tableName') as string;
   // Errors
-  const { error } = await reorderSidebarLink(functionName, id, display_order);
+  const { error } = await reorderSidebarLink(tableName, id, display_order);
   if (error) {
     console.log(error);
     return;

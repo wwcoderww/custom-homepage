@@ -1,25 +1,22 @@
 import { loadLinks } from '@/actions/sidebarActions';
-import SidebarOverlay from './SidebarOverlay';
-import SidebarUl from './SidebarUl';
+import SidebarOverlay from './LinksOverlay';
+import SidebarUl from './LinksUl';
 import { LinkListProvider } from './context/LinkListContext';
 
-type SideBarListProps = {
+type LinksListProps = {
   tableName: string;
   paramName: string;
-  functionName: string;
 };
 
-export default async function SidebarList({
+export default async function LinksList({
   tableName,
   paramName,
-  functionName,
-}: SideBarListProps) {
+}: LinksListProps) {
   const unfilteredLinks = await loadLinks(tableName);
   return (
     <LinkListProvider
       unFilteredLinks={unfilteredLinks}
       paramName={paramName}
-      functionName={functionName}
       tableName={tableName}
     >
       <SidebarOverlay />

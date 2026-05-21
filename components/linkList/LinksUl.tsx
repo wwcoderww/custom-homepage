@@ -3,7 +3,7 @@ import { deleteLink } from '@/actions/sidebarActions';
 import { QuickLinkType } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MdDeleteOutline } from 'react-icons/md';
-import SidebarLi from './SidebarLi';
+import SidebarLi from './LinksLi';
 import { useLinkListContext } from './context/LinkListContext';
 
 export default function SidebarUl() {

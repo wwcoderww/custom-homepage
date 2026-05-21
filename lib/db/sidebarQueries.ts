@@ -26,11 +26,15 @@ export function putSidebarLink(tableName: string, id: string, link: string) {
 }
 
 export function reorderSidebarLink(
-  functionName: string,
+  tableName: string,
   id: number,
   order: number
 ) {
   const supabase = createServerSupabase();
 
-  return supabase.rpc(functionName, { moving_id: id, new_order: order });
+  return supabase.rpc('reorder_link', {
+    tableName,
+    moving_id: id,
+    new_order: order,
+  });
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { updateLabel, updateLink, updateOrder } from '@/actions/sidebarActions';
-import { useSidebarContext } from '@/context/SidebarContext';
 import Button from '../Button';
 import { useLinkListContext } from './context/LinkListContext';
 
@@ -9,8 +8,7 @@ const formSectionStyle = `flex justify-between gap-3 py-1 items-center my-1`;
 const formLabelStyle = 'text-white text-lg';
 
 export default function SidebarOverlayForm() {
-  const { selected } = useSidebarContext();
-  const { tableName, functionName } = useLinkListContext();
+  const { tableName, selected } = useLinkListContext();
 
   if (!selected) return;
 
@@ -59,11 +57,7 @@ export default function SidebarOverlayForm() {
             ))}
           </select>
           <input type="hidden" defaultValue={selected.id} name="id" />
-          <input
-            type="hidden"
-            defaultValue={functionName}
-            name="functionName"
-          />
+          <input type="hidden" defaultValue={tableName} name="tableName" />
         </Button>
       </form>
     </div>

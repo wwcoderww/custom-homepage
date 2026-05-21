@@ -10,7 +10,6 @@ type LinkListContextType = {
   setSelectedID: (value: string | null) => void;
   paramName: string;
   tableName: string;
-  functionName: string;
 };
 
 const LinkListContext = createContext<LinkListContextType | null>(null);
@@ -25,7 +24,6 @@ type LinkListProviderProps = {
   children: ReactNode;
   unFilteredLinks: QuickLinkType[];
   paramName: string;
-  functionName: string;
   tableName: string;
 };
 
@@ -33,7 +31,6 @@ function LinkListProvider({
   children,
   unFilteredLinks,
   paramName,
-  functionName,
   tableName,
 }: LinkListProviderProps) {
   const [selectedID, setSelectedID] = useState<string | null>(null);
@@ -48,7 +45,6 @@ function LinkListProvider({
         setSelectedID,
         filteredLinks,
         paramName,
-        functionName,
         tableName,
       }}
     >

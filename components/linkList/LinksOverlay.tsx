@@ -1,6 +1,6 @@
 'use client';
 import Button from '../Button';
-import SidebarOverlayForm from './SidebarOverlayForm';
+import SidebarOverlayForm from './LinksOverlayForm';
 import { useLinkListContext } from './context/LinkListContext';
 
 export default function SidebarOverlay() {
