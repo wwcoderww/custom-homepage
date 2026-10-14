@@ -1,5 +1,5 @@
 import LinksList from '@/components/linkList/LinksList';
-import SidebarPanel from '@/components/searchPanel/SidebarPanel';
+import SidebarPanel from '@/components/searchPanel/searchPanel';
 
 export default function Home() {
   return (

@@ -1,6 +1,6 @@
 'use client';
 import { FaSearch } from 'react-icons/fa';
-import InputField from './InputField';
+import InputField from './searchPanel-inputFields';
 
 type SearchBarProps = {
   onChange: (value: string) => void;

@@ -1,8 +1,8 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import InputField from './InputField';
-import { useSearchPanelContext } from './context/SearchPanelContext';
+import InputField from './searchPanel-inputFields';
+import { useSearchPanelContext } from './context/searchPanel-context';
 import { addLink } from '@/actions/sidebarActions';
 
 export default function SidebarForm() {

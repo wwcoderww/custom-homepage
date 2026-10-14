@@ -1,7 +1,7 @@
 import { loadLinks } from '@/actions/sidebarActions';
-import { SidebarProvider } from '@/context/SidebarContext';
+import { SidebarProvider } from '@/app/_components/sidebar-context';
 import LinksList from '@/components/linkList/LinksList';
-import SidebarPanel from '@/components/searchPanel/SidebarPanel';
+import SidebarPanel from '@/components/searchPanel/searchPanel';
 
 export default async function Sidebar() {
   const sideBarLinks = await loadLinks('sidebar_links');

@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaCheck, FaPlus } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
-import { useSearchPanelContext } from './context/SearchPanelContext';
+import { useSearchPanelContext } from './context/searchPanel-context';
 import { TiCancel } from 'react-icons/ti';
 
 const buttonClass =

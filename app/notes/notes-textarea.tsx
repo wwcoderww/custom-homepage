@@ -7,14 +7,13 @@ type NotesTextAreaProps = {
 };
 
 export default function NotesTextArea({ dbNotes }: NotesTextAreaProps) {
-  const [typed, setTyped] = useState<string | null>(dbNotes);
-  console.log(typed);
   function handleChange(typed: string) {
     putNotes(typed);
   }
   return (
     <textarea
       className="h-full w-full bg-slate-600 p-1 focus:outline-0"
+      defaultValue={dbNotes}
       onChange={(e) => handleChange(e.target.value)}
     />
   );

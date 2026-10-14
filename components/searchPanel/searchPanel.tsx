@@ -1,9 +1,9 @@
 // This compond component adds what is typed in search to params and also has form that returns a title/link entered by user
 'use client';
-import Search from './Search';
-import SidebarActions from './SidebarActions';
-import SidebarForm from './SidebarForm';
-import { SearchPanelContext } from './context/SearchPanelContext';
+import Search from './searchPanel-searchBar-search';
+import SidebarActions from './searchPanel-actions';
+import SidebarForm from './searchPanel-form';
+import { SearchPanelContext } from './context/searchPanel-context';
 
 type SidebarPanelProps = {
   paramName: string;

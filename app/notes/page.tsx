@@ -1,5 +1,5 @@
 import { getNotes } from '@/actions/notesActions';
-import NotesTextArea from '@/components/notes/NotesTextArea';
+import NotesTextArea from '@/app/notes/notes-textarea';
 
 export default async function page() {
   const dbNotes = await getNotes();

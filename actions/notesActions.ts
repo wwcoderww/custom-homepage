@@ -1,8 +1,9 @@
 'use server';
-import { supabase } from '@/lib/supabaseClient';
 import { createServerSupabase } from '@/lib/supabaseServer';
 
 export async function getNotes() {
+  const supabase = createServerSupabase();
+
   const { data, error } = await supabase
     .from('notes')
     .select('typed')

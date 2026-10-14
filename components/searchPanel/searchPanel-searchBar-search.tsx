@@ -1,6 +1,6 @@
 'use client';
-import SearchBar from './SearchBar';
-import { useSearchPanelContext } from './context/SearchPanelContext';
+import SearchBar from './searchPanel-searchBar';
+import { useSearchPanelContext } from './context/searchPanel-context';
 import { useSearchQuery } from './hooks/useSearchQuery';
 
 export default function Search() {
