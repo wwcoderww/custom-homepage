@@ -1,0 +1,5 @@
+@baseUrl = http://localhost:5000
+
+### Test the Root Endpoint
+GET {{baseUrl}}/api
+Accept: application/json
