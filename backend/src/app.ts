@@ -3,6 +3,7 @@ import { sidebarRouter } from "./routes/sidebar-Routes.js";
 
 const app = express();
 
+app.use(express.json());
 app.use("/api/sidebarLinks", sidebarRouter);
 
 const PORT = process.env.PORT || 5000;
