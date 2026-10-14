@@ -1,10 +1,9 @@
 import express from "express";
+import { sidebarRouter } from "./routes/sidebar-Routes.js";
 
 const app = express();
 
-app.get("/api", (req, res) => {
-  res.send(200).json({ success: "success" });
-});
+app.use("/api/sidebarLinks", sidebarRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server started on port 5000..."));
