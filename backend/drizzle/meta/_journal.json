@@ -8,6 +8,27 @@
       "when": 1791996397310,
       "tag": "0000_fat_firebrand",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791996876616,
+      "tag": "0001_gorgeous_joseph",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791997163701,
+      "tag": "0002_tiny_norrin_radd",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1791997228364,
+      "tag": "0003_simple_dreadnoughts",
+      "breakpoints": true
     }
   ]
 }

@@ -1,1 +1,2 @@
-export * from "./sidebar-links.js";
+export * from "./links-sidebar.js";
+export * from "./links-main.js";
