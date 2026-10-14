@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:5000
 
 ### Test the Root Endpoint
-GET {{baseUrl}}/api/sidebarLinks
+DELETE {{baseUrl}}/api/sidebarLinks/1
 Accept: application/json
