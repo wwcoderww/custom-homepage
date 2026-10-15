@@ -10,6 +10,15 @@ Content-Type: application/json
     "name": "3",
     "link": "3"
 }
+### POST main
+POST {{baseUrl}}/api/mainLinks
+Accept: application/json
+Content-Type: application/json
+
+{
+    "name": "3",
+    "link": "3"
+}
 
 ### GET
 GET {{baseUrl}}/api/sidebarLinks

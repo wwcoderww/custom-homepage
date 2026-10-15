@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SidebarService, tableType } from "../modules/Sidebar.js";
+import { SidebarService, tableType } from "../modules/Links.js";
 
 function handleErrors(error: any, res: Response) {
   console.log(error);

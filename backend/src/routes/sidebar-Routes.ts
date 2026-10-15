@@ -4,7 +4,7 @@ import {
   getAllLinks,
   postLink,
   putLink,
-} from "../controllers/sidebar_controller.js";
+} from "../controllers/links_controllers.js";
 import { validate } from "../middleware/validate.js";
 import { linkSchema } from "../schema/link-schema.js";
 import { sidebarLinks } from "../db/schema/links-sidebar.js";
