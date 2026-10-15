@@ -1,25 +1,28 @@
-import { and, eq, or } from "drizzle-orm";
+import { eq, or } from "drizzle-orm";
 import { db } from "../db/index.js";
+import { mainLinks } from "../db/schema/links-main.js";
 import { sidebarLinks } from "../db/schema/links-sidebar.js";
 
+export type tableType = typeof mainLinks | typeof sidebarLinks;
+
 export const SidebarService = {
-  async get() {
-    return await db.select().from(sidebarLinks);
+  async get(table: tableType) {
+    return await db.select().from(table);
   },
 
-  async delete(name: string) {
-    return await db.delete(sidebarLinks).where(eq(sidebarLinks.name, name));
+  async delete(table: tableType, name: string) {
+    return await db.delete(table).where(eq(table.name, name));
   },
 
-  async post(name: string, link: string) {
-    return await db.insert(sidebarLinks).values({ name, link });
+  async post(table: tableType, name: string, link: string) {
+    return await db.insert(table).values({ name, link });
   },
 
-  async put(name: string, link: string) {
+  async put(table: tableType, id: string, name: string, link: string) {
     return await db
-      .update(sidebarLinks)
+      .update(table)
       .set({ name, link })
-      .where(or(eq(sidebarLinks.name, name), eq(sidebarLinks.link, link)))
+      .where(eq(table.id, id))
       .returning();
   },
 };

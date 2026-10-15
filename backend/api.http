@@ -6,8 +6,9 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "name": "2",
-    "link": "3",
+    "id": "dddcfa62-0e8a-4f0b-9061-02fd444e893f",
+    "name": "3",
+    "link": "3"
 }
 
 ### GET
