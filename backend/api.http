@@ -1,13 +1,13 @@
 @baseUrl = http://localhost:5000
 
 ### Test the Root Endpoint
-POST {{baseUrl}}/api/sidebarLinks
+PUT {{baseUrl}}/api/sidebarLinks
 Accept: application/json
 Content-Type: application/json
 
 {
     "name": "2",
-    "link": "1"
+    "link": "3",
 }
 
 ### GET

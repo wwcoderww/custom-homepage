@@ -3,6 +3,7 @@ import {
   deleteLink,
   getAllLinks,
   postLink,
+  putLink,
 } from "../controllers/sidebar_controller.js";
 import { validate } from "../middleware/validate.js";
 import { linkSchema } from "../schema/link-schema.js";
@@ -10,8 +11,8 @@ import { linkSchema } from "../schema/link-schema.js";
 const router = Router();
 
 router.get("/", getAllLinks);
-router.post("/", postLink);
-router.put("/", validate(linkSchema));
+router.post("/", validate(linkSchema), postLink);
+router.put("/", validate(linkSchema), putLink);
 router.delete("/:name", deleteLink);
 
 export { router as sidebarRouter };

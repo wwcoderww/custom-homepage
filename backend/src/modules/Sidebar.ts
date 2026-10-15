@@ -1,4 +1,4 @@
-import { and, eq } from "drizzle-orm";
+import { and, eq, or } from "drizzle-orm";
 import { db } from "../db/index.js";
 import { sidebarLinks } from "../db/schema/links-sidebar.js";
 
@@ -19,6 +19,7 @@ export const SidebarService = {
     return await db
       .update(sidebarLinks)
       .set({ name, link })
-      .where(eq(sidebarLinks.name, name));
+      .where(or(eq(sidebarLinks.name, name), eq(sidebarLinks.link, link)))
+      .returning();
   },
 };

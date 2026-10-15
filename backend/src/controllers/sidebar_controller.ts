@@ -21,31 +21,54 @@ export async function deleteLink(req: Request, res: Response) {
     await SidebarService.delete(name);
     return res.status(200).json({ success: true });
   } catch (error) {
+    console.log(error);
     handleErrors(error, res);
   }
 }
 
 export async function postLink(req: Request, res: Response) {
   try {
-    console.log(req.body);
     const { name, link } = req.body;
     await SidebarService.post(name, link);
     return res.status(200).json({ success: true });
   } catch (error: any) {
     console.log(error);
     // Name or link already exist
-    if (error.cause.code === "23505")
+    if (error?.cause?.code === "23505") {
       if (error.cause.detail.startsWith("Key (name"))
         // Name already exist
         return res
           .status(400)
           .json({ success: false, error: "Name already in use" });
-    if (error.cause.detail.startsWith("Key (link"))
-      // Link already exist
-      return res
-        .status(400)
-        .json({ success: false, error: "Link already in use" });
+      if (error.cause.detail.startsWith("Key (link"))
+        // Link already exist
+        return res
+          .status(400)
+          .json({ success: false, error: "Link already in use" });
+    }
+    handleErrors(error, res);
+  }
+}
 
+export async function putLink(req: Request, res: Response) {
+  try {
+    const { name, link } = req.body;
+    await SidebarService.put(name, link);
+    return res.status(200).json({ success: true });
+  } catch (error: any) {
+    if (error?.cause?.code === "23505") {
+      if (error.cause.detail.startsWith("Key (name"))
+        // Name already exist
+        return res
+          .status(400)
+          .json({ success: false, error: "Name already in use" });
+      if (error.cause.detail.startsWith("Key (link"))
+        // Link already exist
+        return res
+          .status(400)
+          .json({ success: false, error: "Link already in use" });
+    }
+    console.log(error);
     handleErrors(error, res);
   }
 }
