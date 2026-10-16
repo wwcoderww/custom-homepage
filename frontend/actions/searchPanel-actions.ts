@@ -8,7 +8,8 @@ export async function loadLinks(tableName: string): Promise<QuickLinkType[]> {
     `https://custom-homepage.onrender.com/api/${tableName}`
   );
   if (!res.ok) {
-    console.log(res);
+    console.error(`Failed to load links from ${tableName}`);
+    return [];
   }
   const results = await res.json();
   return results.data;
@@ -16,29 +17,29 @@ export async function loadLinks(tableName: string): Promise<QuickLinkType[]> {
 
 export async function addLink(tableName: string, formData: FormData) {
   // User input
-  // const label = formData.get('name') as string;
-  // const formLink = formData.get('link') as string;
-  // // Reformat
-  // let link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
-  // link = link.includes('.') ? link : link + '.com';
-  // // POST to db / Errors
-  // const res = await fetch(
-  //   `https://custom-homepage.onrender.com/api/${tableName}`,
-  //   {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({ label, link }),
-  //   }
-  // );
-  // // If response is not 200
-  // if (!res.ok) {
-  //   return console.error(await res.text());
-  // }
-  // // If response has errors
-  // const results = await res.json();
-  // if (results.error) {
-  //   return console.error(results);
-  // }
+  const name = formData.get('name') as string;
+  const formLink = formData.get('link') as string;
+  // Reformat
+  let link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
+  link = link.includes('.') ? link : link + '.com';
+  // POST to db / Errors
+  try {
+    const res = await fetch(
+      `https://custom-homepage.onrender.com/api/${tableName}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, link }),
+      }
+    );
+    // If error
+    if (res.status === 400) {
+      const error = await res.json();
+      return error;
+    }
+  } catch (error) {
+    return error;
+  }
   // Refresh
   revalidatePath('/');
 }

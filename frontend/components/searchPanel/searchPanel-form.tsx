@@ -13,8 +13,10 @@ export default function SidebarForm() {
   const { tableName, isAdding, paramMode } = useSearchPanelContext();
   // Submit Form Function
   async function handleForm(formData: FormData) {
-    await addLink(tableName, formData);
-
+    const response = await addLink(tableName, formData);
+    if (!response?.success) {
+      return console.log(response);
+    }
     const param = new URLSearchParams(searchParams.toString());
     param.set(paramMode, 'edit');
     router.push(`?${param.toString()}`);
