@@ -1,5 +1,5 @@
 'use client';
-import { deleteLink } from '@/actions/sidebarActions';
+import { deleteLink } from '@/actions/searchPanel-actions';
 import { QuickLinkType } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MdDeleteOutline } from 'react-icons/md';

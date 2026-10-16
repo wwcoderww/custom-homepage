@@ -1,6 +1,10 @@
 'use client';
 
-import { updateLabel, updateLink, updateOrder } from '@/actions/sidebarActions';
+import {
+  updateLabel,
+  updateLink,
+  updateOrder,
+} from '@/actions/searchPanel-actions';
 import Button from '../Button';
 import { useLinkListContext } from './context/LinkListContext';
 

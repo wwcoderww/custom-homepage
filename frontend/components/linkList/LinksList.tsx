@@ -1,4 +1,4 @@
-import { loadLinks } from '@/actions/sidebarActions';
+import { loadLinks } from '@/actions/searchPanel-actions';
 import SidebarOverlay from './LinksOverlay';
 import SidebarUl from './LinksUl';
 import { LinkListProvider } from './context/LinkListContext';

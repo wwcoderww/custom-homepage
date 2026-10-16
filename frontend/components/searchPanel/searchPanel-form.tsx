@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import InputField from './searchPanel-inputFields';
 import { useSearchPanelContext } from './context/searchPanel-context';
-import { addLink } from '@/actions/sidebarActions';
+import { addLink } from '@/actions/searchPanel-actions';
 
 export default function SidebarForm() {
   // To make a new param
