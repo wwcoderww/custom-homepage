@@ -43,6 +43,13 @@
       "when": 1792008952825,
       "tag": "0005_chilly_morlun",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1792164130485,
+      "tag": "0006_blushing_mercury",
+      "breakpoints": true
     }
   ]
 }
