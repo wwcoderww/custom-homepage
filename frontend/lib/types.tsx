@@ -1,5 +1,5 @@
 export type QuickLinkType = {
-  label: string;
+  name: string;
   link: string;
   id: string;
   display_order: number;

@@ -17,9 +17,9 @@ export default function SidebarOverlayForm() {
       <form className={formSectionStyle} action={updateLabel}>
         <div className={formLabelStyle}>Title:</div>
         <input
-          name="label"
+          name="name"
           className="bg-slate-300 focus:bg-slate-100"
-          defaultValue={selected.label}
+          defaultValue={selected.name}
         />
         <input type="hidden" defaultValue={selected.id} name="id" />
         <input type="hidden" defaultValue={tableName} name="tableName" />

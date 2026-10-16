@@ -18,7 +18,7 @@ export default function SidebarLi({
     <>
       {isEditing ? (
         <li className={containerStyle} onClick={() => handleClick(item)}>
-          {item.label}
+          {item.name}
         </li>
       ) : (
         <a
@@ -27,7 +27,7 @@ export default function SidebarLi({
           target="_blank"
           rel="noopener noreferrer"
         >
-          {item.label}
+          {item.name}
         </a>
       )}
     </>

@@ -29,7 +29,7 @@ export default function SidebarForm() {
             <div>Link:</div>
           </div>
           <div className="flex flex-1 flex-col gap-1">
-            <InputField name="label" />
+            <InputField name="name" />
             <InputField name="link" />
           </div>
         </form>

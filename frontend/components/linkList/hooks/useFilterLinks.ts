@@ -8,7 +8,7 @@ export function useFilteredLinks(links: QuickLinkType[]) {
   if (!links || !Array.isArray(links) || links.length === 0) return [];
   const query = searchParams.get('sblinks')?.toLowerCase() || '';
   const filteredLinks = links.filter((item) =>
-    item.label.toLocaleLowerCase().includes(query)
+    item.name.toLocaleLowerCase().includes(query)
   );
   return filteredLinks.sort((a, b) => a.display_order - b.display_order);
 }
