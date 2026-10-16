@@ -32,15 +32,11 @@ export async function addLink(tableName: string, formData: FormData) {
         body: JSON.stringify({ name, link }),
       }
     );
-    // If error
-    if (res.status === 400) {
-      const error = await res.json();
-      return error;
-    }
+    const data = await res.json();
+    if (!data?.success) return data;
   } catch (error) {
     return error;
   }
-  // Refresh
   revalidatePath('/');
 }
 

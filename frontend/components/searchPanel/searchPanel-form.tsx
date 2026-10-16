@@ -14,9 +14,7 @@ export default function SidebarForm() {
   // Submit Form Function
   async function handleForm(formData: FormData) {
     const response = await addLink(tableName, formData);
-    if (!response?.success) {
-      return console.log(response);
-    }
+    if (response) return console.log(response);
     const param = new URLSearchParams(searchParams.toString());
     param.set(paramMode, 'edit');
     router.push(`?${param.toString()}`);
