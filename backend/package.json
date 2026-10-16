@@ -6,7 +6,8 @@
   "main": "/src/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch --env-file=.env src/app.ts"
+    "dev": "tsx watch --env-file=.env src/app.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",
