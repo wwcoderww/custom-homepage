@@ -9,7 +9,7 @@ import { TiCancel } from 'react-icons/ti';
 const buttonClass =
   'w-auto hover:cursor-pointer h-full text-blue-700 hover:text-blue-500 ml-1';
 
-export default function SidebarActions() {
+export default function SearchPanelActions() {
   // To make a new param
   const router = useRouter();
   const searchParams = useSearchParams();

@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 
 export function useFilteredLinks(links: QuickLinkType[]) {
   const searchParams = useSearchParams();
+  if (!links || !Array.isArray(links) || links.length === 0) return [];
   const query = searchParams.get('sblinks')?.toLowerCase() || '';
   const filteredLinks = links.filter((item) =>
     item.label.toLocaleLowerCase().includes(query)
