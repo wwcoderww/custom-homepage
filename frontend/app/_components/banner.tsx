@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import { CiSettings } from 'react-icons/ci';
+import BannerSettings from './banner-settings';
 
-const itemStyle = 'py-3 text-xl hover:cursor-pointer hover:scale-95 transition';
+const itemStyle =
+  'py-3 text-xl hover:cursor-pointer hover:-translate-y-0.5 hover:opacity-100 opacity-95 duration-100 ease-in-out transition';
 
 export default function Banner() {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center border-b-1 border-zinc-200 pr-1">
       <ul className="flex flex-1 justify-evenly">
         <Link href={'/'} className={itemStyle}>
           More Links
@@ -20,9 +21,7 @@ export default function Banner() {
           ItemXYZA
         </Link>
       </ul>
-      <CiSettings
-        className={`mr-2 text-4xl transition hover:scale-95 hover:cursor-pointer`}
-      />
+      <BannerSettings />
     </div>
   );
 }
