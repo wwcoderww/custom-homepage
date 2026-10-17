@@ -1,13 +1,11 @@
 import { QuickLinkType } from '@/lib/types';
+import ButtonItem from '../ButtonItem';
 
 type SideBarLiProps = {
   item: QuickLinkType;
   handleClick: (item: QuickLinkType) => void;
   isEditing: boolean;
 };
-
-const containerStyle =
-  'flex-1 text-center bg-blue-800 border border-slate-200 hover:bg-blue-400 hover:cursor-pointer text-lg';
 
 export default function SidebarLi({
   item,
@@ -17,17 +15,19 @@ export default function SidebarLi({
   return (
     <>
       {isEditing ? (
-        <li className={containerStyle} onClick={() => handleClick(item)}>
-          {item.name}
-        </li>
+        <ButtonItem
+          label={item.name}
+          onClick={() => handleClick(item)}
+          customClass="rounded-lg"
+        />
       ) : (
         <a
-          className={containerStyle}
           href={item.link}
           target="_blank"
           rel="noopener noreferrer"
+          className="flex flex-1"
         >
-          {item.name}
+          <ButtonItem label={item.name} customClass="rounded-lg" />
         </a>
       )}
     </>

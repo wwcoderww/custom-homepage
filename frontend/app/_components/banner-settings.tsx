@@ -1,6 +1,8 @@
 'use client';
 
+import ButtonItem from '@/components/ButtonItem';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function BannerSettings() {
@@ -25,12 +27,19 @@ export default function BannerSettings() {
             onClick={() => setIsOpen(false)}
           ></div>
           <div
-            className="absolute top-full right-0 z-102 w-48 divide-y-2 divide-slate-900 rounded-xl border-3 border-slate-900 bg-blue-800 text-center text-xl text-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
+            className="absolute top-full right-0 z-102 w-48 divide-y-2 divide-slate-900 rounded-xl border-3 border-slate-900 bg-blue-800 text-xl text-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="rounded-xl py-1 hover:cursor-pointer hover:bg-blue-600">
-              sign in
-            </div>
+            <Link
+              href={'/auth'}
+              onClick={() => setIsOpen(false)}
+              className="flex flex-1"
+            >
+              <ButtonItem
+                label={'sign in'}
+                customClass="border-0 rounded-xl py-1"
+              />
+            </Link>
           </div>
         </>
       )}
