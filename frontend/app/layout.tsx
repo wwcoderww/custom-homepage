@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import Sidebar from '@/app/_components/sidebar';
 import Banner from '@/app/_components/banner';
+import { Toaster } from 'sonner';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,6 +36,15 @@ export default function RootLayout({
           <Banner />
           <div className="h-full overflow-hidden">{children}</div>
         </div>
+        <Toaster
+          richColors
+          position="top-center"
+          expand={true}
+          className="flex justify-center"
+          toastOptions={{
+            className: '!w-auto',
+          }}
+        />
       </body>
     </html>
   );
