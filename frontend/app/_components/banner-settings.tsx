@@ -23,7 +23,7 @@ export default function BannerSettings() {
       {isOpen && (
         <>
           <div
-            className="fixed inset-0 z-101 bg-black/40"
+            className="fixed inset-0 z-101 bg-black/30"
             onClick={() => setIsOpen(false)}
           ></div>
           <div

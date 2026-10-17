@@ -6,7 +6,7 @@ const itemStyle =
 
 export default function Banner() {
   return (
-    <div className="flex items-center border-b-1 border-zinc-200 pr-1">
+    <div className="flex items-center border-b border-zinc-200 pr-1">
       <ul className="flex flex-1 justify-evenly">
         <Link href={'/'} className={itemStyle}>
           More Links
