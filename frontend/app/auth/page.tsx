@@ -8,6 +8,9 @@ import AuthFormInputs from './_components/auth-form-inputs';
 import { authClient } from '@/lib/auth-client';
 
 export default function Page() {
+  const { data: session } = authClient.useSession();
+  console.log(session);
+
   const router = useRouter();
   const [isNew, setIsNew] = useState<boolean>(false);
   const {
