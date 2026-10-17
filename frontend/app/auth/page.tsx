@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { FieldErrors, FieldValues, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import AuthFormInputs from './_components/auth-form-inputs';
+import { authClient } from '@/lib/auth-client';
 
 export default function Page() {
   const router = useRouter();
@@ -13,11 +14,30 @@ export default function Page() {
     register,
     handleSubmit,
     getValues,
+    setError,
     formState: { errors: formErrors },
   } = useForm();
 
-  function onSuccess(formData: FieldValues) {
-    console.log(formData);
+  async function onSuccess(formData: FieldValues) {
+    const { email, password } = formData;
+    const { data, error } = await authClient.signUp.email({
+      email,
+      password,
+      name: email,
+    });
+    console.log(data, error);
+    if (error) {
+      console.log(error);
+      if (error.message?.startsWith('User')) {
+        toast.error('Email taken');
+        setError('email', { type: 'email', message: 'Email taken' });
+      }
+      return;
+    }
+    if (data) {
+      toast.success('Successfully created account');
+      router.push('/');
+    }
   }
 
   function onError(formErrors: FieldErrors) {
