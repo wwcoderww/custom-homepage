@@ -3,9 +3,12 @@
 import { QuickLinkType } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
-export async function loadLinks(tableName: string): Promise<QuickLinkType[]> {
+export async function loadLinks(
+  userId: string,
+  tableName: string
+): Promise<QuickLinkType[]> {
   const res = await fetch(
-    `https://custom-homepage.onrender.com/api/${tableName}`
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}/${userId}`
   );
   if (!res.ok) {
     console.error(`Failed to load links from ${tableName}`);
@@ -19,25 +22,34 @@ export async function addLink(tableName: string, formData: FormData) {
   // User input
   const name = formData.get('name') as string;
   const formLink = formData.get('link') as string;
+  const userId = formData.get('userId') as string;
   // Reformat
   let link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
   link = link.includes('.') ? link : link + '.com';
   // POST to db / Errors
   try {
     const res = await fetch(
-      `https://custom-homepage.onrender.com/api/${tableName}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, link }),
+        body: JSON.stringify({ userId, name, link }),
       }
     );
-    const data = await res.json();
-    if (!data?.success) return data;
+    // Response
+    const responseText = await res.text();
+    if (!res.ok) {
+      console.error(
+        `ERROR: Res.Status:${res.status}, Response: ${responseText}`
+      );
+      return responseText || res.status;
+    } else {
+      revalidatePath('/');
+      return;
+    }
   } catch (error) {
     return error;
   }
-  revalidatePath('/');
 }
 
 export async function deleteLink(tableName: string, id: string) {

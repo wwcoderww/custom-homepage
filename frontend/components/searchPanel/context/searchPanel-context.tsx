@@ -1,4 +1,5 @@
 'use client';
+import { authClient } from '@/lib/auth-client';
 import { useSearchParams } from 'next/navigation';
 import { createContext, useContext } from 'react';
 
@@ -17,8 +18,9 @@ function useSearchPanelContext() {
   const paramMode = 'mode' + context.paramName;
   const isEditing = params.get(paramMode) === 'edit';
   const isAdding = params.get(paramMode) === 'add';
+  const userId = authClient.useSession().data?.user?.id;
 
-  return { ...context, paramMode, isEditing, isAdding };
+  return { ...context, paramMode, isEditing, isAdding, userId };
 }
 
 export { SearchPanelContext, useSearchPanelContext };

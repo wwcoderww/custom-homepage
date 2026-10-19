@@ -1,4 +1,3 @@
-import { loadLinks } from '@/actions/searchPanel-actions';
 import SidebarOverlay from './LinksOverlay';
 import SidebarUl from './LinksUl';
 import { LinkListProvider } from './context/LinkListContext';
@@ -12,13 +11,8 @@ export default async function LinksList({
   tableName,
   paramName,
 }: LinksListProps) {
-  const unfilteredLinks = await loadLinks(tableName);
   return (
-    <LinkListProvider
-      unFilteredLinks={unfilteredLinks}
-      paramName={paramName}
-      tableName={tableName}
-    >
+    <LinkListProvider paramName={paramName} tableName={tableName}>
       <SidebarOverlay />
       <SidebarUl />
     </LinkListProvider>
