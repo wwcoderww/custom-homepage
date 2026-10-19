@@ -9,7 +9,8 @@ function handleErrors(error: any, res: Response) {
 export function getAllLinks(table: tableType) {
   return async (req: Request, res: Response) => {
     try {
-      const results = await SidebarService.get(table);
+      const [userId] = req.params.userId;
+      const results = await SidebarService.get(table, userId);
       return res.status(200).json({ success: true, data: results });
     } catch (error) {
       handleErrors(error, res);
@@ -20,8 +21,8 @@ export function getAllLinks(table: tableType) {
 export function deleteLink(table: tableType) {
   return async (req: Request, res: Response) => {
     try {
-      const [name] = req.params.name;
-      await SidebarService.delete(table, name);
+      const [id] = req.params.id;
+      await SidebarService.delete(table, id);
       return res.status(200).json({ success: true });
     } catch (error) {
       handleErrors(error, res);
@@ -32,8 +33,9 @@ export function deleteLink(table: tableType) {
 export function postLink(table: tableType) {
   return async (req: Request, res: Response) => {
     try {
+      const [userId] = req.params.userId;
       const { name, link } = req.body;
-      await SidebarService.post(table, name, link);
+      await SidebarService.post(table, userId, name, link);
       return res.status(200).json({ success: true });
     } catch (error: any) {
       // Name or link already exist
