@@ -1,12 +1,8 @@
 'use client';
-import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
 import AuthForm from './_components/auth-form';
 
 export default function Page() {
-  const { data: session } = authClient.useSession();
-  console.log(session);
-
   const router = useRouter();
 
   return (
