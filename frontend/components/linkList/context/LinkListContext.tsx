@@ -10,6 +10,7 @@ import {
 import { useFilteredLinks } from '../hooks/useFilterLinks';
 import { loadLinks } from '@/actions/searchPanel-actions';
 import { authClient } from '@/lib/auth-client';
+import { useQuery } from '@tanstack/react-query';
 
 type LinkListProviderProps = {
   children: ReactNode;
@@ -34,20 +35,19 @@ function LinkListProvider({
   tableName,
 }: LinkListProviderProps) {
   const [selectedID, setSelectedID] = useState<string | null>(null);
-  const [unFilteredLinks, setUnfilteredLinks] = useState<QuickLinkType[]>([]);
   const { data } = authClient.useSession();
   const userId = data?.user?.id;
 
-  useEffect(() => {
-    async function fetchLinks() {
-      if (!userId) return;
-      const link = await loadLinks(userId, tableName);
-      setUnfilteredLinks(link);
-    }
-    fetchLinks();
-  }, [userId, tableName]);
+  const { data: links = [] } = useQuery({
+    queryKey: ['links', tableName, userId],
+    queryFn: async () => {
+      if (!userId) return [];
+      return await loadLinks(userId, tableName);
+    },
+    enabled: !!userId,
+  });
 
-  const filteredLinks = useFilteredLinks(unFilteredLinks);
+  const filteredLinks = useFilteredLinks(links);
   const selected = filteredLinks.find((item) => item.id === selectedID) || null;
 
   return (

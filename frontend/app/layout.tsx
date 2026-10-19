@@ -1,9 +1,12 @@
+import Banner from '@/app/_components/banner';
+import Sidebar from '@/app/_components/sidebar';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import './globals.css';
-import Sidebar from '@/app/_components/sidebar';
-import Banner from '@/app/_components/banner';
+import React from 'react';
 import { Toaster } from 'sonner';
+import './globals.css';
+import Provider from './_components/provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -31,20 +34,22 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="grid h-screen grid-cols-[1fr_4fr] bg-slate-800 text-white">
-        <Sidebar />
-        <div className="grid h-full grid-rows-[auto_1fr]">
-          <Banner />
-          <div className="h-full overflow-hidden">{children}</div>
-        </div>
-        <Toaster
-          richColors
-          position="top-center"
-          expand={true}
-          className="flex justify-center"
-          toastOptions={{
-            className: '!w-auto',
-          }}
-        />
+        <Provider>
+          <Sidebar />
+          <div className="grid h-full grid-rows-[auto_1fr]">
+            <Banner />
+            <div className="h-full overflow-hidden">{children}</div>
+          </div>
+          <Toaster
+            richColors
+            position="top-center"
+            expand={true}
+            className="flex justify-center"
+            toastOptions={{
+              className: '!w-auto',
+            }}
+          />
+        </Provider>
       </body>
     </html>
   );
