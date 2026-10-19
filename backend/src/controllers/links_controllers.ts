@@ -43,7 +43,7 @@ export function postLink(table: tableType) {
           // Name already exist
           return res.status(400).json({
             success: false,
-            errors: [{ field: "name", message: "Name is required" }],
+            errors: [{ field: "name", message: "Name already in use" }],
           });
         if (error.cause.detail.startsWith("Key (link"))
           // Link already exist
