@@ -1,4 +1,5 @@
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { user } from "./auth.js";
 
 export const mainLinks = pgTable("main_links", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -6,4 +7,7 @@ export const mainLinks = pgTable("main_links", {
   link: text("link").notNull().unique(),
   displayOrder: integer().unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  userId: text("userId")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
 });
