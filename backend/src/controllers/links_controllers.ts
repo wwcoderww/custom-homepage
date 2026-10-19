@@ -9,7 +9,7 @@ function handleErrors(error: any, res: Response) {
 export function getAllLinks(table: tableType) {
   return async (req: Request, res: Response) => {
     try {
-      const [userId] = req.params.userId;
+      const userId = String(req.params.userId);
       const results = await SidebarService.get(table, userId);
       return res.status(200).json({ success: true, data: results });
     } catch (error) {
