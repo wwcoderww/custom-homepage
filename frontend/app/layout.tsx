@@ -32,7 +32,7 @@ export default function RootLayout({
     >
       <body className="grid h-screen grid-cols-[1fr_4fr] bg-slate-800 text-white">
         <Sidebar />
-        <div className="grid h-full grid-rows-[7%_93%]">
+        <div className="grid h-full grid-rows-[auto_1fr]">
           <Banner />
           <div className="h-full overflow-hidden">{children}</div>
         </div>
