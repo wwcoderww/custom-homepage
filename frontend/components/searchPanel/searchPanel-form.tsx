@@ -1,27 +1,32 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import InputField from './searchPanel-inputFields';
-import { useSearchPanelContext } from './context/searchPanel-context';
 import { addLink } from '@/actions/searchPanel-actions';
+import { BackEndResponseType } from '@/lib/types';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { useSearchPanelContext } from './context/searchPanel-context';
+import useFormResponse from './hooks/useFormResponse';
+import InputField from './searchPanel-inputFields';
 
 export default function SidebarForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const { tableName, isAdding, paramMode, userId } = useSearchPanelContext();
-  // Submit Form Function
-  async function handleForm(formData: FormData) {
-    const response = await addLink(tableName, formData);
-    if (response) return console.log(response);
-    const param = new URLSearchParams(searchParams.toString());
-    param.set(paramMode, 'edit');
-    router.push(`?${param.toString()}`);
-  }
+  const formResponse = useFormResponse();
+
+  const { mutate } = useMutation<BackEndResponseType, Error, FormData>({
+    mutationFn: (formData: FormData) => addLink(tableName, formData),
+    onSuccess: (response) => {
+      formResponse(response, tableName, userId, paramMode);
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error('Backend connection error');
+    },
+  });
 
   return (
     <>
       {isAdding && (
-        <form action={handleForm} id="sidebar-form" className="flex gap-2">
+        <form action={mutate} id="sidebar-form" className="flex gap-2">
           <div>
             <div>Title:</div>
             <div>Link:</div>

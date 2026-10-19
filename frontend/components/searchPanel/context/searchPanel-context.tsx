@@ -18,7 +18,7 @@ function useSearchPanelContext() {
   const paramMode = 'mode' + context.paramName;
   const isEditing = params.get(paramMode) === 'edit';
   const isAdding = params.get(paramMode) === 'add';
-  const userId = authClient.useSession().data?.user?.id;
+  const userId = authClient.useSession().data?.user?.id || '';
 
   return { ...context, paramMode, isEditing, isAdding, userId };
 }

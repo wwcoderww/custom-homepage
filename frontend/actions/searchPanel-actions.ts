@@ -1,12 +1,12 @@
 'use server';
 
-import { QuickLinkType } from '@/lib/types';
+import { BackEndResponseType, QuickLinkType } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 
 export async function loadLinks(
   userId: string,
   tableName: string
-): Promise<QuickLinkType[]> {
+): Promise<QuickLinkType[] | BackEndResponseType> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}/${userId}`
   );
@@ -18,7 +18,10 @@ export async function loadLinks(
   return results.data;
 }
 
-export async function addLink(tableName: string, formData: FormData) {
+export async function addLink(
+  tableName: string,
+  formData: FormData
+): Promise<BackEndResponseType> {
   // User input
   const name = formData.get('name') as string;
   const formLink = formData.get('link') as string;
@@ -39,16 +42,19 @@ export async function addLink(tableName: string, formData: FormData) {
     // Response
     const responseText = await res.text();
     if (!res.ok) {
-      console.error(
-        `ERROR: Res.Status:${res.status}, Response: ${responseText}`
-      );
-      return responseText || res.status;
-    } else {
-      revalidatePath('/');
-      return;
+      try {
+        const errorJson = JSON.parse(responseText);
+        return errorJson;
+      } catch {
+        return {
+          success: false,
+          errors: responseText || `Error: ${res.status}`,
+        };
+      }
     }
+    return { success: true };
   } catch (error) {
-    return error;
+    return { success: false, errors: error };
   }
 }
 
