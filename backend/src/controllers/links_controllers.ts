@@ -21,7 +21,7 @@ export function getAllLinks(table: tableType) {
 export function deleteLink(table: tableType) {
   return async (req: Request, res: Response) => {
     try {
-      const [id] = req.params.id;
+      const id = String(req.params.id);
       await SidebarService.delete(table, id);
       return res.status(200).json({ success: true });
     } catch (error) {
@@ -33,8 +33,7 @@ export function deleteLink(table: tableType) {
 export function postLink(table: tableType) {
   return async (req: Request, res: Response) => {
     try {
-      const [userId] = req.params.userId;
-      const { name, link } = req.body;
+      const { userId, name, link } = req.body;
       await SidebarService.post(table, userId, name, link);
       return res.status(200).json({ success: true });
     } catch (error: any) {

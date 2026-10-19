@@ -11,9 +11,9 @@ import { sidebarLinks } from "../db/schema/links-sidebar.js";
 
 const router = Router();
 
+router.post("", validate(linkSchema), postLink(sidebarLinks));
+router.put("", validate(linkSchema), putLink(sidebarLinks));
 router.get("/:userId", getAllLinks(sidebarLinks));
-router.post("/:userId", validate(linkSchema), postLink(sidebarLinks));
-router.put("/", validate(linkSchema), putLink(sidebarLinks));
 router.delete("/:id", deleteLink(sidebarLinks));
 
 export { router as sidebarRouter };
