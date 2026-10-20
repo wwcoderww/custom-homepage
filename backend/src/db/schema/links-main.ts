@@ -5,7 +5,7 @@ export const mainLinks = pgTable("main_links", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text("name").notNull().unique(),
   link: text("link").notNull().unique(),
-  displayOrder: integer().unique(),
+  displayOrder: integer(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   userId: text("userId")
     .notNull()
