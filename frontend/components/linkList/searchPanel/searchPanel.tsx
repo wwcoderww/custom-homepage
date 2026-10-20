@@ -1,5 +1,5 @@
 'use client';
-import SearchPanelActions from './searchPanel-actions';
+import SearchPanelActions from './searchPanel-buttons';
 import SidebarForm from './searchPanel-form';
 import Search from './searchPanel-searchBar-search';
 
