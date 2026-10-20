@@ -61,11 +61,13 @@ export default function SidebarForm() {
             <InputField
               name="name"
               register={register}
+              validation={{ required: 'Name is required' }}
               error={formErrors.name}
             />
             <InputField
               name="link"
               register={register}
+              validation={{ required: 'Link is required' }}
               error={formErrors.link}
             />
             <input
