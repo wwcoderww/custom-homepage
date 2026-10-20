@@ -10,5 +10,7 @@ export function useFilteredLinks(links: QuickLinkType[]) {
   const filteredLinks = links.filter((item) =>
     item.name.toLocaleLowerCase().includes(query)
   );
-  return filteredLinks.sort((a, b) => a.display_order - b.display_order);
+  return [...filteredLinks].sort(
+    (a, b) => (a.displayOrder ?? 999) - (b.displayOrder ?? 999)
+  );
 }
