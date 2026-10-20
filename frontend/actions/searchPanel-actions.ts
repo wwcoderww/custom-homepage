@@ -57,13 +57,14 @@ export async function updateLink(formData: FormData) {
   const formLink = formData.get('link') as string;
   const id = formData.get('id') as string;
   const tableName = formData.get('tableName') as string;
+  const displayOrder = Number(formData.get('displayOrder')) || 0;
   const link = reformatLink(formLink);
   const fetchPromise = fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
     {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, name, link }),
+      body: JSON.stringify({ id, name, link, displayOrder }),
     }
   );
   return tryBackend(fetchPromise);
