@@ -1,3 +1,4 @@
+import formErrors from '@/lib/form-errors';
 import { BackEndResponseType } from '@/lib/types';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -16,17 +17,8 @@ export default function useFormResponse() {
   ) {
     if (!userId) return { success: false, errors: 'UserId not found' };
 
-    if (response && 'success' in response && response.success === false) {
-      console.log(response);
-      if (response.errors) {
-        if (Array.isArray(response.errors)) {
-          response.errors.forEach((err) => {
-            toast.error(err.message);
-          });
-        }
-      }
-      return;
-    }
+    formErrors(response);
+
     // If success
     if (response && 'success' in response && response.success === true) {
       queryClient.invalidateQueries({
@@ -38,9 +30,6 @@ export default function useFormResponse() {
       router.push(`?${param.toString()}`);
       return;
     }
-    // If unknown error
-    console.log(response);
-    toast.error('Unknown error');
   }
   return formResponse;
 }

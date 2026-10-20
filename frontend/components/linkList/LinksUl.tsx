@@ -1,15 +1,18 @@
 'use client';
 import { deleteLink } from '@/actions/searchPanel-actions';
-import { QuickLinkType } from '@/lib/types';
+import { BackEndResponseType, QuickLinkType } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MdDeleteOutline } from 'react-icons/md';
 import SidebarLi from './LinksLi';
 import { useLinksContext } from './context/links-context';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import formErrors from '@/lib/form-errors';
 
 export default function SidebarUl() {
-  const { setSelectedID, filteredLinks, paramName, tableName } =
+  const { setSelectedID, filteredLinks, paramName, tableName, userId } =
     useLinksContext();
-  const router = useRouter();
+  const queryClient = useQueryClient();
   const params = useSearchParams();
 
   const isEditing = params.get('mode' + paramName) === 'edit';
@@ -19,10 +22,22 @@ export default function SidebarUl() {
     setSelectedID(item.id);
   }
   // Delete Link
-  async function handleDelete(id: string) {
-    await deleteLink(tableName, id);
-    router.refresh();
-  }
+  const { mutate } = useMutation<BackEndResponseType, Error, string>({
+    mutationFn: (id: string) => deleteLink(tableName, id),
+    onSuccess: (response) => {
+      formErrors(response);
+      if (response.success) {
+        toast.success('Deleted');
+        queryClient.invalidateQueries({
+          queryKey: ['links', tableName, userId],
+        });
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+      toast.error('Backend Database Error');
+    },
+  });
 
   return (
     <ul className="flex flex-col gap-3">
@@ -36,7 +51,7 @@ export default function SidebarUl() {
           {isEditing && (
             <MdDeleteOutline
               className="h-full w-auto hover:cursor-pointer hover:text-blue-600"
-              onClick={() => handleDelete(item.id)}
+              onClick={() => mutate(item.id)}
             />
           )}
         </div>
