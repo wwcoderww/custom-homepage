@@ -1,7 +1,7 @@
 'use server';
-
 import { BackEndResponseType, QuickLinkType } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
+import tryBackend from '@/lib/try-backend';
 
 export async function loadLinks(
   userId: string,
@@ -26,43 +26,30 @@ export async function addLink(
   const name = formData.get('name') as string;
   const formLink = formData.get('link') as string;
   const userId = formData.get('userId') as string;
-  // Reformat
+  // Reformat link
   let link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
-  link = link.includes('.') ? link : link + '.com';
+  if (!link.includes('.')) link += '.com';
   // POST to db / Errors
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, name, link }),
-      }
-    );
-    // Response
-    const responseText = await res.text();
-    if (!res.ok) {
-      try {
-        const errorJson = JSON.parse(responseText);
-        return errorJson;
-      } catch {
-        return {
-          success: false,
-          errors: responseText || `Error: ${res.status}`,
-        };
-      }
+  const fetchPromise = fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, name, link }),
     }
-    return { success: true };
-  } catch (error) {
-    return { success: false, errors: error };
-  }
+  );
+  return tryBackend(fetchPromise);
 }
 
 export async function deleteLink(tableName: string, id: string) {
-  // DELETE to db / Errors
-  // const { error } = await deleteSidebarLink(tableName, id);
-  // if (error) console.log(error);
-  console.log('test');
+  const fetchPromise = fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}/${id}`,
+    {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    }
+  );
+  return tryBackend(fetchPromise);
 }
 
 export async function updateLink(formData: FormData) {
