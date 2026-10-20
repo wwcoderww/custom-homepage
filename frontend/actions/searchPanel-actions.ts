@@ -2,6 +2,7 @@
 import { BackEndResponseType, QuickLinkType } from '@/lib/types';
 import { revalidatePath } from 'next/cache';
 import tryBackend from '@/lib/try-backend';
+import reformatLink from '@/utils/reformatLink';
 
 export async function loadLinks(
   userId: string,
@@ -27,8 +28,7 @@ export async function addLink(
   const formLink = formData.get('link') as string;
   const userId = formData.get('userId') as string;
   // Reformat link
-  let link = formLink.startsWith('http') ? formLink : 'https://' + formLink;
-  if (!link.includes('.')) link += '.com';
+  const link = reformatLink(formLink);
   // POST to db / Errors
   const fetchPromise = fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
@@ -53,33 +53,20 @@ export async function deleteLink(tableName: string, id: string) {
 }
 
 export async function updateLink(formData: FormData) {
-  // Form Data
-  // const link = formData.get('link') as string;
-  // const id = formData.get('id') as string;
-  // const tableName = formData.get('tableName') as string;
-  // // PUT to db / Errors
-  // const { error } = await putSidebarLink(tableName, id, link);
-  // if (error) {
-  //   console.log(error);
-  //   return;
-  // }
-
-  revalidatePath('/');
-}
-
-export async function updateLabel(formData: FormData) {
-  // Form Data
-  // const label = formData.get('label') as string;
-  // const id = formData.get('id') as string;
-  // const tableName = formData.get('tableName') as string;
-  // // PUT to db / Errors
-  // const { error } = await putSidebarLabel(tableName, id, label);
-  // if (error) {
-  //   console.log(error);
-  //   return;
-  // }
-
-  revalidatePath('/');
+  const name = formData.get('name') as string;
+  const formLink = formData.get('link') as string;
+  const id = formData.get('id') as string;
+  const tableName = formData.get('tableName') as string;
+  const link = reformatLink(formLink);
+  const fetchPromise = fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
+    {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, name, link }),
+    }
+  );
+  return tryBackend(fetchPromise);
 }
 
 export async function updateOrder(formData: FormData) {

@@ -14,6 +14,7 @@ type InputFieldProps<TFieldValues extends FieldValues = FieldValues> = {
   name?: Path<TFieldValues>;
   children?: React.ReactNode;
   validation?: RegisterOptions<TFieldValues, Path<TFieldValues>>;
+  defaultValue?: string;
   placeholder?: string | undefined;
   customClass?: string;
   disabled?: boolean;
@@ -27,7 +28,7 @@ type InputFieldProps<TFieldValues extends FieldValues = FieldValues> = {
 };
 
 const defaultClass =
-  'border border-slate-300 px-1 placeholder-gray-100 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none';
+  'rounded-md border border-slate-300 px-1 placeholder-gray-100 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none';
 const textAreaClass = 'h-[8lh]! rounded-2xl! py-1.5!';
 const errorClass = 'border-3 border-solid border-red-700 bg-red-200';
 
@@ -43,6 +44,7 @@ export default function InputField<
   variant,
   children,
   type,
+  defaultValue,
   disabled = false,
   onChange,
 }: InputFieldProps<TFieldValues>) {
@@ -82,6 +84,7 @@ export default function InputField<
       <input
         placeholder={placeholder}
         disabled={disabled}
+        defaultValue={defaultValue}
         className={`${combinedClass}`}
         type={type}
         {...hookFormBindings}
