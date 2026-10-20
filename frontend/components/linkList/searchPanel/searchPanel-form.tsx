@@ -3,13 +3,27 @@
 import { addLink } from '@/actions/searchPanel-actions';
 import { BackEndResponseType } from '@/lib/types';
 import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { useLinksContext } from '../context/links-context';
 import useFormResponse from './hooks/useFormResponse';
 import InputField from './searchPanel-inputFields';
-import { useLinksContext } from '../context/links-context';
+
+type FormReturnType = {
+  name: string;
+  link: string;
+  userId: string;
+};
 
 export default function SidebarForm() {
   const { tableName, isAdding, paramMode, userId } = useLinksContext();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: formErrors },
+  } = useForm<FormReturnType>({
+    defaultValues: { name: '', link: '', userId: userId },
+  });
   const formResponse = useFormResponse();
 
   const { mutate } = useMutation<BackEndResponseType, Error, FormData>({
@@ -23,23 +37,42 @@ export default function SidebarForm() {
     },
   });
 
+  function onSubmit(data: FormReturnType) {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('link', data.link);
+    formData.append('userId', data.userId);
+    mutate(formData);
+  }
+
   return (
     <>
       {isAdding && (
-        <form action={mutate} id="sidebar-form" className="flex gap-2">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          id="sidebar-form"
+          className="flex gap-2"
+        >
           <div>
             <div>Title:</div>
             <div>Link:</div>
           </div>
           <div className="flex flex-1 flex-col gap-1">
-            <InputField name="name" />
-            <InputField name="link" />
+            <InputField
+              name="name"
+              register={register}
+              error={formErrors.name}
+            />
+            <InputField
+              name="link"
+              register={register}
+              error={formErrors.link}
+            />
             <input
               className="hidden"
-              value={userId}
-              name="userId"
-              type="text"
+              {...register('userId')}
               readOnly
+              value={userId}
             />
           </div>
         </form>
