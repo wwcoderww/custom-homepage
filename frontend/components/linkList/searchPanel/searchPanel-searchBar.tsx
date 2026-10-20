@@ -1,9 +1,10 @@
 'use client';
 import { FaSearch } from 'react-icons/fa';
 import InputField from './searchPanel-inputFields';
+import { ChangeEventHandler } from 'react';
 
 type SearchBarProps = {
-  onChange: (value: string) => void;
+  onChange: ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
   className?: string;
 };
 
@@ -13,8 +14,9 @@ export default function Search({ onChange, className }: SearchBarProps) {
       <FaSearch className="h-full w-auto" />
       <InputField
         onChange={onChange}
-        className={`flex-1 ${className}`}
+        customClass={`flex-1 ${className}`}
         placeholder="Search"
+        variant="noinput"
       />
     </div>
   );
