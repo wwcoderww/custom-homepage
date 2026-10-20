@@ -18,10 +18,16 @@ export const SidebarService = {
     return await db.insert(table).values({ userId, name, link });
   },
 
-  async put(table: tableType, id: string, name: string, link: string) {
+  async put(
+    table: tableType,
+    id: string,
+    name: string,
+    link: string,
+    displayOrder: number | null,
+  ) {
     return await db
       .update(table)
-      .set({ name, link })
+      .set({ name, link, displayOrder })
       .where(eq(table.id, id))
       .returning();
   },

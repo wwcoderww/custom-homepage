@@ -60,9 +60,16 @@ export function postLink(table: tableType) {
 export function putLink(table: tableType) {
   return async (req: Request, res: Response) => {
     try {
-      const { id, name, link } = req.body;
+      const { id, name, link, displayOrder } = req.body;
+      const cleanDisplayOrder = displayOrder === 0 ? null : displayOrder;
       console.log(req.body);
-      const data = await SidebarService.put(table, id, name, link);
+      const data = await SidebarService.put(
+        table,
+        id,
+        name,
+        link,
+        cleanDisplayOrder,
+      );
       // If ID is invalid
       if (data.length === 0)
         return res
