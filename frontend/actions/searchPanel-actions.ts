@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 export async function loadLinks(
   userId: string,
   tableName: string
-): Promise<QuickLinkType[] | BackEndResponseType> {
+): Promise<QuickLinkType[] | []> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}/${userId}`
   );

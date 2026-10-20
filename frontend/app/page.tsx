@@ -1,11 +1,14 @@
+import { LinksProvider } from '@/components/linkList/context/links-context';
 import LinksList from '@/components/linkList/LinksList';
-import SidebarPanel from '@/components/searchPanel/searchPanel';
+import SidebarPanel from '@/components/linkList/searchPanel/searchPanel';
 
 export default function Home() {
   return (
     <main className="flex h-full flex-col">
-      <SidebarPanel paramName="mlinks" tableName="mainLinks" />
-      <LinksList tableName="mainLinks" paramName="mlinks" />
+      <LinksProvider paramName="mlinks" tableName="mainLinks">
+        <SidebarPanel />
+        <LinksList />
+      </LinksProvider>
     </main>
   );
 }

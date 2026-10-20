@@ -6,13 +6,13 @@ import {
   updateOrder,
 } from '@/actions/searchPanel-actions';
 import Button from '../Button';
-import { useLinkListContext } from './context/LinkListContext';
+import { useLinksContext } from './context/links-context';
 
 const formSectionStyle = `flex justify-between gap-3 py-1 items-center my-1`;
 const formLabelStyle = 'text-white text-lg';
 
 export default function SidebarOverlayForm() {
-  const { tableName, selected } = useLinkListContext();
+  const { tableName, selected } = useLinksContext();
 
   if (!selected) return;
 

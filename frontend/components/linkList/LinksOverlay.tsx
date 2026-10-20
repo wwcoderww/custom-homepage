@@ -1,10 +1,10 @@
 'use client';
 import Button from '../Button';
 import SidebarOverlayForm from './LinksOverlayForm';
-import { useLinkListContext } from './context/LinkListContext';
+import { useLinksContext } from './context/links-context';
 
 export default function SidebarOverlay() {
-  const { setSelectedID, selected } = useLinkListContext();
+  const { setSelectedID, selected } = useLinksContext();
 
   if (!selected) return;
 

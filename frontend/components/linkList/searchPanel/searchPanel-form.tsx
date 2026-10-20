@@ -4,12 +4,12 @@ import { addLink } from '@/actions/searchPanel-actions';
 import { BackEndResponseType } from '@/lib/types';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { useSearchPanelContext } from './context/searchPanel-context';
 import useFormResponse from './hooks/useFormResponse';
 import InputField from './searchPanel-inputFields';
+import { useLinksContext } from '../context/links-context';
 
 export default function SidebarForm() {
-  const { tableName, isAdding, paramMode, userId } = useSearchPanelContext();
+  const { tableName, isAdding, paramMode, userId } = useLinksContext();
   const formResponse = useFormResponse();
 
   const { mutate } = useMutation<BackEndResponseType, Error, FormData>({

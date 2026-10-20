@@ -4,11 +4,11 @@ import { QuickLinkType } from '@/lib/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { MdDeleteOutline } from 'react-icons/md';
 import SidebarLi from './LinksLi';
-import { useLinkListContext } from './context/LinkListContext';
+import { useLinksContext } from './context/links-context';
 
 export default function SidebarUl() {
   const { setSelectedID, filteredLinks, paramName, tableName } =
-    useLinkListContext();
+    useLinksContext();
   const router = useRouter();
   const params = useSearchParams();
 
