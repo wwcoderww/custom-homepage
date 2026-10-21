@@ -1,7 +1,7 @@
 'use client';
 
-import readFormErrors from '@/lib/form-errors';
 import { addLink } from '@/actions/searchPanel-actions';
+import readFormErrors from '@/lib/form-errors';
 import { BackEndResponseType } from '@/lib/types';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
@@ -9,7 +9,6 @@ import { toast } from 'sonner';
 import { useLinksContext } from '../context/links-context';
 import useFormResponse from '../hooks/useFormResponse';
 import InputField from './input-fields';
-import { useUpdateQuery } from '../hooks/useUpdateQuery';
 
 type FormReturnType = {
   name: string;
@@ -27,7 +26,6 @@ export default function SidebarForm() {
     defaultValues: { name: '', link: '', userId: userId },
   });
   const formResponse = useFormResponse();
-  const updateQuery = useUpdateQuery(paramMode);
 
   const { mutate } = useMutation<BackEndResponseType, Error, FormData>({
     mutationFn: (formData: FormData) => addLink(tableName, formData),
@@ -56,14 +54,10 @@ export default function SidebarForm() {
     <>
       {isAdding && (
         <>
-          <div
-            className="fixed inset-0 z-150"
-            onClick={() => updateQuery('view')}
-          />
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
             id="sidebar-form"
-            className="z-151 flex gap-2"
+            className="flex gap-2"
           >
             <div>
               <div>Title:</div>

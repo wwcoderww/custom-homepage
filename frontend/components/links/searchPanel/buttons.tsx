@@ -1,36 +1,26 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
 import { FaCheck, FaPlus } from 'react-icons/fa';
 import { MdEdit } from 'react-icons/md';
 import { TiCancel } from 'react-icons/ti';
 import { useLinksContext } from '../context/links-context';
+import { useUpdateQuery } from '../hooks/useUpdateQuery';
 
 const buttonClass =
   'w-auto hover:cursor-pointer h-full text-blue-700 hover:text-blue-500 ml-1';
 
 export default function SearchPanelActions() {
-  // To make a new param
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  // Variables
   const { paramMode, isEditing, isAdding } = useLinksContext();
-  // Whether to display check mark or edit button
-  // Handle button clicks
-  function changeParam(mode: string) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(paramMode, isEditing && mode === 'edit' ? 'view' : mode);
-    router.push(`?${params.toString()}`);
-  }
+  const updateQuery = useUpdateQuery(paramMode);
 
   return (
     <>
       {isEditing && (
         <>
-          <FaPlus className={buttonClass} onClick={() => changeParam('add')} />
+          <FaPlus className={buttonClass} onClick={() => updateQuery('add')} />
           <FaCheck
             className={buttonClass}
-            onClick={() => changeParam('view')}
+            onClick={() => updateQuery('view')}
           />
         </>
       )}
@@ -38,7 +28,7 @@ export default function SearchPanelActions() {
         <>
           <TiCancel
             className={buttonClass}
-            onClick={() => changeParam('edit')}
+            onClick={() => updateQuery('edit')}
           />
           <button type="submit" form="sidebar-form">
             <FaCheck className={buttonClass} />
@@ -46,7 +36,7 @@ export default function SearchPanelActions() {
         </>
       )}
       {!isEditing && !isAdding && (
-        <MdEdit className={buttonClass} onClick={() => changeParam('edit')} />
+        <MdEdit className={buttonClass} onClick={() => updateQuery('edit')} />
       )}
     </>
   );
