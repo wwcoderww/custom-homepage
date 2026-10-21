@@ -38,3 +38,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 frontend/next-env.d.ts  # <-- Updated path specifically for the frontend folder
+
+.continue

@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import { useLinksContext } from '../context/links-context';
 import useFormResponse from '../hooks/useFormResponse';
 import InputField from './input-fields';
-import useUpdateQuery from '@/hooks/useUpdateQuery';
+import { useUpdateQuery } from '../hooks/useUpdateQuery';
 
 type FormReturnType = {
   name: string;

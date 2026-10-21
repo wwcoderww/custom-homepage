@@ -1,11 +1,11 @@
 'use client';
 import SearchBar from './search-bar';
-import { useSearchQuery } from '../hooks/useSearchQuery';
 import { useLinksContext } from '../context/links-context';
+import { useUpdateQuery } from '../hooks/useUpdateQuery';
 
 export default function Search() {
   const { paramName } = useLinksContext();
-  const updateQuery = useSearchQuery(paramName);
+  const updateQuery = useUpdateQuery(paramName);
 
   return <SearchBar onChange={updateQuery} />;
 }
