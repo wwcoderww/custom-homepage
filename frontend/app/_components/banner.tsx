@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import BannerSettings from './banner-settings';
+import BannerSettings from './banner/banner-settings';
 
 const itemStyle =
   'py-3 text-xl hover:cursor-pointer hover:-translate-y-0.5 hover:opacity-100 opacity-95 duration-100 ease-in-out transition';
