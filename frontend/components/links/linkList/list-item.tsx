@@ -2,15 +2,15 @@ import { QuickLinkType } from '@/lib/types';
 import ButtonItem from '../../button-item';
 import { useLinksContext } from '../context/links-context';
 
-type SideBarLiProps = {
+type LinkItemProps = {
   item: QuickLinkType;
   handleClick: (item: QuickLinkType) => void;
 };
 
-export default function SidebarLi({ item, handleClick }: SideBarLiProps) {
+export default function LinkItem({ item, handleClick }: LinkItemProps) {
   const { isEditing, isAdding } = useLinksContext();
   return (
-    <>
+    <div className="flex w-80">
       {isEditing || isAdding ? (
         <ButtonItem
           label={item.name}
@@ -27,6 +27,6 @@ export default function SidebarLi({ item, handleClick }: SideBarLiProps) {
           <ButtonItem label={item.name} customClass="rounded-lg" />
         </a>
       )}
-    </>
+    </div>
   );
 }
