@@ -13,11 +13,11 @@ export default function BannerLinks({ setIsOpen }: BannerLinksType) {
   return (
     <>
       <div
-        className="fixed inset-0 z-101 bg-black/30"
+        className="fixed inset-0 z-201 bg-black/30"
         onClick={() => setIsOpen(false)}
       />
       <div
-        className="absolute top-full right-0 z-102 w-48 divide-y-2 divide-slate-900 rounded-xl border-3 border-slate-900 bg-blue-800 text-xl text-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
+        className="absolute top-full right-0 z-202 w-48 divide-y-2 divide-slate-900 rounded-xl border-3 border-slate-900 bg-blue-800 text-xl text-slate-200 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
         onClick={(e) => e.stopPropagation()}
       >
         {/* First Item */}

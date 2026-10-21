@@ -23,6 +23,7 @@ type LinksContextType = {
   paramMode: string;
   isAdding: boolean;
   isEditing: boolean;
+  isViewing: boolean;
   userId: string;
 };
 
@@ -43,8 +44,9 @@ function LinksProvider({ children, paramName, tableName }: LinksProviderType) {
   });
   const params = useSearchParams();
   const paramMode = 'mode' + paramName;
-  const isEditing = params.get(paramMode) === 'edit';
+  const isViewing = params.get(paramMode) === 'view';
   const isAdding = params.get(paramMode) === 'add';
+  const isEditing = params.get(paramMode) === 'edit';
   const filteredLinks = useFilteredLinks(links);
   const selected = filteredLinks.find((item) => item.id === selectedID) || null;
 
@@ -64,6 +66,7 @@ function LinksProvider({ children, paramName, tableName }: LinksProviderType) {
         isEditing,
         isAdding,
         userId,
+        isViewing,
       }}
     >
       {children}
