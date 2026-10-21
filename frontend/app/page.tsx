@@ -1,6 +1,6 @@
-import { LinksProvider } from '@/components/linkList/context/links-context';
-import LinksList from '@/components/linkList/LinksList';
-import SidebarPanel from '@/components/linkList/searchPanel/searchPanel';
+import { LinksProvider } from '@/components/links/context/links-context';
+import LinksList from '@/components/links/links-list';
+import SidebarPanel from '@/components/links/searchPanel';
 
 export default function Home() {
   return (

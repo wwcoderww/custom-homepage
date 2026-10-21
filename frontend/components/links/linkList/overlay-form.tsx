@@ -6,8 +6,8 @@ import { BackEndResponseType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { useLinksContext } from './context/links-context';
-import InputField from './searchPanel/searchPanel-inputFields';
+import { useLinksContext } from '../context/links-context';
+import InputField from '../searchPanel/input-fields';
 
 type FormDataReturnType = {
   name: string;

@@ -5,8 +5,8 @@ import { BackEndResponseType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { MdDeleteOutline } from 'react-icons/md';
 import { toast } from 'sonner';
-import SidebarLi from './LinksLi';
-import { useLinksContext } from './context/links-context';
+import SidebarLi from './list-item';
+import { useLinksContext } from '../context/links-context';
 
 export default function SidebarUl() {
   const { setSelectedID, filteredLinks, isEditing, tableName, userId } =

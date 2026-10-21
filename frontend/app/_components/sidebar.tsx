@@ -1,6 +1,6 @@
-import { LinksProvider } from '@/components/linkList/context/links-context';
-import LinksList from '@/components/linkList/LinksList';
-import SearchPanel from '@/components/linkList/searchPanel/searchPanel';
+import { LinksProvider } from '@/components/links/context/links-context';
+import LinksList from '@/components/links/links-list';
+import SearchPanel from '@/components/links/searchPanel';
 
 export default async function Sidebar() {
   return (
