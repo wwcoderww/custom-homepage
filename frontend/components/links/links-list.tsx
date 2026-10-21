@@ -17,12 +17,12 @@ export default function LinksList() {
   const mutate = useDeleteLink(tableName, userId);
 
   return (
-    <>
+    <div className="@container">
       <ul
-        className={`${!isViewing && 'relative z-20'} flex flex-wrap justify-center gap-3`}
+        className={`${!isViewing && 'relative z-20'} grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-3`}
       >
         {filteredLinks.map((item) => (
-          <div key={item.id} className="flex">
+          <div key={item.id} className="flex @lg:last:col-start-1">
             <LinkItem item={item} handleClick={() => setSelectedID(item.id)} />
             {isEditing && (
               <MdDeleteOutline
@@ -34,6 +34,6 @@ export default function LinksList() {
         ))}
       </ul>
       <Overlay />
-    </>
+    </div>
   );
 }

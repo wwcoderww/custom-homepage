@@ -16,14 +16,14 @@ export default function Button({
   type = 'button',
 }: ButtonProps) {
   const styleVarients = {
-    primary: 'bg-blue-700 hover:bg-blue-500',
+    primary: 'bg-text hover:bg-textHover',
     secondary: '',
-    danger: 'bg-red-700 hover:bg-red-600',
+    danger: 'bg-red-700',
   };
 
   return (
     <button
-      className={`rounded-md border px-3 py-1 font-medium text-white transition hover:scale-95 ${styleVarients[style]} ${className}`}
+      className={`translate rounded-md border px-3 py-1 font-medium text-slate-200 duration-300 ease-in-out hover:-translate-y-1 hover:cursor-pointer ${styleVarients[style]} ${className}`}
       onClick={handleClick}
       type={type}
     >

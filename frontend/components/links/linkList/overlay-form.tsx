@@ -4,10 +4,10 @@ import usePutForm from '../hooks/forms/usePutForm';
 import usePutLink from '../hooks/forms/usePutLink';
 import InputField from '../searchPanel/input-fields';
 
-export const formLabelStyle = 'text-white text-lg';
-export const formSectionStyle = `flex justify-between gap-3 py-1 items-center my-1`;
+export const formLabelStyle = 'text-white font-normal text-4xl';
+export const formSectionStyle = `flex justify-between gap-3 py-1 items-center w-full`;
 
-export default function SidebarOverlayForm() {
+export default function OverlayForm() {
   const { handleSubmit, register, userId, setSelectedID, selected, tableName } =
     usePutForm();
   const mutate = usePutLink(setSelectedID, selected, tableName, userId);
@@ -15,50 +15,54 @@ export default function SidebarOverlayForm() {
   if (!selected) return null;
 
   return (
-    <div className="mt-5 mb-4">
-      <form className={formSectionStyle} onSubmit={handleSubmit(mutate)}>
-        <div>
-          <div className={formSectionStyle}>
-            <div className={formLabelStyle}>Title:</div>
-            <InputField
-              name="name"
-              customClass="bg-slate-300 !focus:bg-white"
-              defaultValue={selected.name}
-              register={register}
-            />
-          </div>
-          <div className={formSectionStyle}>
-            <div className={formLabelStyle}>Link:</div>
-            <InputField
-              name="link"
-              customClass="bg-slate-300 focus:bg-slate-100"
-              defaultValue={selected.link}
-              register={register}
-            />
-          </div>
-          <div className={formSectionStyle}>
-            <div className={formLabelStyle}>Order:</div>
+    <form
+      className="flex flex-1 flex-col items-center justify-center gap-2 px-15 py-8 text-3xl"
+      onSubmit={handleSubmit(mutate)}
+    >
+      <div className={formSectionStyle}>
+        <div className={formLabelStyle}>Title:</div>
+        <InputField
+          name="name"
+          customClass="bg-slate-300! focus:bg-slate-200! rounded-xl"
+          defaultValue={selected.name}
+          register={register}
+        />
+      </div>
+      <div className={formSectionStyle}>
+        <div className={formLabelStyle}>Link:</div>
+        <InputField
+          name="link"
+          customClass="bg-slate-300! focus:bg-slate-200! rounded-xl"
+          defaultValue={selected.link}
+          register={register}
+        />
+      </div>
+      <div className={`pt-8 ${formSectionStyle}`}>
+        <div className={formLabelStyle}>Order:</div>
 
-            <Button>
-              <select
-                id="order"
-                key={selected.displayOrder}
-                defaultValue={selected.displayOrder}
-                className="px-1 hover:scale-110"
-                {...register('displayOrder')}
-              >
-                <option value={0}>None</option>
-                {Array.from({ length: 99 }, (_, i) => i + 1).map((num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-            </Button>
-            <Button type="submit">update</Button>
-          </div>
-        </div>
-      </form>
-    </div>
+        <Button className="rounded-2xl!">
+          <select
+            id="order"
+            key={selected.displayOrder}
+            defaultValue={selected.displayOrder}
+            className="px-1 text-center hover:translate-y-0 hover:cursor-pointer"
+            {...register('displayOrder')}
+          >
+            <option value={0}>None</option>
+            {Array.from({ length: 99 }, (_, i) => i + 1).map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
+        </Button>
+      </div>
+      <Button
+        type="submit"
+        className="mt-14 rounded-3xl! border-4 border-blue-600 bg-blue-600 px-8 py-3 text-4xl hover:-translate-y-2"
+      >
+        update
+      </Button>
+    </form>
   );
 }

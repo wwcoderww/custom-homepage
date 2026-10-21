@@ -15,7 +15,7 @@ export default function ButtonItem({
 }: ButtonItemType) {
   return (
     <button
-      className={`${customClass} flex-1 border border-slate-200 bg-blue-800 text-center text-lg hover:cursor-pointer hover:bg-blue-600`}
+      className={`${customClass} bg-bgPrimary hover:bg-bgHover flex-1 border border-slate-200 text-center text-lg hover:cursor-pointer`}
       onClick={onClick}
       type={type}
     >

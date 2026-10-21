@@ -10,7 +10,7 @@ type LinkItemProps = {
 export default function LinkItem({ item, handleClick }: LinkItemProps) {
   const { isEditing, isAdding } = useLinksContext();
   return (
-    <div className="flex w-80">
+    <div className="flex flex-1">
       {isEditing || isAdding ? (
         <ButtonItem
           label={item.name}

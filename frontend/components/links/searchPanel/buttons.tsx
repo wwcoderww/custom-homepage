@@ -7,7 +7,7 @@ import { useLinksContext } from '../context/links-context';
 import { useUpdateQuery } from '../hooks/useUpdateQuery';
 
 const buttonClass =
-  'w-auto hover:cursor-pointer h-full text-blue-700 hover:text-blue-500 ml-1';
+  'w-auto hover:cursor-pointer h-full text-text hover:text-textHover ml-1';
 
 export default function SearchPanelActions() {
   const { paramMode, isEditing, isAdding } = useLinksContext();

@@ -10,7 +10,7 @@ export default function SearchPanel() {
 
   return (
     <div
-      className={`${!isViewing && 'relative z-20'} my-4 flex flex-col gap-2`}
+      className={`${!isViewing && 'relative z-20'} flex flex-col gap-2 py-5`}
     >
       <div className="flex h-6">
         <Search />

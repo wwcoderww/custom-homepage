@@ -1,10 +1,10 @@
 import { addLink } from '@/actions/searchPanel-actions';
 import { useUpdateQuery } from '@/components/links/hooks/useUpdateQuery';
-import { FormReturnType } from '@/components/links/searchPanel/form';
 import formErrors from '@/lib/form-errors';
 import { BackEndResponseType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { FormReturnType } from './useAddForm';
 
 export default function useAddLink(
   tableName: string,

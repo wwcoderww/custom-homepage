@@ -1,7 +1,6 @@
 'use server';
-import { BackEndResponseType, QuickLinkType } from '@/lib/types';
-import { revalidatePath } from 'next/cache';
 import tryBackend from '@/lib/try-backend';
+import { BackEndResponseType, QuickLinkType } from '@/lib/types';
 import reformatLink from '@/utils/reformatLink';
 
 export async function loadLinks(
@@ -68,19 +67,4 @@ export async function updateLink(formData: FormData) {
     }
   );
   return tryBackend(fetchPromise);
-}
-
-export async function updateOrder(formData: FormData) {
-  // Form Data
-  // const id = Number(formData.get('id'));
-  // const display_order = Number(formData.get('order'));
-  // const tableName = formData.get('tableName') as string;
-  // // Errors
-  // const { error } = await reorderSidebarLink(tableName, id, display_order);
-  // if (error) {
-  //   console.log(error);
-  //   return;
-  // }
-
-  revalidatePath('/');
 }

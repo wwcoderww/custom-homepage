@@ -1,5 +1,9 @@
 import Links from '@/components/links/links';
 
 export default function Home() {
-  return <Links paramName="mLinks" tableName="mainLinks" />;
+  return (
+    <div className="h-full w-full px-1">
+      <Links paramName="mLinks" tableName="mainLinks" />
+    </div>
+  );
 }

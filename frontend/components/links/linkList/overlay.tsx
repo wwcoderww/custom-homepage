@@ -1,9 +1,9 @@
 'use client';
 import Button from '../../button';
-import SidebarOverlayForm from './overlay-form';
 import { useLinksContext } from '../context/links-context';
+import OverlayForm from './overlay-form';
 
-export default function SidebarOverlay() {
+export default function Overlay() {
   const { setSelectedID, selected } = useLinksContext();
 
   if (!selected) return;
@@ -14,19 +14,19 @@ export default function SidebarOverlay() {
       onClick={() => setSelectedID(null)}
     >
       <div
-        className="rounded-lg bg-blue-500 p-4 text-slate-800"
+        className="bg-bgPrimary border-backgroundDark flex min-h-[50vh] min-w-[50vw] flex-col rounded-4xl border-3 p-4 text-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-end">
           <Button
-            className="my-1 text-red-600"
+            className="mt-1 mb-6 rounded-2xl! px-3 text-3xl font-extrabold text-red-600 hover:-translate-y-0.5!"
             handleClick={() => setSelectedID(null)}
             style="danger"
           >
-            close
+            X
           </Button>
         </div>
-        <SidebarOverlayForm />
+        <OverlayForm />
       </div>
     </div>
   );
