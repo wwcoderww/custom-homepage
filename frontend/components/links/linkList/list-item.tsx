@@ -1,5 +1,5 @@
 import { QuickLinkType } from '@/lib/types';
-import ButtonItem from '../../ButtonItem';
+import ButtonItem from '../../button-item';
 import { useLinksContext } from '../context/links-context';
 
 type SideBarLiProps = {

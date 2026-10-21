@@ -1,5 +1,5 @@
 'use client';
-import Button from '../../Button';
+import Button from '../../button';
 import SidebarOverlayForm from './overlay-form';
 import { useLinksContext } from '../context/links-context';
 

@@ -4,7 +4,7 @@ import useNewEmail from '../hooks/useNewEmail';
 import useSignInEmail from '../hooks/useSignInEmail';
 import useOnError from '../hooks/useOnError';
 import AuthFormInputs from './auth-form-inputs';
-import ButtonItem from '@/components/ButtonItem';
+import ButtonItem from '@/components/button-item';
 
 export default function AuthForm() {
   const {

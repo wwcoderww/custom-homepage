@@ -1,4 +1,4 @@
-import ButtonItem from '@/components/ButtonItem';
+import ButtonItem from '@/components/button-item';
 import { authClient } from '@/lib/auth-client';
 import Link from 'next/link';
 import { toast } from 'sonner';

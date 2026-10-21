@@ -1,6 +1,6 @@
 'use client';
 import { updateLink } from '@/actions/searchPanel-actions';
-import Button from '@/components/Button';
+import Button from '@/components/button';
 import formErrors from '@/lib/form-errors';
 import { BackEndResponseType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
