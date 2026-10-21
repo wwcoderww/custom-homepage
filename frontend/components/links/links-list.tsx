@@ -1,6 +1,6 @@
 'use client';
 import { MdDeleteOutline } from 'react-icons/md';
-import useDeleteLink from '@/components/links/hooks/useDeleteLink';
+import useDeleteLink from '@/components/links/hooks/forms/useDeleteLink';
 import LinkItem from './linkList/list-item';
 import { useLinksContext } from './context/links-context';
 import Overlay from './linkList/overlay';

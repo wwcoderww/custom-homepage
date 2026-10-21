@@ -1,6 +1,6 @@
 'use client';
 
-import useAddForm from '../hooks/useAddForm';
+import useAddForm from '../hooks/forms/useAddForm';
 import InputField from './input-fields';
 
 export default function SidebarForm() {
