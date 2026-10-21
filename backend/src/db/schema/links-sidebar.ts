@@ -1,7 +1,7 @@
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { user } from "./auth.js";
 
-export const sidebarLinks = pgTable("sidebar_links", {
+export const sidebarLinks = pgTable("sidebarLinks", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: text("name").notNull().unique(),
   link: text("link").notNull().unique(),
