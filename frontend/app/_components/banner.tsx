@@ -11,7 +11,7 @@ export default function Banner() {
         <Link href={'/'} className={itemStyle}>
           More Links
         </Link>
-        <Link href={'/notes'} className={itemStyle}>
+        <Link href={'/'} className={itemStyle}>
           Notepad
         </Link>
         <Link href={'/'} className={itemStyle}>
