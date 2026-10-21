@@ -13,7 +13,7 @@ export default function Search({ onChange, className }: SearchBarProps) {
     <div className="flex flex-1 gap-1.5">
       <FaSearch className="h-full w-auto" />
       <InputField
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         customClass={`flex-1 ${className}`}
         placeholder="Search"
         variant="noinput"
