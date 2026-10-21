@@ -4,8 +4,15 @@ import useAddForm from '../hooks/forms/useAddForm';
 import InputField from './input-fields';
 
 export default function SidebarForm() {
-  const { handleSubmit, onSubmit, onError, formErrors, register, isAdding } =
-    useAddForm();
+  const {
+    handleSubmit,
+    onSubmit,
+    onError,
+    formErrors,
+    register,
+    isAdding,
+    userId,
+  } = useAddForm();
 
   return (
     <>

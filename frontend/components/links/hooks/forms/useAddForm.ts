@@ -29,5 +29,13 @@ export default function useAddForm() {
   function onError() {
     readFormErrors({ success: false, errors: formErrors });
   }
-  return { handleSubmit, onSubmit, onError, formErrors, register, isAdding };
+  return {
+    handleSubmit,
+    onSubmit,
+    onError,
+    formErrors,
+    register,
+    isAdding,
+    userId,
+  };
 }
