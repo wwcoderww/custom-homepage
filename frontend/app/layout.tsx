@@ -1,12 +1,11 @@
 import Banner from '@/app/_components/banner';
 import Sidebar from '@/app/_components/sidebar';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import React from 'react';
 import { Toaster } from 'sonner';
-import './globals.css';
 import Provider from './_components/query-provider';
+import './globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
