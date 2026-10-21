@@ -10,6 +10,11 @@ export default function formErrors(response: BackEndResponseType) {
           toast.error(err.message);
         });
       }
+      if (typeof response.errors === 'object') {
+        Object.entries(response.errors).forEach(([name, error]) => {
+          toast.error(error.message);
+        });
+      }
     }
     return response;
   }
