@@ -7,11 +7,6 @@ import { Toaster } from 'sonner';
 import Provider from './_components/query-provider';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
@@ -30,9 +25,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`font-sans ${geistMono.variable} h-full antialiased`}
     >
-      <body className="grid h-screen grid-cols-[1fr_4fr] bg-slate-800 text-white">
+      <body className="bg-backgroundLight grid h-screen grid-cols-[1fr_4fr] text-white">
         <Provider>
           <Sidebar />
           <div className="grid h-full grid-rows-[auto_1fr]">
