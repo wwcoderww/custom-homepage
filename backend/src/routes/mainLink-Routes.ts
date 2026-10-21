@@ -11,9 +11,9 @@ import { mainLinks } from "../db/schema/links-main.js";
 
 const router = Router();
 
-router.get("/", getAllLinks(mainLinks));
-router.post("/", validate(linkSchema), postLink(mainLinks));
-router.put("/", validate(linkSchema), putLink(mainLinks));
-router.delete("/:name", deleteLink(mainLinks));
+router.post("", validate(linkSchema), postLink(mainLinks));
+router.put("", validate(linkSchema), putLink(mainLinks));
+router.get("/:userId", getAllLinks(mainLinks));
+router.delete("/:id", deleteLink(mainLinks));
 
 export { router as mainLinksRouter };
