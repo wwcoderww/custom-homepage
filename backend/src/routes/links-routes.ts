@@ -10,9 +10,9 @@ import { linkSchema } from "../schema/link-schema.js";
 
 const router = Router();
 
-router.post("", validate(linkSchema), postLink());
-router.put("", validate(linkSchema), putLink());
-router.get("/:group/:userId", getLinks());
-router.delete("/:id", deleteLink());
+router.post("", validate(linkSchema), postLink);
+router.put("", validate(linkSchema), putLink);
+router.get("/:userId", getLinks);
+router.delete("/:id", deleteLink);
 
 export { router as linksRouter };

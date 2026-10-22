@@ -3,11 +3,8 @@ import { db } from "../db/index.js";
 import { linksDb } from "../db/schema/links.js";
 
 export const SidebarService = {
-  async get(group: number, userId: string) {
-    return await db
-      .select()
-      .from(linksDb)
-      .where(and(eq(linksDb.userId, userId), eq(linksDb.group, group)));
+  async get(userId: string) {
+    return await db.select().from(linksDb).where(eq(linksDb.userId, userId));
   },
 
   async delete(id: string) {

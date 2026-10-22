@@ -10,9 +10,8 @@ export function getLinks() {
   return async (req: Request, res: Response) => {
     try {
       const userId = String(req.params.userId);
-      const group = Number(req.params.group);
 
-      const results = await SidebarService.get(group, userId);
+      const results = await SidebarService.get(userId);
       return res.status(200).json({ success: true, data: results });
     } catch (error) {
       handleErrors(error, res);
@@ -38,8 +37,10 @@ export function postLink() {
     try {
       const { userId, name, link, group } = req.body;
       // Display Order
-      const allLinksInGroup = await SidebarService.get(group, userId);
-      const displayOrder = allLinksInGroup.length;
+      const allLinksInGroup = await SidebarService.get(userId);
+      const displayOrder = allLinksInGroup.filter(
+        (item) => item.group === group,
+      ).length;
       //
       await SidebarService.post(group, userId, name, link, displayOrder);
       return res.status(200).json({ success: true });
