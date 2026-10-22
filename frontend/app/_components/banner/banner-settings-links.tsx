@@ -26,6 +26,7 @@ export default function BannerLinks({ setIsOpen }: BannerLinksType) {
             label={'sign out'}
             customClass="border-0 rounded-xl py-1 w-full"
             onClick={() => {
+              authClient.signOut();
               setIsOpen(false);
               toast.success('Logged out!');
             }}
