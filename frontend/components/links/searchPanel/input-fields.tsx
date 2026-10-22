@@ -28,7 +28,7 @@ type InputFieldProps<TFieldValues extends FieldValues = FieldValues> = {
 };
 
 const defaultClass =
-  'rounded-md border border-slate-300 py-3 px-2 placeholder-gray-100 focus:border-blue-500 focus:ring-2 focus:ring-slate-400 focus:outline-none bg-slate-600/20 focus:bg-slate-400/20';
+  'rounded-md border border-slate-300  placeholder-gray-100 focus:border-blue-500 focus:ring-2 focus:ring-slate-400 focus:outline-none bg-slate-600/20 focus:bg-slate-400/20';
 const textAreaClass = 'h-[8lh]! rounded-2xl! py-1.5!';
 const errorClass = 'border-3 border-solid border-red-700 bg-red-200';
 
