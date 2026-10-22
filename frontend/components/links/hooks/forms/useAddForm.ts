@@ -7,20 +7,21 @@ export type FormReturnType = {
   name: string;
   link: string;
   userId: string;
+  group: number;
 };
 
 export default function useAddForm() {
-  const { tableName, isAdding, paramMode, userId } = useLinksContext();
+  const { isAdding, paramMode, userId } = useLinksContext();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors: formErrors },
   } = useForm<FormReturnType>({
-    defaultValues: { name: '', link: '', userId: userId },
+    defaultValues: { name: '', link: '', userId: userId, group: 1 },
   });
 
-  const mutate = useAddLink(tableName, userId, paramMode, reset);
+  const mutate = useAddLink(userId, paramMode, reset);
   // Success
   function onSubmit(formData: FormReturnType) {
     mutate(formData);

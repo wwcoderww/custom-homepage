@@ -7,7 +7,6 @@ import { toast } from 'sonner';
 import { FormReturnType } from './useAddForm';
 
 export default function useAddLink(
-  tableName: string,
   userId: string,
   paramMode: string,
   reset: () => void
@@ -16,7 +15,7 @@ export default function useAddLink(
   const updateQuery = useUpdateQuery(paramMode);
 
   const { mutate } = useMutation<BackEndResponseType, Error, FormData>({
-    mutationFn: (formData: FormData) => addLink(tableName, formData),
+    mutationFn: (formData: FormData) => addLink(formData),
     onSuccess: (response) => {
       mutationSuccess(response);
     },
@@ -31,6 +30,7 @@ export default function useAddLink(
     formData.append('name', data.name);
     formData.append('link', data.link);
     formData.append('userId', data.userId);
+    formData.append('group', String(data.group));
     mutate(formData);
   }
 
@@ -42,7 +42,7 @@ export default function useAddLink(
     // If success
     if (response && 'success' in response && response.success === true) {
       queryClient.invalidateQueries({
-        queryKey: ['links', tableName, userId],
+        queryKey: ['links', userId],
       });
       toast.success('Success!');
       updateQuery('view');

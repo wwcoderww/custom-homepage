@@ -3,15 +3,12 @@ import tryBackend from '@/lib/try-backend';
 import { BackEndResponseType, QuickLinkType } from '@/lib/types';
 import reformatLink from '@/utils/reformatLink';
 
-export async function loadLinks(
-  userId: string,
-  tableName: string
-): Promise<QuickLinkType[] | []> {
+export async function loadLinks(userId: string): Promise<QuickLinkType[] | []> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}/${userId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/links/${userId}`
   );
   if (!res.ok) {
-    console.error(`Failed to load links from ${tableName}`);
+    console.error(`Failed to load links`);
     return [];
   }
   const results = await res.json();
@@ -19,22 +16,22 @@ export async function loadLinks(
 }
 
 export async function addLink(
-  tableName: string,
   formData: FormData
 ): Promise<BackEndResponseType> {
   // User input
   const name = formData.get('name') as string;
   const formLink = formData.get('link') as string;
   const userId = formData.get('userId') as string;
+  const group = Number(formData.get('group'));
   // Reformat link
   const link = reformatLink(formLink);
   // POST to db / Errors
   const fetchPromise = fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/links`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, name, link }),
+      body: JSON.stringify({ userId, name, link, group }),
     }
   );
   return tryBackend(fetchPromise);

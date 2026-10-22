@@ -21,32 +21,51 @@ export default function SidebarForm() {
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
             id="sidebar-form"
-            className="flex gap-2"
+            className="flex flex-col gap-2"
           >
-            <div>
-              <div>Title:</div>
-              <div>Link:</div>
-            </div>
-            <div className="flex flex-1 flex-col gap-1">
+            <div className="flex">
+              <label htmlFor="name" className="min-w-15">
+                Name:
+              </label>
               <InputField
                 name="name"
                 register={register}
                 validation={{ required: 'Name is required' }}
                 error={formErrors.name}
+                customClass="w-full"
               />
+            </div>
+            <div className="flex">
+              <label htmlFor="link" className="min-w-15">
+                Link:
+              </label>
               <InputField
                 name="link"
                 register={register}
                 validation={{ required: 'Link is required' }}
                 error={formErrors.link}
-              />
-              <input
-                className="hidden"
-                {...register('userId')}
-                readOnly
-                value={userId}
+                customClass="w-full"
               />
             </div>
+            <div className="flex">
+              <label htmlFor="group" className="min-w-15 flex-1">
+                Group:
+              </label>
+              <select id="group" className="text-end" {...register('group')}>
+                <option value="0">Sidebar</option>
+                {Array.from({ length: 4 }, (_, i) => i + 1).map((nun) => (
+                  <option key={nun} value={nun} className="w-full text-center">
+                    Tab {nun}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <input
+              className="hidden"
+              {...register('userId')}
+              readOnly
+              value={userId}
+            />
           </form>
         </>
       )}
