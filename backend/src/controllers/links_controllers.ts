@@ -37,7 +37,7 @@ export async function postLink(req: Request, res: Response) {
       (item) => item.group === group,
     ).length;
     //
-    await SidebarService.post(group, userId, name, link, displayOrder);
+    await SidebarService.post(userId, name, link, group, displayOrder);
     return res.status(200).json({ success: true });
   } catch (error: any) {
     // Name or link already exist

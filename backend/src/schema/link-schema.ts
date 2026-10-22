@@ -5,6 +5,6 @@ export const linkSchema = z.object({
   link: z.coerce.string().min(1, "Link is required"),
   userId: z.coerce.string().optional(),
   displayOrder: z.coerce.number().optional(),
-  groupd: z.coerce.number().optional(),
+  group: z.coerce.number(),
   id: z.coerce.string().optional(),
 });

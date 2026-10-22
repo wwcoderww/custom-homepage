@@ -12,10 +12,10 @@ export const SidebarService = {
   },
 
   async post(
-    group: number,
     userId: string,
     name: string,
     link: string,
+    group: number,
     displayOrder: number,
   ) {
     return await db
