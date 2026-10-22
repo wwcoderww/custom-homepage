@@ -3,12 +3,18 @@ import { useLinksContext } from './context/links-context';
 import { useUpdateQuery } from './hooks/useUpdateQuery';
 
 export default function Overlay() {
-  const { isAdding, isEditing, paramMode } = useLinksContext();
-  const updateQuery = useUpdateQuery(paramMode);
+  const { isViewing, paramMode } = useLinksContext();
+  const updateParamMode = useUpdateQuery(paramMode);
 
-  if (!isAdding && !isEditing) return <div />;
+  function handleClickOutside() {
+    console.log('click');
+    updateParamMode('view');
+  }
 
   return (
-    <div className="fixed inset-0 z-10" onClick={() => updateQuery('view')} />
+    <div
+      className={`fixed inset-0 z-10 ${isViewing && 'hidden'}`}
+      onClick={handleClickOutside}
+    ></div>
   );
 }

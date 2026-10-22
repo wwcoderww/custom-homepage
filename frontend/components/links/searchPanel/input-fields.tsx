@@ -19,6 +19,7 @@ type InputFieldProps<TFieldValues extends FieldValues = FieldValues> = {
   customClass?: string;
   disabled?: boolean;
   type?: string;
+  onBlur?: ChangeEventHandler<HTMLInputElement> | undefined;
   onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
   register?: UseFormRegister<TFieldValues>;
   error?:
@@ -47,6 +48,7 @@ export default function InputField<
   defaultValue,
   disabled = false,
   onChange,
+  onBlur,
 }: InputFieldProps<TFieldValues>) {
   const combinedClass = `${customClass} ${defaultClass} ${error && errorClass}`;
 
@@ -76,7 +78,13 @@ export default function InputField<
   }
 
   if (variant === 'noinput') {
-    return <input className={`${combinedClass}`} onChange={onChange} />;
+    return (
+      <input
+        className={`${combinedClass}`}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    );
   }
 
   return (
