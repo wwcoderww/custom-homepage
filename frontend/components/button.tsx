@@ -18,7 +18,7 @@ export default function Button({
   const styleVarients = {
     primary: 'bg-text hover:bg-textHover',
     secondary: '',
-    danger: 'bg-red-700',
+    danger: 'bg-red-700 hover:bg-red-600',
   };
 
   return (

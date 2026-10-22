@@ -10,16 +10,16 @@ export default function Overlay() {
 
   return (
     <div
-      className="fixed inset-0 z-30 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 z-300 flex items-center justify-center bg-black/50"
       onClick={() => setSelectedID(null)}
     >
       <div
-        className="bg-bgPrimary border-backgroundDark flex flex-col rounded-4xl border-3 p-4 text-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
+        className="bg-bgPrimary/90 flex flex-col rounded-4xl border-4 border-white p-4 text-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="mt-1 mb-6 flex justify-end">
           <Button
-            className="rounded-2xl! px-3 text-3xl font-extrabold text-red-600 hover:-translate-y-0.5!"
+            className="rounded-2xl! px-3 text-4xl font-extrabold text-red-600 hover:translate-y-0!"
             handleClick={() => setSelectedID(null)}
             style="danger"
           >

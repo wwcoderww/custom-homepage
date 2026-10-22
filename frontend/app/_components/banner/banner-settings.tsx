@@ -10,7 +10,7 @@ export default function BannerSettings() {
     <div className="relative inline-block">
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`z-102 transform transition-transform duration-300 hover:cursor-pointer ${isOpen ? 'rotate-45' : 'rotate-0'} relative`}
+        className={`z-202 transform transition-transform duration-300 hover:cursor-pointer ${isOpen ? 'rotate-45' : 'rotate-0'} relative`}
       >
         <Image
           src={'/assets/settings.svg'}

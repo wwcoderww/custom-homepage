@@ -4,7 +4,8 @@ import usePutForm from '../hooks/forms/usePutForm';
 import usePutLink from '../hooks/forms/usePutLink';
 import InputField from '../searchPanel/input-fields';
 
-export const formLabelStyle = 'text-white font-normal text-4xl w-40';
+export const formLabelStyle =
+  'text-white font-normal text-4xl w-40 font-semibold';
 export const formSectionStyle = `flex justify-between gap-3 py-1 items-center w-full`;
 
 export default function OverlayForm() {
@@ -16,7 +17,7 @@ export default function OverlayForm() {
 
   return (
     <form
-      className="flex flex-1 flex-col items-center justify-center gap-2 px-15 py-8 text-3xl"
+      className="flex flex-1 flex-col items-center justify-center gap-4 px-20 py-8 text-2xl"
       onSubmit={handleSubmit(mutate)}
     >
       <div className={formSectionStyle}>
@@ -45,7 +46,7 @@ export default function OverlayForm() {
             id="order"
             key={selected.displayOrder}
             defaultValue={selected.displayOrder}
-            className="px-1 text-center hover:translate-y-0 hover:cursor-pointer"
+            className="px-1 text-center text-4xl hover:translate-y-0 hover:cursor-pointer"
             {...register('displayOrder')}
           >
             <option value={0}>None</option>
@@ -59,7 +60,7 @@ export default function OverlayForm() {
       </div>
       <Button
         type="submit"
-        className="mt-14 rounded-3xl! border-4 border-blue-600 bg-blue-600 px-8 py-3 text-4xl hover:-translate-y-2"
+        className="mt-14 rounded-3xl! border-4 border-white bg-blue-600 px-8 py-3 text-4xl hover:-translate-y-2"
       >
         update
       </Button>
