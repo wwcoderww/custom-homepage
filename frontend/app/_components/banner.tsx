@@ -9,13 +9,13 @@ export default function Banner() {
     <div className="flex items-center border-b border-zinc-200 pr-1">
       <ul className="flex flex-1 justify-evenly">
         <Link href={'/'} className={itemStyle}>
+          Search
+        </Link>
+        <Link href={'/links'} className={itemStyle}>
           More Links
         </Link>
         <Link href={'/'} className={itemStyle}>
-          Notepad
-        </Link>
-        <Link href={'/'} className={itemStyle}>
-          ItemXYZA
+          Notes
         </Link>
         <Link href={'/'} className={itemStyle}>
           ItemXYZA
