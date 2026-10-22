@@ -3,6 +3,7 @@ export type QuickLinkType = {
   link: string;
   id: string;
   displayOrder: number;
+  group: number;
 };
 
 export type BackEndResponseType = {

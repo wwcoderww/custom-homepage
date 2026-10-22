@@ -57,7 +57,7 @@ function LinksProvider({ children, paramName, group }: LinksProviderType) {
   const isViewing = params.get(paramMode) === 'view';
   const isAdding = params.get(paramMode) === 'add';
   const isEditing = params.get(paramMode) === 'edit';
-  const filteredLinks = useFilteredLinks(links);
+  const filteredLinks = useFilteredLinks(links, group);
   const selected = filteredLinks.find((item) => item.id === selectedID) || null;
 
   if (!userId) return <div>Please login</div>;
