@@ -14,12 +14,12 @@ export default function Overlay() {
       onClick={() => setSelectedID(null)}
     >
       <div
-        className="bg-bgPrimary border-backgroundDark flex min-h-[50vh] min-w-[50vw] flex-col rounded-4xl border-3 p-4 text-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
+        className="bg-bgPrimary border-backgroundDark flex flex-col rounded-4xl border-3 p-4 text-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.8)] backdrop-blur-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-end">
+        <div className="mt-1 mb-6 flex justify-end">
           <Button
-            className="mt-1 mb-6 rounded-2xl! px-3 text-3xl font-extrabold text-red-600 hover:-translate-y-0.5!"
+            className="rounded-2xl! px-3 text-3xl font-extrabold text-red-600 hover:-translate-y-0.5!"
             handleClick={() => setSelectedID(null)}
             style="danger"
           >

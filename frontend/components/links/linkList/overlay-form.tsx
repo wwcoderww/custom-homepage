@@ -4,7 +4,7 @@ import usePutForm from '../hooks/forms/usePutForm';
 import usePutLink from '../hooks/forms/usePutLink';
 import InputField from '../searchPanel/input-fields';
 
-export const formLabelStyle = 'text-white font-normal text-4xl';
+export const formLabelStyle = 'text-white font-normal text-4xl w-40';
 export const formSectionStyle = `flex justify-between gap-3 py-1 items-center w-full`;
 
 export default function OverlayForm() {
