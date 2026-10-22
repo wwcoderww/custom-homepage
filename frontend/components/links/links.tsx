@@ -5,12 +5,12 @@ import Overlay from './overlay';
 
 type LinksProps = {
   paramName: string;
-  tableName: string;
+  group: number;
 };
 
-export default function Links({ paramName, tableName }: LinksProps) {
+export default function Links({ paramName, group }: LinksProps) {
   return (
-    <LinksProvider paramName={paramName} tableName={tableName}>
+    <LinksProvider paramName={paramName} group={group}>
       <Overlay />
       <SearchPanel />
       <LinksList />

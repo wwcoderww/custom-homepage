@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation';
 type LinksProviderType = {
   children: ReactNode;
   paramName: string;
-  tableName: string;
+  group: number;
 };
 
 type LinksContextType = {
@@ -19,7 +19,7 @@ type LinksContextType = {
   selectedID: string | null;
   setSelectedID: (value: string | null) => void;
   paramName: string;
-  tableName: string;
+  group: number;
   paramMode: string;
   isAdding: boolean;
   isEditing: boolean;
@@ -29,29 +29,29 @@ type LinksContextType = {
 
 const LinksContext = createContext<LinksContextType | null>(null);
 
-function LinksProvider({ children, paramName, tableName }: LinksProviderType) {
+function LinksProvider({ children, paramName, group }: LinksProviderType) {
   const [selectedID, setSelectedID] = useState<string | null>(null);
-  const { data: authData, isPending } = authClient.useSession();
+  const { data: authData } = authClient.useSession();
   const userId = authData?.user?.id;
 
-  const { data: links, isLoading } = useQuery({
-    queryKey: ['links', tableName, userId],
+  const { data: links } = useQuery({
+    queryKey: ['links', userId],
     queryFn: async () => {
       if (!userId) return [];
-      const databaseLinks = await loadLinks(userId, tableName);
-      if (databaseLinks.length > 0)
-        localStorage.setItem(tableName, JSON.stringify(databaseLinks));
+      const databaseLinks = await loadLinks(userId);
+      localStorage.setItem('links', JSON.stringify(databaseLinks));
       return databaseLinks;
     },
     enabled: !!userId,
-    initialData: () => {
+    placeholderData: () => {
       if (typeof window !== 'undefined') {
-        const localLinks = localStorage.getItem(tableName);
+        const localLinks = localStorage.getItem('links');
         if (localLinks) return JSON.parse(localLinks);
       }
       return [];
     },
   });
+
   const params = useSearchParams();
   const paramMode = 'mode' + paramName;
   const isViewing = params.get(paramMode) === 'view';
@@ -70,7 +70,7 @@ function LinksProvider({ children, paramName, tableName }: LinksProviderType) {
         setSelectedID,
         filteredLinks,
         paramName,
-        tableName,
+        group,
         paramMode,
         isEditing,
         isAdding,
