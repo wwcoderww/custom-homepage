@@ -24,20 +24,43 @@ export const SidebarService = {
   },
 
   async put(
-    group: number,
     id: string,
     name: string,
     link: string,
     displayOrder: number,
+    group: number,
+    userId: string,
   ) {
+    // --- STEP 1: DEFRAGMENT THE ENTIRE GROUP (Fixed PostgreSQL constraint) ---
+    await db.execute(sql`
+    WITH ordered_links AS (
+      SELECT ${linksDb.id} as sub_id, ROW_NUMBER() OVER (ORDER BY ${linksDb.displayOrder} ASC) as new_order
+      FROM ${linksDb}
+      WHERE ${linksDb.userId} = ${userId} AND ${linksDb.group} = ${group} AND ${linksDb.id} != ${id}
+    )
+    UPDATE ${linksDb}
+    /* 💡 FIXED: We use the plain column identifier without qualifying it with the table name */
+    SET "displayOrder" = ordered_links.new_order
+    FROM ordered_links
+    WHERE ${linksDb.id} = ordered_links.sub_id;
+  `);
+
+    // --- STEP 2: OPEN A HOLE FOR THE UPDATED ITEM ---
     await db
       .update(linksDb)
       .set({
         displayOrder: sql`${linksDb.displayOrder} + 1`,
       })
-      .where(and(gte(linksDb.displayOrder, displayOrder), ne(linksDb.id, id)));
+      .where(
+        and(
+          eq(linksDb.userId, userId),
+          eq(linksDb.group, group),
+          gte(linksDb.displayOrder, displayOrder),
+          ne(linksDb.id, id),
+        ),
+      );
 
-    // Step B: Update and return the modified record to the Express controller
+    // --- STEP 3: ASSIGN THE NEW PROPERTIES ---
     return await db
       .update(linksDb)
       .set({ name, link, displayOrder, group })

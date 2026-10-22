@@ -33,9 +33,8 @@ export async function postLink(req: Request, res: Response) {
     const { userId, name, link, group } = req.body;
     // Display Order
     const allLinksInGroup = await SidebarService.get(userId);
-    const displayOrder = allLinksInGroup.filter(
-      (item) => item.group === group,
-    ).length;
+    const displayOrder =
+      allLinksInGroup.filter((item) => item.group === group).length + 1;
     //
     await SidebarService.post(userId, name, link, group, displayOrder);
     return res.status(200).json({ success: true });
@@ -61,9 +60,16 @@ export async function postLink(req: Request, res: Response) {
 
 export async function putLink(req: Request, res: Response) {
   try {
-    const { id, name, link, displayOrder, group } = req.body;
+    const { id, name, link, displayOrder, group, userId } = req.body;
 
-    const data = await SidebarService.put(group, id, name, link, displayOrder);
+    const data = await SidebarService.put(
+      id,
+      name,
+      link,
+      displayOrder,
+      group,
+      userId,
+    );
     // If ID is invalid
     if (data.length === 0)
       return res
