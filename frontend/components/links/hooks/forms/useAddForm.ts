@@ -5,14 +5,14 @@ import readFormErrors from '@/lib/form-errors';
 import { AddLinkPayload } from '@/actions/searchPanel-actions';
 
 export default function useAddForm() {
-  const { isAdding, paramMode, userId } = useLinksContext();
+  const { isAdding, paramMode, userId, group } = useLinksContext();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors: formErrors },
   } = useForm<AddLinkPayload>({
-    defaultValues: { name: '', link: '', userId: userId, group: 0 },
+    defaultValues: { name: '', link: '', userId: userId, group: group },
   });
 
   const mutate = useAddLink(userId, paramMode, reset);
