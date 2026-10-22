@@ -6,7 +6,7 @@ import InputField from './input-fields';
 export default function SidebarForm() {
   const {
     handleSubmit,
-    onSubmit,
+    onSuccess,
     onError,
     formErrors,
     register,
@@ -19,7 +19,7 @@ export default function SidebarForm() {
       {isAdding && (
         <>
           <form
-            onSubmit={handleSubmit(onSubmit, onError)}
+            onSubmit={handleSubmit(onSuccess, onError)}
             id="sidebar-form"
             className="flex flex-col gap-2"
           >

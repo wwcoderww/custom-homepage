@@ -15,23 +15,26 @@ export async function loadLinks(userId: string): Promise<QuickLinkType[] | []> {
   return results.data;
 }
 
+export type AddLinkPayload = {
+  name: string;
+  link: string;
+  userId: string;
+  group: number;
+};
+
 export async function addLink(
-  formData: FormData
+  data: AddLinkPayload
 ): Promise<BackEndResponseType> {
-  // User input
-  const name = formData.get('name') as string;
-  const formLink = formData.get('link') as string;
-  const userId = formData.get('userId') as string;
-  const group = Number(formData.get('group'));
   // Reformat link
-  const link = reformatLink(formLink);
+  data.link = reformatLink(data.link);
+  console.log(data);
   // POST to db / Errors
   const fetchPromise = fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/links`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, name, link, group }),
+      body: JSON.stringify(data),
     }
   );
   return tryBackend(fetchPromise);
@@ -48,19 +51,23 @@ export async function deleteLink(tableName: string, id: string) {
   return tryBackend(fetchPromise);
 }
 
-export async function updateLink(formData: FormData) {
-  const name = formData.get('name') as string;
-  const formLink = formData.get('link') as string;
-  const id = formData.get('id') as string;
-  const tableName = formData.get('tableName') as string;
-  const displayOrder = Number(formData.get('displayOrder')) || 0;
-  const link = reformatLink(formLink);
+export type UpdateLinkPayload = {
+  name: string;
+  link: string;
+  id: string;
+  group: number;
+  displayOrder: number;
+  userId: string;
+};
+
+export async function updateLink(data: UpdateLinkPayload) {
+  data.link = reformatLink(data.link);
   const fetchPromise = fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/links`,
     {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, name, link, displayOrder }),
+      body: JSON.stringify(data),
     }
   );
   return tryBackend(fetchPromise);

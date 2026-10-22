@@ -1,10 +1,9 @@
-import { addLink } from '@/actions/searchPanel-actions';
+import { addLink, AddLinkPayload } from '@/actions/searchPanel-actions';
 import { useUpdateQuery } from '@/components/links/hooks/useUpdateQuery';
 import formErrors from '@/lib/form-errors';
 import { BackEndResponseType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { FormReturnType } from './useAddForm';
 
 export default function useAddLink(
   userId: string,
@@ -14,8 +13,8 @@ export default function useAddLink(
   const queryClient = useQueryClient();
   const updateQuery = useUpdateQuery(paramMode);
 
-  const { mutate } = useMutation<BackEndResponseType, Error, FormData>({
-    mutationFn: (formData: FormData) => addLink(formData),
+  const { mutate } = useMutation<BackEndResponseType, Error, AddLinkPayload>({
+    mutationFn: (payload: AddLinkPayload) => addLink(payload),
     onSuccess: (response) => {
       mutationSuccess(response);
     },
@@ -24,15 +23,6 @@ export default function useAddLink(
       toast.error('Backend connection error');
     },
   });
-
-  function handleSubmit(data: FormReturnType) {
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('link', data.link);
-    formData.append('userId', data.userId);
-    formData.append('group', String(data.group));
-    mutate(formData);
-  }
 
   function mutationSuccess(response: BackEndResponseType) {
     if (!userId) return { success: false, errors: 'UserId not found' };
@@ -50,5 +40,5 @@ export default function useAddLink(
       return;
     }
   }
-  return handleSubmit;
+  return mutate;
 }

@@ -2,13 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useLinksContext } from '../../context/links-context';
 import useAddLink from './useAddLink';
 import readFormErrors from '@/lib/form-errors';
-
-export type FormReturnType = {
-  name: string;
-  link: string;
-  userId: string;
-  group: number;
-};
+import { AddLinkPayload } from '@/actions/searchPanel-actions';
 
 export default function useAddForm() {
   const { isAdding, paramMode, userId } = useLinksContext();
@@ -17,13 +11,13 @@ export default function useAddForm() {
     handleSubmit,
     reset,
     formState: { errors: formErrors },
-  } = useForm<FormReturnType>({
-    defaultValues: { name: '', link: '', userId: userId, group: 1 },
+  } = useForm<AddLinkPayload>({
+    defaultValues: { name: '', link: '', userId: userId, group: 0 },
   });
 
   const mutate = useAddLink(userId, paramMode, reset);
   // Success
-  function onSubmit(formData: FormReturnType) {
+  function onSuccess(formData: AddLinkPayload) {
     mutate(formData);
   }
   // Error
@@ -32,7 +26,7 @@ export default function useAddForm() {
   }
   return {
     handleSubmit,
-    onSubmit,
+    onSuccess,
     onError,
     formErrors,
     register,
