@@ -3,7 +3,7 @@ import { loadLinks } from '@/actions/searchPanel-actions';
 import { authClient } from '@/lib/auth-client';
 import { QuickLinkType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
-import { ReactNode, createContext, useContext, useState } from 'react';
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 import { useFilteredLinks } from '../hooks/useFilterLinks';
 import { useSearchParams } from 'next/navigation';
 
@@ -34,7 +34,7 @@ function LinksProvider({ children, paramName, group }: LinksProviderType) {
   const { data: authData } = authClient.useSession();
   const userId = authData?.user?.id;
 
-  const { data: links } = useQuery({
+  const { data: links = [] } = useQuery({
     queryKey: ['links', userId],
     queryFn: async () => {
       if (!userId) return [];
