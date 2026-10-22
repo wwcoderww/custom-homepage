@@ -1,7 +1,6 @@
 'use client';
 import Button from '@/components/button';
 import usePutForm from '../hooks/forms/usePutForm';
-import usePutLink from '../hooks/forms/usePutLink';
 import InputField from '../searchPanel/input-fields';
 
 export const formLabelStyle =
@@ -9,16 +8,14 @@ export const formLabelStyle =
 export const formSectionStyle = `flex justify-between gap-3 py-1 items-center w-full`;
 
 export default function OverlayForm() {
-  const { handleSubmit, register, userId, setSelectedID, selected, tableName } =
-    usePutForm();
-  const mutate = usePutLink(setSelectedID, selected, tableName, userId);
+  const { handleSubmit, register, onSuccess, selected } = usePutForm();
 
   if (!selected) return null;
 
   return (
     <form
       className="flex flex-1 flex-col items-center justify-center gap-4 px-20 py-8 text-2xl"
-      onSubmit={handleSubmit(mutate)}
+      onSubmit={handleSubmit(onSuccess)}
     >
       <div className={formSectionStyle}>
         <div className={formLabelStyle}>Title:</div>
@@ -49,7 +46,6 @@ export default function OverlayForm() {
             className="px-1 text-center text-4xl hover:translate-y-0 hover:cursor-pointer"
             {...register('displayOrder')}
           >
-            <option value={0}>None</option>
             {Array.from({ length: 99 }, (_, i) => i + 1).map((num) => (
               <option key={num} value={num}>
                 {num}
