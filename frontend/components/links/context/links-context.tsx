@@ -34,13 +34,23 @@ function LinksProvider({ children, paramName, tableName }: LinksProviderType) {
   const { data: authData, isPending } = authClient.useSession();
   const userId = authData?.user?.id;
 
-  const { data: links = [], isLoading } = useQuery({
+  const { data: links, isLoading } = useQuery({
     queryKey: ['links', tableName, userId],
     queryFn: async () => {
       if (!userId) return [];
-      return await loadLinks(userId, tableName);
+      const databaseLinks = await loadLinks(userId, tableName);
+      if (databaseLinks.length > 0)
+        localStorage.setItem(tableName, JSON.stringify(databaseLinks));
+      return databaseLinks;
     },
     enabled: !!userId,
+    initialData: () => {
+      if (typeof window !== 'undefined') {
+        const localLinks = localStorage.getItem(tableName);
+        if (localLinks) return JSON.parse(localLinks);
+      }
+      return [];
+    },
   });
   const params = useSearchParams();
   const paramMode = 'mode' + paramName;
@@ -50,7 +60,6 @@ function LinksProvider({ children, paramName, tableName }: LinksProviderType) {
   const filteredLinks = useFilteredLinks(links);
   const selected = filteredLinks.find((item) => item.id === selectedID) || null;
 
-  if (isPending || isLoading) return <div>Loading...</div>;
   if (!userId) return <div>Please login</div>;
 
   return (
