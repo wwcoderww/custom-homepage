@@ -1,3 +1,2 @@
-export * from "./links-sidebar.js";
-export * from "./links-main.js";
+export * from "./links.js";
 export * from "./auth.js";

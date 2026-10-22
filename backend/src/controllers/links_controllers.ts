@@ -1,16 +1,18 @@
 import { Request, Response } from "express";
-import { SidebarService, tableType } from "../modules/Links.js";
+import { SidebarService } from "../modules/Links.js";
 
 function handleErrors(error: any, res: Response) {
   console.log(error);
   return res.status(500).json({ success: false, error: "Database down" });
 }
 
-export function getAllLinks(table: tableType) {
+export function getLinks() {
   return async (req: Request, res: Response) => {
     try {
       const userId = String(req.params.userId);
-      const results = await SidebarService.get(table, userId);
+      const group = Number(req.params.group);
+
+      const results = await SidebarService.get(group, userId);
       return res.status(200).json({ success: true, data: results });
     } catch (error) {
       handleErrors(error, res);
@@ -18,11 +20,12 @@ export function getAllLinks(table: tableType) {
   };
 }
 
-export function deleteLink(table: tableType) {
+export function deleteLink() {
   return async (req: Request, res: Response) => {
     try {
       const id = String(req.params.id);
-      await SidebarService.delete(table, id);
+
+      await SidebarService.delete(id);
       return res.status(200).json({ success: true });
     } catch (error) {
       handleErrors(error, res);
@@ -30,11 +33,15 @@ export function deleteLink(table: tableType) {
   };
 }
 
-export function postLink(table: tableType) {
+export function postLink() {
   return async (req: Request, res: Response) => {
     try {
-      const { userId, name, link } = req.body;
-      await SidebarService.post(table, userId, name, link);
+      const { userId, name, link, group } = req.body;
+      // Display Order
+      const allLinksInGroup = await SidebarService.get(group, userId);
+      const displayOrder = allLinksInGroup.length;
+      //
+      await SidebarService.post(group, userId, name, link, displayOrder);
       return res.status(200).json({ success: true });
     } catch (error: any) {
       // Name or link already exist
@@ -57,18 +64,17 @@ export function postLink(table: tableType) {
   };
 }
 
-export function putLink(table: tableType) {
+export function putLink() {
   return async (req: Request, res: Response) => {
     try {
-      const { id, name, link, displayOrder } = req.body;
-      const cleanDisplayOrder = displayOrder === 0 ? null : displayOrder;
-      console.log(req.body);
+      const { id, name, link, displayOrder, group } = req.body;
+
       const data = await SidebarService.put(
-        table,
+        group,
         id,
         name,
         link,
-        cleanDisplayOrder,
+        displayOrder,
       );
       // If ID is invalid
       if (data.length === 0)
