@@ -7,7 +7,6 @@ export type FormDataReturnType = {
   name: string;
   link: string;
   id: string;
-  tableName: string;
   displayOrder: number;
 };
 
