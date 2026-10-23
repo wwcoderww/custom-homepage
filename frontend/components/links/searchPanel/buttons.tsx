@@ -17,26 +17,37 @@ export default function SearchPanelActions() {
     <>
       {isEditing && (
         <>
-          <FaPlus className={buttonClass} onClick={() => updateQuery('add')} />
-          <FaCheck
-            className={buttonClass}
+          <button
+            onClick={() => updateQuery('add')}
+            aria-label="Cancel editing"
+          >
+            <FaPlus className={buttonClass} />
+          </button>
+          <button
             onClick={() => updateQuery('view')}
-          />
+            aria-label="Cancel editing form"
+          >
+            <FaCheck className={buttonClass} />
+          </button>
         </>
       )}
       {isAdding && (
         <>
-          <TiCancel
-            className={buttonClass}
+          <button
             onClick={() => updateQuery('edit')}
-          />
-          <button type="submit" form="sidebar-form">
+            aria-label="Cancel adding form"
+          >
+            <TiCancel className={buttonClass} />
+          </button>
+          <button type="submit" form="sidebar-form" aria-label="Submit form">
             <FaCheck className={buttonClass} />
           </button>
         </>
       )}
       {!isEditing && !isAdding && (
-        <MdEdit className={buttonClass} onClick={() => updateQuery('edit')} />
+        <button aria-label="Edit links" onClick={() => updateQuery('edit')}>
+          <MdEdit className={buttonClass} />
+        </button>
       )}
     </>
   );
