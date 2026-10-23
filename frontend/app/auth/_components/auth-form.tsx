@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import useNewEmail from '../hooks/useNewEmail';
@@ -24,7 +26,7 @@ export default function AuthForm() {
     if (isNew) {
       await newEmail(formData, setError);
     } else {
-      await signInEmail(formData, setError);
+      await signInEmail(formData);
     }
   }
 
