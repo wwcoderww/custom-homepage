@@ -45,8 +45,12 @@ export default function SearchPanelActions() {
         </>
       )}
       {!isEditing && !isAdding && (
-        <button aria-label="Edit links" onClick={() => updateQuery('edit')}>
-          <MdEdit className={buttonClass} />
+        <button
+          aria-label="Edit links"
+          className={buttonClass}
+          onClick={() => updateQuery('edit')}
+        >
+          <MdEdit className="h-full w-full" />
         </button>
       )}
     </>

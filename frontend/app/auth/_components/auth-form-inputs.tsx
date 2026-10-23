@@ -27,6 +27,7 @@ export default function AuthFormInputs({
         Email:
       </label>
       <input
+        id="email"
         type="text"
         className={`${labelClass} ${formErrors.email && labelErrorClass}`}
         {...register('email', {
@@ -41,6 +42,7 @@ export default function AuthFormInputs({
         Password:
       </label>
       <input
+        id="password"
         type="password"
         className={`${labelClass} ${formErrors.password && labelErrorClass}`}
         {...register('password', {
