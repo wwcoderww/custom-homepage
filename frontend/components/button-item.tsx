@@ -3,8 +3,8 @@ import { ReactNode } from 'react';
 type ButtonItemType = {
   label: string | ReactNode;
   customClass?: string;
-  onClick?: () => void;
-  type?: 'submit';
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  type?: 'submit' | 'button';
 };
 
 export default function ButtonItem({
