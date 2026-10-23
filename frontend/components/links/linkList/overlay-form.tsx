@@ -3,9 +3,10 @@ import Button from '@/components/button';
 import usePutForm from '../hooks/forms/usePutForm';
 import InputField from '../searchPanel/input-fields';
 
-export const formLabelStyle =
-  'text-white font-normal text-4xl w-40 font-semibold';
-export const formSectionStyle = `flex justify-between gap-3 py-1 items-center w-full`;
+// Sleek, muted, smaller typography styling
+export const formLabelStyle = 'text-zinc-400 text-sm font-medium w-24 shrink-0';
+export const formSectionStyle =
+  'flex gap-4 py-2.5 items-center w-full border-b border-zinc-800/60 last:border-0 ';
 
 export default function OverlayForm() {
   const { handleSubmit, register, onSuccess, selected } = usePutForm();
@@ -14,52 +15,66 @@ export default function OverlayForm() {
 
   return (
     <form
-      className="flex flex-1 flex-col items-center justify-center gap-4 px-20 py-8 text-2xl"
+      className="flex flex-1 flex-col items-center justify-center gap-3 pt-4"
       onSubmit={handleSubmit(onSuccess)}
     >
+      {/* Title Field */}
       <div className={formSectionStyle}>
-        <div className={formLabelStyle}>Title:</div>
+        <div className={formLabelStyle}>Title</div>
         <InputField
           name="name"
-          customClass="bg-slate-300! focus:bg-slate-200! rounded-xl"
+          customClass="w-full bg-zinc-800/80 text-zinc-100 border border-zinc-700/50 focus:border-blue-500! focus:bg-zinc-800! rounded-xl px-3 py-2 outline-none text-md placeholder-zinc-500"
           defaultValue={selected.name}
           register={register}
         />
       </div>
+
+      {/* Link Field */}
       <div className={formSectionStyle}>
-        <div className={formLabelStyle}>Link:</div>
+        <div className={formLabelStyle}>Link</div>
         <InputField
           name="link"
-          customClass="bg-slate-300! focus:bg-slate-200! rounded-xl"
+          customClass="w-full bg-zinc-800/80 text-zinc-100 border border-zinc-700/50 focus:border-blue-500! focus:bg-zinc-800! rounded-xl px-3 py-2 outline-none text-md placeholder-zinc-500"
           defaultValue={selected.link}
           register={register}
         />
       </div>
-      <div className={`pt-8 ${formSectionStyle}`}>
-        <div className={formLabelStyle}>Order:</div>
 
-        <Button className="rounded-2xl!">
+      {/* Order Dropdown Section */}
+      <div className={formSectionStyle}>
+        <div className={formLabelStyle}>Display Order</div>
+        <div className="relative w-full">
           <select
             id="order"
             key={selected.displayOrder}
             defaultValue={selected.displayOrder}
-            className="px-1 text-center text-4xl hover:translate-y-0 hover:cursor-pointer"
+            className="text-md w-full appearance-none rounded-xl border border-zinc-700/50 bg-zinc-800/80 px-3 py-2 pr-8 text-zinc-100 outline-none hover:cursor-pointer focus:border-blue-500"
             {...register('displayOrder')}
           >
             {Array.from({ length: 99 }, (_, i) => i + 1).map((num) => (
-              <option key={num} value={num}>
+              <option
+                key={num}
+                value={num}
+                className="bg-zinc-900 text-zinc-100"
+              >
                 {num}
               </option>
             ))}
           </select>
-        </Button>
+          {/* Custom Chevron Indicator */}
+          <div className="absolute inset-y-0 right-0 flex items-center px-3 text-xs text-zinc-400">
+            ▼
+          </div>
+        </div>
       </div>
-      <Button
+
+      {/* Primary Action Button */}
+      <button
         type="submit"
-        className="mt-14 rounded-3xl! border-4 border-white bg-blue-600 px-8 py-3 text-4xl hover:-translate-y-2"
+        className="text-md mt-6 w-full rounded-xl bg-blue-600 px-4 py-2.5 font-medium text-white shadow-lg shadow-blue-600/10 duration-200 hover:cursor-pointer hover:bg-blue-500"
       >
-        update
-      </Button>
+        Save Changes
+      </button>
     </form>
   );
 }
