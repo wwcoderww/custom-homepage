@@ -50,3 +50,18 @@ describe("POST /api/links", () => {
     expect(response.body).toEqual({ success: true });
   });
 });
+
+describe("PUT /api/links", () => {
+  it("On success return status 200, {success: true}", async () => {
+    const response = await supertest(app).put("/api/links").send({
+      id: testId,
+      name: "test",
+      link: "https://test.com",
+      displayOrder: 1,
+      group: 1,
+      userId: testUser,
+    });
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ success: true });
+  });
+});

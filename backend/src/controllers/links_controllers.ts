@@ -71,25 +71,8 @@ export async function putLink(req: Request, res: Response) {
       group,
       userId,
     );
-    // If ID is invalid
-    if (data.length === 0)
-      return res
-        .status(400)
-        .json({ success: false, error: "Id doesn't exist" });
     return res.status(200).json({ success: true });
   } catch (error: any) {
-    if (error?.cause?.code === "23505") {
-      if (error.cause.detail.startsWith("Key (name"))
-        // Name already exist
-        return res
-          .status(400)
-          .json({ success: false, error: "Name already in use" });
-      if (error.cause.detail.startsWith("Key (link"))
-        // Link already exist
-        return res
-          .status(400)
-          .json({ success: false, error: "Link already in use" });
-    }
     handleErrors(error, res);
   }
 }
