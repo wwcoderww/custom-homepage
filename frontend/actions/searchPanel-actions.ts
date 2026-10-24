@@ -40,9 +40,9 @@ export async function addLink(
   return tryBackend(fetchPromise);
 }
 
-export async function deleteLink(tableName: string, id: string) {
+export async function deleteLink(id: string) {
   const fetchPromise = fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/${tableName}/${id}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/links/${id}`,
     {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },

@@ -6,15 +6,9 @@ import { useLinksContext } from './context/links-context';
 import Overlay from './linkList/overlay';
 
 export default function LinksList() {
-  const {
-    setSelectedID,
-    filteredLinks,
-    isEditing,
-    isViewing,
-    tableName,
-    userId,
-  } = useLinksContext();
-  const mutate = useDeleteLink(tableName, userId);
+  const { setSelectedID, filteredLinks, isEditing, isViewing, userId } =
+    useLinksContext();
+  const mutate = useDeleteLink(userId);
 
   return (
     <div className="@container">

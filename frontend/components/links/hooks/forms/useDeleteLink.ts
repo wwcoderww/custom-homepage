@@ -4,17 +4,17 @@ import { BackEndResponseType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-export default function useDeleteLink(tableName: string, userId: string) {
+export default function useDeleteLink(userId: string) {
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation<BackEndResponseType, Error, string>({
-    mutationFn: (id: string) => deleteLink(tableName, id),
+    mutationFn: (id: string) => deleteLink(id),
     onSuccess: (response) => {
       formErrors(response);
       if (response.success) {
         toast.success('Deleted');
         queryClient.invalidateQueries({
-          queryKey: ['links', tableName, userId],
+          queryKey: ['links', userId],
         });
       }
     },
