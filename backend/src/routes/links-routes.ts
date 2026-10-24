@@ -6,12 +6,12 @@ import {
   putLink,
 } from "../controllers/links_controllers.js";
 import { validate } from "../middleware/validate.js";
-import { linkSchema } from "../schema/link-schema.js";
+import { linkPostSchema, linkPutSchema } from "../schema/link-schema.js";
 
 const router = Router();
 
-router.post("", validate(linkSchema), postLink);
-router.put("", validate(linkSchema), putLink);
+router.post("", validate(linkPostSchema), postLink);
+router.put("", validate(linkPutSchema), putLink);
 router.get("/:userId", getLinks);
 router.delete("/:id", deleteLink);
 

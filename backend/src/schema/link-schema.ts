@@ -1,10 +1,17 @@
 import z from "zod";
 
-export const linkSchema = z.object({
+export const linkPostSchema = z.object({
+  userId: z.coerce.string().optional(),
   name: z.coerce.string().min(1, "Name is required"),
   link: z.coerce.string().min(1, "Link is required"),
-  userId: z.coerce.string().optional(),
-  displayOrder: z.coerce.number().optional(),
   group: z.coerce.number(),
-  id: z.coerce.string().optional(),
+});
+
+export const linkPutSchema = z.object({
+  id: z.coerce.string(),
+  name: z.coerce.string().min(1, "Name is required"),
+  link: z.coerce.string().min(1, "Link is required"),
+  displayOrder: z.coerce.number(),
+  group: z.coerce.number(),
+  userId: z.coerce.string(),
 });
