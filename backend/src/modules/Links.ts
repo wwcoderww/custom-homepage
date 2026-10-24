@@ -8,7 +8,7 @@ export const SidebarService = {
   },
 
   async delete(id: string) {
-    return await db.delete(linksDb).where(eq(linksDb.id, id));
+    return await db.delete(linksDb).where(eq(linksDb.id, id)).returning();
   },
 
   async post(

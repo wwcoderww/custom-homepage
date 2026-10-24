@@ -31,8 +31,15 @@ export async function deleteLink(req: Request, res: Response) {
     const id = String(req.params.id);
 
     await SidebarService.delete(id);
+
     return res.status(200).json({ success: true });
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.cause?.code === "22P02") {
+      return res.status(400).json({
+        success: false,
+        errors: [{ field: "id", message: "Id doesn't exist" }],
+      });
+    }
     handleErrors(error, res);
   }
 }
