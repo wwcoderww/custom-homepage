@@ -27,7 +27,6 @@ export async function addLink(
 ): Promise<BackEndResponseType> {
   // Reformat link
   data.link = reformatLink(data.link);
-  console.log(data);
   // POST to db / Errors
   const fetchPromise = fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/api/links`,
