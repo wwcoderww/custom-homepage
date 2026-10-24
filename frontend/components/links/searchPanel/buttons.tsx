@@ -50,7 +50,7 @@ export default function SearchPanelActions() {
           className={buttonClass}
           onClick={() => updateQuery('edit')}
         >
-          <MdEdit className="h-full w-full" />
+          <MdEdit className="h-full w-full" aria-label="Edit links" />
         </button>
       )}
     </>
