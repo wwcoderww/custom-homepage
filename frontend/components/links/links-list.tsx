@@ -16,7 +16,7 @@ export default function LinksList() {
         className={`${!isViewing && 'relative z-20'} grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-3`}
       >
         {filteredLinks.map((item) => (
-          <div key={item.id} className="flex @lg:last:col-start-1">
+          <div key={item.id} className="flex">
             <LinkItem item={item} handleClick={() => setSelectedID(item.id)} />
             {isEditing && (
               <MdDeleteOutline
