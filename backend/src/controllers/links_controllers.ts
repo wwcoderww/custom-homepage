@@ -1,17 +1,26 @@
 import { Request, Response } from "express";
 import { SidebarService } from "../modules/Links.js";
+import { AuthService } from "../modules/Auth.js";
 
 function handleErrors(error: any, res: Response) {
   console.log(error);
-  return res.status(500).json({ success: false, error: "Database down" });
+  return res.status(500).json({ success: false });
 }
 
 export async function getLinks(req: Request, res: Response) {
   try {
     const userId = String(req.params.userId);
-
-    const results = await SidebarService.get(userId);
-    return res.status(200).json({ success: true, data: results });
+    // On invalid userId
+    const verifiedUser = await AuthService.getUser(userId);
+    const data = await SidebarService.get(userId);
+    // on valid userId
+    if (verifiedUser.length > 0)
+      return res.status(200).json({ success: true, data });
+    // On invalid userId
+    return res.status(400).json({
+      success: false,
+      errors: [{ field: "userId", message: "User does not exist" }],
+    });
   } catch (error) {
     handleErrors(error, res);
   }
