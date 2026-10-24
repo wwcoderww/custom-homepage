@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "docker run --rm --ipc=host --add-host=host.docker.internal:host-gateway -v $(pwd):/work/ -w /work/ mcr.microsoft.com/playwright:v1.64.1-noble npx playwright test",
+    "test": "docker run --rm --ipc=host -p 9323:9323 --add-host=host.docker.internal:host-gateway -v $(pwd):/work/ -w /work/ \"mcr.microsoft.com/playwright:v1.64.1-noble\" npx playwright test",
+    "playwright": "npx playwright show-trace test-results/example-Homepage-Banner-links-should-work-chromium/trace.zip",
     "lint": "eslint"
   },
   "dependencies": {
