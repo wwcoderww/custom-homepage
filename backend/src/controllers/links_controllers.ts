@@ -55,22 +55,7 @@ export async function postLink(req: Request, res: Response) {
     await SidebarService.post(userId, name, link, group, displayOrder);
     return res.status(200).json({ success: true });
   } catch (error: any) {
-    // Name or link already exist
-    if (error?.cause?.code === "23505") {
-      if (error.cause.detail.startsWith("Key (name"))
-        // Name already exist
-        return res.status(400).json({
-          success: false,
-          errors: [{ field: "name", message: "Name already in use" }],
-        });
-      if (error.cause.detail.startsWith("Key (link"))
-        // Link already exist
-        return res.status(400).json({
-          success: false,
-          errors: [{ field: "link", message: "Link already in use" }],
-        });
-      handleErrors(error, res);
-    }
+    handleErrors(error, res);
   }
 }
 

@@ -36,3 +36,17 @@ describe("DELETE /api/links/", () => {
     });
   });
 });
+
+describe("POST /api/links", () => {
+  // Already validate form data in middleware and frontend
+  it("On success return status 200, {success: true}", async () => {
+    const response = await supertest(app).post("/api/links").send({
+      userId: testUser,
+      name: "test",
+      link: "https://test.com",
+      group: 1,
+    });
+    expect(response.status).toBe(200);
+    expect(response.body).toEqual({ success: true });
+  });
+});
