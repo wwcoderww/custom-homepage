@@ -1,5 +1,6 @@
 import supertest from "supertest";
 import { app } from "./app.js";
+import { describe, it, expect } from "vitest";
 
 const testUser = "J9Y7PTJXyc1lz6s6jdPH6MEs8hn211A4";
 const testId = "04867bfc-33a6-4f78-9869-6bd5a7057599";
