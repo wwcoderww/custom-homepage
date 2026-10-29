@@ -1,4 +1,4 @@
-import type { NextConfig } from '@/node_modules/next';
+import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   output: 'standalone',

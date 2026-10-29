@@ -1,5 +1,3 @@
-echo "Executing database schema migrations via Drizzle Kit..."
-npx drizzle-kit migrate
-
-echo "Launching backend application server..."
+#!/bin/sh
+npx drizzle-kit migrate --config=./drizzle.config.ts
 exec "$@"
