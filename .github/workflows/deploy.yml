@@ -42,6 +42,8 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: ${{ env.BACKEND_REF }}:latest
+          build-args: |
+            FRONTEND_UR=https://ezwezz.com
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -52,6 +54,8 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: ${{ env.FRONTEND_REF }}:latest
+          build-args: |
+            NEXT_PUBLIC_BACKEND_URL=https://api.ezwezz.com
           cache-from: type=gha
           cache-to: type=gha,mode=max
 

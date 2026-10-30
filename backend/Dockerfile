@@ -7,6 +7,8 @@ COPY backend/package*.json ./backend/
 RUN npm ci
 
 COPY backend/ ./backend/
+ARG FRONTEND_URL
+ENV FRONTEND_URL=$FRONTEND_URL
 WORKDIR /app/backend
 RUN npm run build
 
