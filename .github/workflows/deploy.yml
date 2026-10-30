@@ -69,8 +69,8 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 443
-          source: "docker-compose.yml"
+          port: 22
+          source: "docker-compose.yml,Caddyfile"
           target: "/root/app/"
 
       - name: Execute Remote SSH Container Updating Routines
@@ -79,7 +79,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 443
+          port: 22
           script: |
             cd /root/app/
 

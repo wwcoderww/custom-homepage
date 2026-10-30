@@ -20,10 +20,7 @@ services:
       retries: 5
 
   backend:
-    image: ${BACKEND_IMAGE:-custom-homepage-backend:latest}
-    build:
-      context: .
-      dockerfile: ./backend/Dockerfile
+    image: ghcr.io/wwcoderww/custom-homepage-backend:latest
     container_name: express_backend
     restart: always
     ports:
@@ -38,21 +35,33 @@ services:
         condition: service_healthy
 
   frontend:
-    image: ${FRONTEND_IMAGE:-custom-homepage-frontend:latest}
-    build:
-      context: .
-      dockerfile: ./frontend/Dockerfile
+    image: ghcr.io/wwcoderww/custom-homepage-frontend:latest
     container_name: nextjs_frontend
     restart: always
     ports:
       - "3000:3000"
     environment:
       PORT: 3000
-      NEXT_PUBLIC_BACKEND_URL: http://localhost:8080
-      NEXT_SERVER_BACKEND_URL: http://backend:8080
+      NEXT_PUBLIC_BACKEND_URL: https://ezwezz.com
+      NEXT_SERVER_BACKEND_URL: http://localhost:8080
       NODE_ENV: production
     depends_on:
       - backend
 
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy_proxy
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+      - backend
+
 volumes:
   pgdata:
+  caddy_data:
+  caddy_config:
