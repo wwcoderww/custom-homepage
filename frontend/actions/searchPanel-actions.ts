@@ -5,7 +5,7 @@ import reformatLink from '@/utils/reformatLink';
 
 export async function loadLinks(userId: string): Promise<QuickLinkType[] | []> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/links/${userId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/links/${userId}`
   );
   if (!res.ok) {
     console.error(`Failed to load links`);
@@ -28,20 +28,17 @@ export async function addLink(
   // Reformat link
   data.link = reformatLink(data.link);
   // POST to db / Errors
-  const fetchPromise = fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/links`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }
-  );
+  const fetchPromise = fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/links`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
   return tryBackend(fetchPromise);
 }
 
 export async function deleteLink(id: string) {
   const fetchPromise = fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/links/${id}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/links/${id}`,
     {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -61,13 +58,10 @@ export type UpdateLinkPayload = {
 
 export async function updateLink(data: UpdateLinkPayload) {
   data.link = reformatLink(data.link);
-  const fetchPromise = fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/links`,
-    {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }
-  );
+  const fetchPromise = fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/links`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
   return tryBackend(fetchPromise);
 }

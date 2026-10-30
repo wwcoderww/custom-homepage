@@ -12,6 +12,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read
       packages: write
@@ -43,7 +44,7 @@ jobs:
           push: true
           tags: ${{ env.BACKEND_REF }}:latest
           build-args: |
-            FRONTEND_UR=https://ezwezz.com
+            FRONTEND_URL=https://ezwezz.com
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -62,6 +63,7 @@ jobs:
   deploy-to-server:
     needs: build-and-push
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout Codebase for Configuration Migration
@@ -94,6 +96,7 @@ jobs:
 
             export DATABASE_URL="postgresql://myuser:mypassword@postgres:5432/mydb?schema=public"
             export BETTER_AUTH_SECRET="production_encryption_key_signature_abc123"
+            export BETTER_AUTH_URL="https://api.ezwezz.com"
             export NODE_ENV="production"
 
             docker compose pull
