@@ -20,5 +20,5 @@ app.use(
 
 app.use(express.json());
 
-app.use("/api/auth/*splat", toNodeHandler(auth));
+app.use("/auth/*splat", toNodeHandler(auth));
 app.use("/links", linksRouter);
