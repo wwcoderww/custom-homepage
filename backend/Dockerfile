@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY backend/package*.json ./backend/
 
-RUN npm ci
+RUN npm ci --include=optional
 
 COPY backend/ ./backend/
 ARG FRONTEND_URL
