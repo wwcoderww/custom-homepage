@@ -9,8 +9,14 @@ RUN npm ci --include=optional
 COPY backend/ ./backend/
 ARG FRONTEND_URL
 ENV FRONTEND_URL=$FRONTEND_URL
+
 WORKDIR /app/backend
 RUN npm run build
+
+FROM builder AS testing
+WORKDIR /app/backend
+ENV NODE_ENV=test
+CMD ["npx", "vitest", "run"]
 
 FROM node:22-slim AS runner
 WORKDIR /app/backend
@@ -30,4 +36,5 @@ RUN chmod +x ./docker-entrypoint.sh
 
 EXPOSE 8080
 ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD ["node", "dist/server.js"]
+
+CMD ["node", "dist/server.js"] 

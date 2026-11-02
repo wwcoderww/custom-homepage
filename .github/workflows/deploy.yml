@@ -10,7 +10,73 @@ env:
   FRONTEND_IMAGE_NAME: ${{ github.repository }}-frontend
 
 jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    services:
+      postgres_test:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: myuser
+          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: mydb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js for Schema Sync
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install DB Push Dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Push Database Tables to Runner Container
+        run: |
+          cd backend
+          npx drizzle-kit push
+        env:
+          DATABASE_URL: postgresql://myuser:mypassword@localhost:5432/mydb?schema=test_suite
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
+
+      - name: Run Vitest Integration Tests via Docker Target
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./backend/Dockerfile
+          target: testing
+          push: false
+          load: true
+          build-args: |
+            DATABASE_URL=postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite
+            BACKEND_URL=http://127.0.0.1:8080
+          tags: backend-test
+
+      - name: Boot Container and Log Live Vitest Assertions
+        run: |
+          docker run --rm --network host \
+            -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite" \
+            -e BACKEND_URL="http://127.0.0.1:8080" \
+            backend-test
+
   build-and-push:
+    needs: test-backend
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -41,6 +107,7 @@ jobs:
         with:
           context: .
           file: ./backend/Dockerfile
+          target: runner
           push: true
           tags: ${{ env.BACKEND_REF }}:latest
           build-args: |
