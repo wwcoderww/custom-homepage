@@ -52,8 +52,14 @@ export async function postLink(req: Request, res: Response) {
     const displayOrder =
       allLinksInGroup.filter((item) => item.group === group).length + 1;
     //
-    await SidebarService.post(userId, name, link, group, displayOrder);
-    return res.status(200).json({ success: true });
+    const data = await SidebarService.post(
+      userId,
+      name,
+      link,
+      group,
+      displayOrder,
+    );
+    return res.status(200).json({ success: true, data });
   } catch (error: any) {
     handleErrors(error, res);
   }

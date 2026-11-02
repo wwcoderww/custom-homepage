@@ -20,7 +20,8 @@ export const SidebarService = {
   ) {
     return await db
       .insert(linksDb)
-      .values({ userId, name, link, displayOrder, group });
+      .values({ userId, name, link, displayOrder, group })
+      .returning();
   },
 
   async put(
