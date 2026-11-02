@@ -63,13 +63,15 @@ jobs:
           target: testing
           push: false
           load: true
+          tags: backend-test
           build-args: |
             DATABASE_URL=postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite
             BACKEND_URL=http://127.0.0.1:8080
-          tags: backend-test
 
       - name: Boot Container and Log Live Vitest Assertions
         run: |
+          # Adding '--network host' lets it talk to the sidecar DB. 
+          # Because this image's CMD is 'npx vitest run', it will exit automatically when done!
           docker run --rm --network host \
             -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite" \
             -e BACKEND_URL="http://127.0.0.1:8080" \
