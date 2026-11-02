@@ -10,9 +10,9 @@ env:
   FRONTEND_IMAGE_NAME: ${{ github.repository }}-frontend
 
 jobs:
-  test-backend:
+  integration-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
 
     services:
       postgres_test:
@@ -55,6 +55,7 @@ jobs:
         with:
           driver-opts: network=host
 
+      # BACKEND TESTING
       - name: Run Vitest Integration Tests via Docker Target
         uses: docker/build-push-action@v5
         with:
@@ -70,15 +71,69 @@ jobs:
 
       - name: Boot Container and Log Live Vitest Assertions
         run: |
-          # Adding '--network host' lets it talk to the sidecar DB. 
-          # Because this image's CMD is 'npx vitest run', it will exit automatically when done!
           docker run --rm --network host \
             -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite" \
             -e BACKEND_URL="http://127.0.0.1:8080" \
             backend-test
 
+      # SPIN UP BACKGROUND BACKEND ENGINE FOR PLAYWRIGHT
+      - name: Compile Backend Production Runner Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./backend/Dockerfile
+          target: runner
+          push: false
+          load: true
+          tags: backend-live-api
+
+      - name: Launch Live API instance in Background
+        run: |
+          docker run -d --name live-api-service --network host \
+            -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite" \
+            -e NODE_ENV="production" \
+            backend-live-api
+
+      # FRONTEND TESTING
+      - name: Compile Playwright Test Runner Target Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./frontend/Dockerfile
+          target: testing
+          push: false
+          load: true
+          tags: frontend-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NEXT_PUBLIC_BACKEND_URL=http://127.0.0.1:8080
+
+      - name: Execute Playwright Container Core Tests Layer
+        run: |
+          # Redirecting NEXT_PUBLIC_BACKEND_URL internally to our background container
+          docker run --name e2e-runner --network host \
+            -e DOCKER=true \
+            -e NEXT_PUBLIC_BACKEND_URL="http://127.0.0.1:8080" \
+            frontend-test
+
+      - name: Extract Playwright Test Artifacts Report
+        if: always()
+        run: |
+          docker cp e2e-runner:/app/frontend/playwright-report ./playwright-report || true
+          docker rm -f e2e-runner || true
+          docker rm -f live-api-service || true
+
+      - name: Upload Playwright Test Artifacts Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
   build-and-push:
-    needs: test-backend
+    needs: integration-tests
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -122,6 +177,7 @@ jobs:
         with:
           context: .
           file: ./frontend/Dockerfile
+          target: runner
           push: true
           tags: ${{ env.FRONTEND_REF }}:latest
           build-args: |

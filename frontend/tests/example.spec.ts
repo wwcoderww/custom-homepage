@@ -7,7 +7,7 @@ test.describe('Homepage', () => {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.goto('https://custom-homepage-nine.vercel.app/auth');
+    await page.goto('/auth');
 
     await page.getByLabel('email').fill('a@a.com');
     await page.getByLabel('password').fill('aaaaaaaaa');
@@ -21,24 +21,22 @@ test.describe('Homepage', () => {
   });
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://custom-homepage-nine.vercel.app');
-
+    // 1. Check if auth data exists
     if (authenticatedState?.origins?.[0]?.localStorage) {
       const storageItems = authenticatedState.origins[0].localStorage;
-      await page.evaluate((items) => {
+
+      await page.addInitScript((items) => {
         items.forEach((item: any) => {
           localStorage.setItem(item.name, item.value);
         });
       }, storageItems);
-
-      await page.reload();
-      await page.waitForLoadState('networkidle');
     }
+
+    await page.goto('/');
   });
 
   test('Should have correct metadata and layout', async ({ page }) => {
     await expect(page).toHaveTitle('Custom Homepage');
-    // Banner Links
     await expect(page.getByRole('link', { name: 'Group2' })).toBeVisible();
   });
 
