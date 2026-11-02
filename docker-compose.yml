@@ -16,6 +16,7 @@ services:
       DATABASE_URL: postgresql://myuser:mypassword@postgres:5432/mydb?schema=public
       BETTER_AUTH_SECRET: fbe86ff14062be4f92559c07a3608fcf33fedeb40bb3fb517ee565a010743c73
       BETTER_AUTH_URL: https://ezwezz.com
+      FRONTEND_URL: https://ezwezz.com
       BACKEND_URL: https://api.ezwezz.com
       NODE_ENV: production
     depends_on:
