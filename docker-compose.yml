@@ -1,6 +1,58 @@
 version: "3.8"
 
 services:
+  backend:
+    image: ${BACKEND_IMAGE:-ghcr.io/wwcoderww/custom-homepage-backend:latest}
+    container_name: express_backend
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: runner
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      DATABASE_URL: postgresql://myuser:mypassword@postgres:5432/mydb?schema=public
+      BETTER_AUTH_SECRET: fbe86ff14062be4f92559c07a3608fcf33fedeb40bb3fb517ee565a010743c73
+      BETTER_AUTH_URL: https://ezwezz.com
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  frontend:
+    image: ${FRONTEND_IMAGE:-ghcr.io/wwcoderww/custom-homepage-frontend:latest}
+    container_name: nextjs_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      NEXT_PUBLIC_BACKEND_URL: https://api.ezwezz.com
+      NODE_ENV: production
+    networks:
+      - app_network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app_network
+
   postgres:
     image: postgres:16-alpine
     container_name: postgres_db
@@ -10,60 +62,22 @@ services:
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydb
     ports:
-      - "5432:5432"
+      - "0.0.0.0:5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U myuser -d mydb"]
       interval: 5s
       timeout: 5s
       retries: 5
-
-  backend:
-    image: ghcr.io/wwcoderww/custom-homepage-backend:latest
-    container_name: express_backend
-    restart: always
-    ports:
-      - "8080:8080"
-    environment:
-      PORT: 8080
-      FRONTEND_URL: https://ezwezz.com
-      DATABASE_URL: postgresql://myuser:mypassword@postgres:5432/mydb?schema=public
-      BETTER_AUTH_URL: https://api.ezwezz.com
-      NODE_ENV: production
-      BETTER_AUTH_SECRET: fbe86ff14062be4f92559c07a3608fcf33fedeb40bb3fb517ee565a010743c73
-    depends_on:
-      postgres:
-        condition: service_healthy
-
-  frontend:
-    image: ghcr.io/wwcoderww/custom-homepage-frontend:latest
-    container_name: nextjs_frontend
-    restart: always
-    ports:
-      - "3000:3000"
-    environment:
-      PORT: 3000
-      NEXT_PUBLIC_BACKEND_URL: https://api.ezwezz.com
-      NEXT_SERVER_BACKEND_URL: http://localhost:8080
-      NODE_ENV: production
-    depends_on:
-      - backend
-
-  caddy:
-    image: caddy:2-alpine
-    container_name: caddy_proxy
-    restart: always
-    network_mode: "host"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - frontend
-      - backend
+    networks:
+      - app_network
 
 volumes:
-  pgdata:
+  postgres_data:
   caddy_data:
   caddy_config:
+
+networks:
+  app_network:
+    driver: bridge

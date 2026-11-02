@@ -7,6 +7,7 @@
   "scripts": {
     "test": "npx vitest run",
     "test:local": "node --env-file=.env ../node_modules/vitest/dist/cli.js run",
+    "test:prod": "API_TARGET=https://api.ezwezz.com node --env-file=.env ../node_modules/vitest/dist/cli.js run",
     "dev": "tsx watch --env-file=.env src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js"

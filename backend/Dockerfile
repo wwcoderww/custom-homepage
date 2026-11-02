@@ -1,3 +1,6 @@
+# ==========================================
+# STAGE 1: The Build Compiler Workspace
+# ==========================================
 FROM node:22-slim AS builder
 WORKDIR /app
 
@@ -11,6 +14,11 @@ ARG FRONTEND_URL
 ENV FRONTEND_URL=$FRONTEND_URL
 WORKDIR /app/backend
 RUN npm run build
+
+FROM builder AS testing
+WORKDIR /app/backend
+ENV NODE_ENV=test
+CMD ["npx", "vitest", "run"]
 
 FROM node:22-slim AS runner
 WORKDIR /app/backend
