@@ -10,6 +10,7 @@ export default function useAddForm() {
     register,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { errors: formErrors },
   } = useForm<AddLinkPayload>({
     defaultValues: { name: '', link: '', userId: userId, group: group },
@@ -32,5 +33,6 @@ export default function useAddForm() {
     register,
     isAdding,
     userId,
+    clearErrors,
   };
 }

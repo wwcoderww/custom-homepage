@@ -32,7 +32,7 @@ export default function AuthForm() {
 
   return (
     <form
-      className="grid grid-cols-[auto_1fr] grid-rows-2 gap-4 text-center text-3xl"
+      className="grid grid-cols-2 gap-y-4 px-2 text-center text-3xl"
       onSubmit={handleSubmit(onSuccess, onError)}
     >
       <AuthFormInputs

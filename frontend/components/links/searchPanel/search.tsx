@@ -22,14 +22,15 @@ export default function Search() {
 
   return (
     <div className="flex flex-1 gap-1.5">
-      <FaSearch className="h-full w-auto" />
-      <InputField
-        onChange={(e) => handleChange(e)}
-        onBlur={(e) => handleBlur(e)}
-        customClass={`flex-1`}
-        placeholder="Search"
-        variant="noinput"
-      />
+      <FaSearch className="hidden h-full w-auto lg:block" />
+      <div className="flex flex-1">
+        <InputField
+          onChange={(e) => handleChange(e)}
+          onBlur={(e) => handleBlur(e)}
+          placeholder="Search"
+          variant="search"
+        />
+      </div>
     </div>
   );
 }

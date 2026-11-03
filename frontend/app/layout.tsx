@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`font-sans ${geistMono.variable} h-full antialiased`}
     >
-      <body className="grid h-screen bg-black text-white sm:grid-cols-[1fr_5fr]">
+      <body className="grid h-screen bg-black text-white sm:grid-cols-[1fr_3fr] lg:grid-cols-[1fr_4fr]">
         <Provider>
           <Sidebar />
           <div className="grid h-screen grid-rows-[auto_1fr]">
@@ -40,9 +40,10 @@ export default function RootLayout({
             richColors
             position="top-center"
             expand={true}
-            className="flex w-22 justify-center"
+            duration={1000}
+            className="flex justify-center"
             toastOptions={{
-              className: '!w-auto',
+              className: 'text-center',
             }}
           />
         </Provider>

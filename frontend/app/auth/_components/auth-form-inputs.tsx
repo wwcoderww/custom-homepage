@@ -12,7 +12,9 @@ type AuthFormInputsProps = {
   isNew: boolean;
 };
 
-const labelClass = 'px-2 text-black rounded-lg bg-blue-200';
+const labelClass = 'sm:col-span-1 col-span-2';
+const inputClass =
+  'px-4 sm:mx-2 text-black rounded-lg bg-blue-200 text-center sm:col-span-1 col-span-2';
 const labelErrorClass = 'bg-red-300';
 
 export default function AuthFormInputs({
@@ -23,13 +25,13 @@ export default function AuthFormInputs({
 }: AuthFormInputsProps) {
   return (
     <>
-      <label className="" htmlFor="email">
+      <label className={labelClass} htmlFor="email">
         Email:
       </label>
       <input
         id="email"
         type="text"
-        className={`${labelClass} ${formErrors.email && labelErrorClass}`}
+        className={`${inputClass} ${formErrors.email && labelErrorClass}`}
         {...register('email', {
           required: 'Email is required...',
           pattern: {
@@ -38,13 +40,13 @@ export default function AuthFormInputs({
           },
         })}
       />
-      <label className="" htmlFor="password">
+      <label className={labelClass} htmlFor="password">
         Password:
       </label>
       <input
         id="password"
         type="password"
-        className={`${labelClass} ${formErrors.password && labelErrorClass}`}
+        className={`${inputClass} ${formErrors.password && labelErrorClass}`}
         {...register('password', {
           required: 'Password is required',
           minLength: { value: 9, message: 'Minimum length is 9' },
@@ -57,7 +59,7 @@ export default function AuthFormInputs({
           </label>
           <input
             type="password"
-            className={`${labelClass} ${formErrors.verifyPassword && labelErrorClass}`}
+            className={`${inputClass} ${formErrors.verifyPassword && labelErrorClass}`}
             {...register('verifyPassword', {
               required: 'Verify password is required',
               minLength: { value: 9, message: 'Minimum length is 9' },

@@ -10,7 +10,7 @@ import {
 } from 'react-hook-form';
 
 type InputFieldProps<TFieldValues extends FieldValues = FieldValues> = {
-  variant?: 'textarea' | 'select' | 'noinput';
+  variant?: 'textarea' | 'select' | 'search';
   name?: Path<TFieldValues>;
   children?: React.ReactNode;
   validation?: RegisterOptions<TFieldValues, Path<TFieldValues>>;
@@ -29,9 +29,11 @@ type InputFieldProps<TFieldValues extends FieldValues = FieldValues> = {
 };
 
 const defaultClass =
-  'rounded-md border border-slate-300  placeholder-gray-100 focus:border-blue-500 focus:ring-2 focus:ring-slate-400 focus:outline-none bg-slate-600/20 focus:bg-slate-400/20';
+  'rounded-md border border-slate-300  placeholder-gray-100 focus:border-blue-500 focus:outline-none bg-slate-600/20 placeholder:text-zinc-500 px-1';
 const textAreaClass = 'h-[8lh]! rounded-2xl! py-1.5!';
-const errorClass = 'border-3 border-solid border-red-700 bg-red-200';
+const errorClass = '!border-red-700 !bg-red-500/10';
+const searchClass =
+  'w-full min-w-0 placeholder:text-center sm:placeholder:text-left';
 
 export default function InputField<
   TFieldValues extends FieldValues = FieldValues,
@@ -77,12 +79,13 @@ export default function InputField<
     );
   }
 
-  if (variant === 'noinput') {
+  if (variant === 'search') {
     return (
       <input
-        className={`${combinedClass}`}
+        className={`${searchClass} ${combinedClass}`}
         onChange={onChange}
         onBlur={onBlur}
+        placeholder={placeholder}
       />
     );
   }
