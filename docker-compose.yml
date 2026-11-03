@@ -1,13 +1,11 @@
-version: "3.8"
-
 services:
   backend:
     image: ${BACKEND_IMAGE:-ghcr.io/wwcoderww/custom-homepage-backend:latest}
     container_name: express_backend
     restart: always
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
       target: runner
     ports:
       - "127.0.0.1:8080:8080"
