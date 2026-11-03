@@ -14,7 +14,7 @@ type AuthFormInputsProps = {
 
 const labelClass = 'sm:col-span-1 col-span-2';
 const inputClass =
-  'px-4 sm:mx-2 text-black rounded-lg bg-blue-200 text-center sm:col-span-1 col-span-2';
+  'px-2 sm:mx-2 text-black rounded-lg bg-blue-200 sm:col-span-1 col-span-2';
 const labelErrorClass = 'bg-red-300';
 
 export default function AuthFormInputs({

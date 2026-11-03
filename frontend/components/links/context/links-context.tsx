@@ -3,9 +3,10 @@ import { loadLinks } from '@/actions/searchPanel-actions';
 import { authClient } from '@/lib/auth-client';
 import { QuickLinkType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
-import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
-import { useFilteredLinks } from '../hooks/useFilterLinks';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { ReactNode, createContext, useContext, useState } from 'react';
+import { useFilteredLinks } from '../hooks/useFilterLinks';
 
 type LinksProviderType = {
   children: ReactNode;
@@ -60,7 +61,12 @@ function LinksProvider({ children, paramName, group }: LinksProviderType) {
   const filteredLinks = useFilteredLinks(links, group, paramName);
   const selected = filteredLinks.find((item) => item.id === selectedID) || null;
 
-  if (!userId) return <div>Please login</div>;
+  if (!userId)
+    return (
+      <div className="flex h-full items-center justify-center text-lg">
+        <Link href={'/auth'}>Please login</Link>
+      </div>
+    );
 
   return (
     <LinksContext.Provider
