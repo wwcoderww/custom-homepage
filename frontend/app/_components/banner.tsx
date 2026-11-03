@@ -6,19 +6,23 @@ const itemStyle =
 
 export default function Banner() {
   return (
-    <div className="flex items-center border-b border-zinc-200 pr-1">
+    <div className="flex items-center bg-zinc-500/30 py-1 pr-1">
       <ul className="flex flex-1 justify-evenly">
         <Link href={'/'} className={itemStyle}>
-          Group1
+          <p className="sm:hidden">G1</p>
+          <p className="hidden sm:inline">Group1</p>
         </Link>
         <Link href={'/group2'} className={itemStyle}>
-          Group2
+          <p className="sm:hidden">G2</p>
+          <p className="hidden sm:inline">Group2</p>
         </Link>
         <Link href={'/group3'} className={itemStyle}>
-          Group3
+          <p className="sm:hidden">G3</p>
+          <p className="hidden sm:inline">Group3</p>
         </Link>
         <Link href={'/group4'} className={itemStyle}>
-          Group4
+          <p className="sm:hidden">G4</p>
+          <p className="hidden sm:inline">Group4</p>
         </Link>
       </ul>
       <BannerSettings />

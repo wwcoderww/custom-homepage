@@ -27,18 +27,20 @@ export default function RootLayout({
       lang="en"
       className={`font-sans ${geistMono.variable} h-full antialiased`}
     >
-      <body className="bg-backgroundLight grid h-screen grid-cols-[1fr_4fr] text-white">
+      <body className="grid h-screen bg-black text-white sm:grid-cols-[1fr_5fr]">
         <Provider>
           <Sidebar />
-          <div className="grid h-full grid-rows-[auto_1fr]">
+          <div className="grid h-screen grid-rows-[auto_1fr]">
             <Banner />
-            <div className="h-full overflow-hidden">{children}</div>
+            <div className="h-full overflow-hidden bg-zinc-700/70">
+              {children}
+            </div>
           </div>
           <Toaster
             richColors
             position="top-center"
             expand={true}
-            className="flex justify-center"
+            className="flex w-22 justify-center"
             toastOptions={{
               className: '!w-auto',
             }}
