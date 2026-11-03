@@ -20,7 +20,7 @@ export default function LinkItem({ item, handleClick }: LinkItemProps) {
       ) : (
         <a
           href={item.link}
-          target="_blank"
+          target="_self"
           rel="noopener noreferrer"
           className="flex flex-1"
         >
