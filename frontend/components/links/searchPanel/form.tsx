@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import useAddForm from '../hooks/forms/useAddForm';
 import InputField from './input-fields';
 
@@ -9,10 +10,17 @@ export default function SidebarForm() {
     onSuccess,
     onError,
     formErrors,
+    clearErrors,
     register,
     isAdding,
     userId,
   } = useAddForm();
+
+  useEffect(() => {
+    return () => {
+      if (isAdding) clearErrors();
+    };
+  }, [isAdding, clearErrors]);
 
   return (
     <>
