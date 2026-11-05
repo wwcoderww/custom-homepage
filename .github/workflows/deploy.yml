@@ -20,7 +20,7 @@ jobs:
         env:
           POSTGRES_USER: myuser
           POSTGRES_PASSWORD: mypassword
-          POSTGRES_DB: mydb
+          POSTGRES_DB: bookmarks_db
         ports:
           - 5432:5432
         options: >-
@@ -48,7 +48,7 @@ jobs:
           cd backend
           npx drizzle-kit push
         env:
-          DATABASE_URL: postgresql://myuser:mypassword@localhost:5432/mydb?schema=test_suite
+          DATABASE_URL: postgresql://myuser:mypassword@localhost:5432/bookmarks_db?schema=test_suite
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -66,13 +66,13 @@ jobs:
           load: true
           tags: backend-test
           build-args: |
-            DATABASE_URL=postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite
+            DATABASE_URL=postgresql://myuser:mypassword@127.0.0.1:5432/bookmarks_db?schema=test_suite
             BACKEND_URL=http://127.0.0.1:8080
 
       - name: Boot Container and Log Live Vitest Assertions
         run: |
           docker run --rm --network host \
-            -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite" \
+            -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/bookmarks_db?schema=test_suite" \
             -e BACKEND_URL="http://127.0.0.1:8080" \
             backend-test
 
@@ -90,7 +90,7 @@ jobs:
       - name: Launch Live API instance in Background
         run: |
           docker run -d --name live-api-service --network host \
-            -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/mydb?schema=test_suite" \
+            -e DATABASE_URL="postgresql://myuser:mypassword@127.0.0.1:5432/bookmarks_db?schema=test_suite" \
             -e NODE_ENV="production" \
             backend-live-api
 
@@ -219,7 +219,7 @@ jobs:
             export BACKEND_IMAGE="ghcr.io/${{ github.repository }}-backend:latest"
             export FRONTEND_IMAGE="ghcr.io/${{ github.repository }}-frontend:latest"
 
-            export DATABASE_URL="postgresql://myuser:mypassword@postgres:5432/mydb?schema=public"
+            export DATABASE_URL="postgresql://myuser:mypassword@postgres_db:5432/bookmarks_db?schema=public"
             export BETTER_AUTH_SECRET="production_encryption_key_signature_abc123"
             export BETTER_AUTH_URL="https://api1.ezwezz.com"
             export NODE_ENV="production"
