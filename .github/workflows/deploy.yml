@@ -168,7 +168,7 @@ jobs:
           push: true
           tags: ${{ env.BACKEND_REF }}:latest
           build-args: |
-            FRONTEND_URL=https://ezwezz.com
+            FRONTEND_URL=https://bookmarks.ezwezz.com
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -181,7 +181,7 @@ jobs:
           push: true
           tags: ${{ env.FRONTEND_REF }}:latest
           build-args: |
-            NEXT_PUBLIC_BACKEND_URL=https://api.ezwezz.com
+            NEXT_PUBLIC_BACKEND_URL=https://api1.ezwezz.com
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -201,8 +201,8 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 8443
-          source: "docker-compose.yml,Caddyfile"
-          target: "/root/app/"
+          source: "docker-compose.yml"
+          target: "/root/bookmarks/"
 
       - name: Execute Remote SSH Container Updating Routines
         uses: appleboy/ssh-action@v1.0.3
@@ -212,7 +212,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 8443
           script: |
-            cd /root/app/
+            cd /root/bookmarks/
 
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
@@ -221,7 +221,7 @@ jobs:
 
             export DATABASE_URL="postgresql://myuser:mypassword@postgres:5432/mydb?schema=public"
             export BETTER_AUTH_SECRET="production_encryption_key_signature_abc123"
-            export BETTER_AUTH_URL="https://api.ezwezz.com"
+            export BETTER_AUTH_URL="https://api1.ezwezz.com"
             export NODE_ENV="production"
 
             docker compose pull
