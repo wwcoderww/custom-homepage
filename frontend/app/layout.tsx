@@ -30,9 +30,9 @@ export default function RootLayout({
       <body className="grid h-screen bg-black text-white sm:grid-cols-[1fr_3fr] lg:grid-cols-[1fr_4fr]">
         <Provider>
           <Sidebar />
-          <div className="grid h-screen grid-rows-[auto_1fr]">
+          <div className="grid h-screen grid-rows-[auto_1fr] bg-slate-900/90">
             <Banner />
-            <div className="h-full overflow-hidden bg-zinc-700/70">
+            <div className="h-full overflow-hidden rounded-tl-2xl border-t border-l border-white/10">
               {children}
             </div>
           </div>

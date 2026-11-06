@@ -11,7 +11,7 @@ export default function Page() {
       onClick={() => router.push('/')}
     >
       <div
-        className="absolute flex min-w-1/2 items-center justify-center rounded-3xl border-6 border-slate-900 bg-blue-900 py-10 sm:py-20"
+        className="absolute flex min-w-1/2 items-center justify-center rounded-3xl border-6 border-slate-900 bg-blue-900/90 py-10 sm:py-20"
         onClick={(e) => e.stopPropagation()}
       >
         <AuthForm />

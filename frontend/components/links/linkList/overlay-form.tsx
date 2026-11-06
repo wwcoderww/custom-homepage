@@ -1,10 +1,9 @@
 'use client';
-import Button from '@/components/button';
 import usePutForm from '../hooks/forms/usePutForm';
 import InputField from '../searchPanel/input-fields';
 
 // Sleek, muted, smaller typography styling
-export const formLabelStyle = 'text-zinc-400 text-sm font-medium w-24 shrink-0';
+export const formLabelStyle = 'text-zinc-200 text-sm font-medium w-24 shrink-0';
 export const formSectionStyle =
   'flex gap-4 py-2.5 items-center w-full border-b border-zinc-800/60 last:border-0 ';
 
