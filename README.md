@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Custom Homepage
 
-## Getting Started
+A full-stack bookmark manager for creating a personalized browser start page.
 
-First, run the development server:
+**Live applications:** [Frontend](https://bookmarks.ezwezz.com) · [Backend API](https://api1.ezwezz.com)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Custom Homepage lets users sign in and organize links across four groups. Users can add, edit, delete, reorder, and search their bookmarks through a responsive Next.js interface backed by an Express and PostgreSQL API.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Email and password authentication with Better Auth
+- User-scoped bookmark storage
+- Four configurable link groups
+- Add, edit, delete, search, and reorder bookmarks
+- Data loading with React Query caching and local-storage placeholders
+- Responsive desktop and mobile navigation
+- Toast notifications and form validation
+- PostgreSQL schema migrations with Drizzle ORM
+- Containerized frontend and backend deployments
+- Automated integration and browser tests in GitHub Actions
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+### Frontend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js / React
+- TypeScript
+- Tailwind CSS
+- TanStack React Query
+- React Hook Form
+- Better Auth client
+- Playwright
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Backend
 
-## Deploy on Vercel
+- Node.js
+- Express
+- TypeScript
+- PostgreSQL
+- Drizzle ORM
+- Better Auth
+- Zod
+- Vitest and Supertest
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Infrastructure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Docker and Docker Compose
+- GitHub Actions
+- GitHub Container Registry
+- Automated production deployment
+
+The frontend and backend are maintained as npm workspaces. Bookmark operations use REST endpoints, while authentication is handled by Better Auth on the backend.
+
+## Enviroment Variables
+
+### Backend Variables
+
+DATABASE_URL=postgresql://user:password@localhost:5432/bookmarks_db
+PORT=8080
+BETTER_AUTH_SECRET=replace-with-a-long-random-secret
+BETTER_AUTH_URL=http://localhost:8080
+FRONTEND_URL=http://localhost:3000
+
+### Frontend Variables
+
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8080
+
+## API
+
+`POST` | `/auth/sign-up/email` | Create an account |
+`POST` | `/auth/sign-in/email` | Sign in |
+`GET` | `/links/:userId` | Retrieve a user's bookmarks |
+`POST` | `/links` | Create a bookmark |
+`PUT` | `/links` | Update a bookmark or its display order |
+`DELETE` | `/links/:id` | Delete a bookmark |
+
+## Next Improvements
+
+- Add link metadata previews and favicon fetching
+- Introduce account settings and password recovery
